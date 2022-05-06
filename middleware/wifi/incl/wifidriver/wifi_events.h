@@ -102,6 +102,10 @@ enum wifi_event
     WIFI_EVENT_CHAN_SWITCH_ANN,
     /** Channel Switch */
     WIFI_EVENT_CHAN_SWITCH,
+#ifdef CONFIG_IPV6
+    /** IPv6 address state change */
+    WIFI_EVENT_NET_IPV6_CONFIG,
+#endif
 #ifdef CONFIG_WIFI_FW_DEBUG
     /* WiFi FW Debug Info */
     WIFI_EVENT_FW_DEBUG_INFO,
