@@ -1287,9 +1287,8 @@ static int start_association(struct wlan_network * network, struct wifi_scan_res
 
 static void handle_scan_results(void)
 {
-    unsigned int count;
+    unsigned int i, count;
     int ret;
-    int i;
     struct wifi_scan_result * res;
     struct wlan_network * network = &wlan.networks[wlan.cur_network_idx];
     bool matching_ap_found        = false;
@@ -1807,12 +1806,12 @@ static void wlcm_process_authentication_event(struct wifi_message * msg, enum cm
 
         if (is_state(CM_STA_REQUESTING_ADDRESS) || is_state(CM_STA_OBTAINING_ADDRESS))
         {
-            void * if_handle = NULL;
+            void * if_handle_tmp = NULL;
             /* On Link loss, we need to take down the interface. */
             if (network->type == WLAN_BSS_TYPE_STA)
-                if_handle = net_get_mlan_handle();
+                if_handle_tmp = net_get_mlan_handle();
 
-            if (if_handle)
+            if (if_handle_tmp)
             {
                 net_interface_down(if_handle);
                 /* Forcefully stop dhcp on given interface.
@@ -3134,7 +3133,7 @@ void wlan_initialize_uap_network(struct wlan_network * net)
 int wlan_add_network(struct wlan_network * network)
 {
     int pos = -1;
-    int i;
+    unsigned int i;
     unsigned int len;
     int ret;
 
@@ -3307,14 +3306,15 @@ bool is_sta_ipv6_connected()
 
 int wlan_get_network(unsigned int index, struct wlan_network * network)
 {
-    int i, pos = -1;
+    unsigned int i;
+    int pos = -1;
 
     if (network == NULL || index > ARRAY_SIZE(wlan.networks))
         return -WM_E_INVAL;
 
     for (i = 0; i < ARRAY_SIZE(wlan.networks); i++)
     {
-        if (wlan.networks[i].name[0] != '\0' && ++pos == index)
+        if (wlan.networks[i].name[0] != '\0' && ++pos == (int)index)
         {
             copy_network(network, &wlan.networks[i]);
             return WM_SUCCESS;
@@ -3358,7 +3358,7 @@ int wlan_get_current_rssi(short * rssi)
 
 int wlan_get_network_byname(char * name, struct wlan_network * network)
 {
-    int i;
+    unsigned int i;
 
     if (network == NULL || name == NULL)
         return -WM_E_INVAL;
@@ -3396,7 +3396,8 @@ int wlan_disconnect(void)
 int wlan_connect(char * name)
 {
     unsigned int len = name ? strlen(name) : 0;
-    int i            = 0, ret;
+    unsigned int i = 0;
+    int ret;
 
     if (!wlan.running)
         return WLAN_ERROR_STATE;
@@ -3427,7 +3428,7 @@ int wlan_connect(char * name)
 
 int wlan_start_network(const char * name)
 {
-    int i;
+    unsigned int i;
     unsigned int len;
 
     if (!name)
@@ -3482,7 +3483,7 @@ int wlan_start_network(const char * name)
 
 int wlan_stop_network(const char * name)
 {
-    int i;
+    unsigned int i;
     unsigned int len;
 
     if (!name)
@@ -4273,7 +4274,7 @@ static uint8_t dtim_period;
 static int pscan_cb(unsigned int count)
 {
     struct wlan_scan_result res;
-    int i;
+    unsigned int i;
     int err;
 
     dtim_period = 0;

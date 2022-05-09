@@ -580,7 +580,7 @@ static mlan_status wlan_sec_ioctl_set_wep_key(IN pmlan_adapter pmadapter, IN pml
     mlan_ds_sec_cfg *sec     = MNULL;
     mrvl_wep_key_t *pwep_key = MNULL;
     int index;
-    int i = 0;
+    unsigned int i = 0;
 
     ENTER();
 

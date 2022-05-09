@@ -492,7 +492,7 @@ void test_wlan_add(int argc, char ** argv)
 int __scan_cb(unsigned int count)
 {
     struct wlan_scan_result res;
-    int i;
+    unsigned int i;
     int err;
 
     if (count == 0)
@@ -854,8 +854,7 @@ static void test_wlan_stat(int argc, char ** argv)
 static void test_wlan_list(int argc, char ** argv)
 {
     struct wlan_network network;
-    unsigned int count;
-    int i;
+    unsigned int i, count;
 
     if (wlan_get_network_count(&count))
     {

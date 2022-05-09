@@ -2662,7 +2662,7 @@ int wifi_set_smart_mode_cfg(char *ssid,
     tlv_chan_list->header.type = TLV_TYPE_CHANLIST;
     tlv_chan_list->header.len  = chan_list->no_of_channels * sizeof(ChanScanParamSet_t);
 
-    for (i = 0; i < chan_list->no_of_channels; i++)
+    for (i = 0; i < (unsigned int)chan_list->no_of_channels; i++)
     {
         tlv_chan_list->chan_scan_param[i].chan_number   = chan_list->chan_scan_param[i].chan_number;
         tlv_chan_list->chan_scan_param[i].min_scan_time = chan_list->chan_scan_param[i].min_scan_time;

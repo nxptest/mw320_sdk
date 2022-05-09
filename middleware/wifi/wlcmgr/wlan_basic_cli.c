@@ -29,7 +29,7 @@
 
 void test_wfa_wlan_version(int argc, char **argv)
 {
-    int i;
+    unsigned int i;
     char version_str[MLAN_MAX_VER_STR_LEN];
     char *ext_ver_str = wlan_get_firmware_version_ext();
     strcpy(version_str, ext_ver_str);
@@ -80,7 +80,7 @@ static bool wlan_wfa_basic_cli_init_done = false;
 
 int wlan_wfa_basic_cli_init(void)
 {
-    int i;
+    unsigned int i;
 
     for (i = 0; i < sizeof(wlan_wfa_basic_commands) / sizeof(struct cli_command); i++)
         if (cli_register_command(&wlan_wfa_basic_commands[i]))
@@ -93,7 +93,7 @@ int wlan_wfa_basic_cli_init(void)
 
 int wlan_basic_cli_init(void)
 {
-    int i;
+    unsigned int i;
 
     if (wlan_wfa_basic_cli_init_done)
         return WLAN_ERROR_NONE;

@@ -1208,7 +1208,7 @@ static void lwiperf_udp_client_send_more(lwiperf_state_udp_t * conn)
     struct timespec ts, dt;
     err_t err;
     int ending = 0;
-    int i;
+    unsigned int i;
 
     LWIP_ASSERT("conn invalid", (conn != NULL) && !conn->base.tcp && (conn->base.server == 0));
 

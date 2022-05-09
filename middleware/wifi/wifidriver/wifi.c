@@ -1485,7 +1485,8 @@ static int wifi_low_level_input(const uint8_t interface, const uint8_t * buffer,
 
 int wifi_low_level_output(const uint8_t interface, const uint8_t * buffer, const uint16_t len)
 {
-    int i, ret, retry = retry_attempts;
+    mlan_status i;
+    int ret, retry = retry_attempts;
     unsigned long pkt_len;
 
     // wakelock_get(WL_ID_LL_OUTPUT);

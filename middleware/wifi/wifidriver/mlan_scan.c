@@ -381,6 +381,8 @@ static t_void wlan_scan_create_channel_list(IN mlan_private *pmpriv,
                     {
                         scan_type = MLAN_SCAN_TYPE_PASSIVE;
                     }
+                    pscan_chan_list[chan_idx].radio_type = HostCmd_SCAN_RADIO_TYPE_BG;
+                    break;
                 default:
                     pscan_chan_list[chan_idx].radio_type = HostCmd_SCAN_RADIO_TYPE_BG;
                     break;
@@ -1070,7 +1072,7 @@ static mlan_status wlan_interpret_bss_desc_with_ie(IN pmlan_adapter pmadapter,
     /* IEEEtypes_ERPInfo_t *perp_info; */
 
     IEEEtypes_VendorSpecific_t *pvendor_ie;
-    const t_u8 wpa_oui[4] = {0x00, 0x50, 0xf2, 0x01};
+    const t_u8 wpa_oui01[4] = {0x00, 0x50, 0xf2, 0x01};
     const t_u8 wmm_oui[4] = {0x00, 0x50, 0xf2, 0x02};
     IEEEtypes_CountryInfoSet_t *pcountry_info;
 
@@ -1336,7 +1338,7 @@ static mlan_status wlan_interpret_bss_desc_with_ie(IN pmlan_adapter pmadapter,
             case VENDOR_SPECIFIC_221:
                 pvendor_ie = (IEEEtypes_VendorSpecific_t *)pcurrent_ptr;
 
-                if (!memcmp(pmadapter, pvendor_ie->vend_hdr.oui, wpa_oui, sizeof(wpa_oui)))
+                if (!memcmp(pmadapter, pvendor_ie->vend_hdr.oui, wpa_oui01, sizeof(wpa_oui)))
                 {
                     /* Save it here since we do not have beacon buffer */
                     /* fixme : Verify if this is the right approach. This had to be

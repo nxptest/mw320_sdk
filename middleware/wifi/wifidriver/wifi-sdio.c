@@ -226,7 +226,7 @@ static int wlan_card_fw_status(t_u16 * dat)
 static bool wlan_card_ready_wait(t_u32 poll)
 {
     t_u16 dat;
-    int i;
+    t_u32 i;
 
     for (i = 0; i < poll; i++)
     {
@@ -317,7 +317,7 @@ static void calculate_sdio_write_params(t_u32 txlen, t_u32 * tx_blocks, t_u32 * 
     }
 }
 
-mlan_status wlan_download_normal_fw(enum wlan_fw_storage_type st, const t_u8 * wlanfw, t_u32 firmwarelen, t_u32 ioport)
+mlan_status wlan_download_normal_fw(enum wlan_fw_storage_type st, const t_u8 * fw, t_u32 firmwarelen, t_u32 ioport)
 {
     t_u32 tx_blocks = 0, txlen = 0, buflen = 0;
     t_u16 len    = 0;
@@ -377,11 +377,11 @@ mlan_status wlan_download_normal_fw(enum wlan_fw_storage_type st, const t_u8 * w
 #if 0
 		if (st == WLAN_FW_IN_FLASH)
 			flash_drv_read(fl_dev, outbuf, txlen,
-				       (t_u32) (wlanfw + offset));
+				       (t_u32) (fw + offset));
 		else
 #endif
         if (st == WLAN_FW_IN_RAM)
-            memcpy(outbuf, wlanfw + offset, txlen);
+            memcpy(outbuf, fw + offset, txlen);
 
         sdio_drv_write(ioport, 1, tx_blocks, buflen, (t_u8 *) outbuf, &resp);
         offset += txlen;
@@ -523,7 +523,7 @@ void bus_deregister_data_input_function(void)
     bus.wifi_low_level_input = NULL;
 }
 
-void wifi_get_mac_address_from_cmdresp(void * resp, t_u8 * mac_addr);
+void wifi_get_mac_address_from_cmdresp(void * resp, t_u8 * addr);
 void wifi_get_firmware_ver_ext_from_cmdresp(void * resp, t_u8 * fw_ver_ext);
 void wifi_get_value1_from_cmdresp(void * resp, uint32_t * dev_value1);
 mlan_status wlan_handle_cmd_resp_packet(t_u8 * pmbuf)
@@ -619,30 +619,31 @@ static mlan_status wlan_decode_rx_packet(t_u8 * pmbuf, t_u32 upld_type)
     if (upld_type == MLAN_TYPE_DATA)
         return MLAN_STATUS_FAILURE;
 
-    if (upld_type == MLAN_TYPE_CMD)
+    if (upld_type == MLAN_TYPE_CMD) {
         wifi_io_d("  --- Rx: Cmd Response ---");
-    else
+    } else {
         wifi_io_d(" --- Rx: EVENT Response ---");
+    }
 
-    SDIOPkt * sdiopkt = (SDIOPkt *) pmbuf;
+    SDIOPkt * sdiopkt_tmp = (SDIOPkt *) pmbuf;
     int ret;
     struct bus_message msg;
 
     if (bus.event_queue)
     {
         if (upld_type == MLAN_TYPE_CMD)
-            msg.data = wifi_mem_malloc_cmdrespbuf(sdiopkt->size);
+            msg.data = wifi_mem_malloc_cmdrespbuf(sdiopkt_tmp->size);
         else
-            msg.data = wifi_malloc_eventbuf(sdiopkt->size);
+            msg.data = wifi_malloc_eventbuf(sdiopkt_tmp->size);
 
         if (!msg.data)
         {
-            wifi_io_e("[fail] Buffer alloc: T: %d S: %d", upld_type, sdiopkt->size);
+            wifi_io_e("[fail] Buffer alloc: T: %d S: %d", upld_type, sdiopkt_tmp->size);
             return MLAN_STATUS_FAILURE;
         }
 
         msg.event = upld_type;
-        memcpy(msg.data, pmbuf, sdiopkt->size);
+        memcpy(msg.data, pmbuf, sdiopkt_tmp->size);
 
         ret = os_queue_send(bus.event_queue, &msg, os_msec_to_ticks(WIFI_RESP_WAIT_TIME));
 
@@ -737,8 +738,9 @@ retry_read:
     {
         wifi_d("sdio mp cmd53 read failed: %d ioport=0x%x retry=%d\r\n", ret, port, i);
         i++;
-        if (!sdio_drv_creg_write(HOST_TO_CARD_EVENT_REG, 1, HOST_TERM_CMD53, &resp))
+        if (!sdio_drv_creg_write(HOST_TO_CARD_EVENT_REG, 1, HOST_TERM_CMD53, &resp)) {
             wifi_d("Set Term cmd53 failed\r\n");
+        }
         if (i > MAX_READ_IOMEM_RETRY)
         {
             wifi_io_e("sdio_drv_read failed (%d)", ret);
@@ -1439,7 +1441,7 @@ mlan_status wlan_get_rd_port(mlan_adapter * pmadapter, t_u32 * pport, t_u32 * rx
     t_u32 port_count = 0;
 #endif
 
-    *pport    = -1;
+    *pport    = 0xffffffff;
     *rxlen    = 0;
     *rxblocks = 0;
 
@@ -1546,7 +1548,7 @@ mlan_status wlan_get_rd_port(mlan_adapter * pmadapter, t_u32 * pport, t_u32 * rx
 #endif
         }
 
-        if (*pport == -1)
+        if (*pport == 0xffffffff)
         {
             wifi_io_e("wlan_get_rd_port : Returning FAILURE");
             return MLAN_STATUS_FAILURE;

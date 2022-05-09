@@ -115,11 +115,11 @@ int tlv_store_get(uint8_t *tlv_buf, uint8_t type, uint16_t len, uint8_t *value)
     return ERR_TLV_NOT_FOUND;
 }
 
-static struct tlv_hdr *thdr;
-static struct tlv_entry *tentry;
-
 int tlv_store_iterate(uint8_t *tlv_buf, uint8_t *ptype, uint16_t len, uint8_t *value)
 {
+    struct tlv_hdr *thdr;
+    struct tlv_entry *tentry;
+
     if (tlv_buf)
     {
         thdr   = (struct tlv_hdr *)tlv_buf;
@@ -169,6 +169,9 @@ int tlv_store_get_ref(uint8_t *tlv_buf, uint8_t type, uint16_t *plen, const uint
 
 int tlv_store_iterate_ref(uint8_t *tlv_buf, uint8_t *ptype, uint16_t *plen, const uint8_t **pvalue)
 {
+    struct tlv_hdr *thdr;
+    struct tlv_entry *tentry;
+
     if (tlv_buf)
     {
         thdr   = (struct tlv_hdr *)tlv_buf;

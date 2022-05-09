@@ -129,7 +129,8 @@ static void ping_prepare_echo(struct icmp_echo_hdr *iecho, uint16_t len, uint16_
  * result */
 static int ping(unsigned int count, unsigned short size, unsigned int r_timeout, ip_addr_t *addr)
 {
-    int i = 1, ret = WM_SUCCESS, s, recvd = 0;
+    unsigned int i = 1;
+    int ret = WM_SUCCESS, s, recvd = 0;
     struct icmp_echo_hdr *iecho;
     struct sockaddr_in to;
     unsigned int src_ip, ping_time, ping_size;
@@ -294,7 +295,7 @@ static struct cli_command ping_cli[] = {
 
 int ping_cli_init(void)
 {
-    int i;
+    unsigned int i;
     for (i = 0; i < sizeof(ping_cli) / sizeof(struct cli_command); i++)
         if (cli_register_command(&ping_cli[i]))
             return -WM_FAIL;
@@ -303,7 +304,7 @@ int ping_cli_init(void)
 
 int ping_cli_deinit(void)
 {
-    int i;
+    unsigned int i;
 
     for (i = 0; i < sizeof(ping_cli) / sizeof(struct cli_command); i++)
         if (cli_unregister_command(&ping_cli[i]))

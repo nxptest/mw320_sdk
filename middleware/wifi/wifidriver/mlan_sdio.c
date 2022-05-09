@@ -258,7 +258,9 @@ int sdio_drv_init(void (*cd_int)(int))
         return -WM_FAIL;
     }
     else
+    {
         sdio_d("Card initialization successful");
+    }
 
     return WM_SUCCESS;
 }

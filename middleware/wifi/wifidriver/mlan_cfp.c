@@ -1536,7 +1536,7 @@ mlan_status wlan_set_custom_cfp_table(wifi_chanlist_t *chanlist, t_u8 *cfp_no_bg
 #endif
 {
     int i      = 0;
-    int idx_bg = 0;
+    unsigned int idx_bg = 0;
     *cfp_no_bg = 0;
 
 #ifdef CONFIG_5GHz_SUPPORT

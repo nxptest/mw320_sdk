@@ -258,7 +258,9 @@ void wifi_process_hs_cfg_resp(t_u8 *cmd_res_buffer)
         wlan_update_rxreorder_tbl(pmadapter, MTRUE);
     }
     else
+    {
         pwr_d("Host sleep configuration done");
+    }
 }
 
 enum wifi_event_reason wifi_process_ps_enh_response(t_u8 *cmd_res_buffer, t_u16 *ps_event, t_u16 *action)

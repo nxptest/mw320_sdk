@@ -78,8 +78,8 @@ static os_thread_stack_define(cli_stack, CONFIG_CLI_STACK_SIZE);
  */
 static const struct cli_command *lookup_command(char *name, int len)
 {
-    int i = 0;
-    int n = 0;
+    unsigned int i = 0;
+    unsigned int n = 0;
 
     while (i < MAX_COMMANDS && n < cli.num_commands)
     {
@@ -240,7 +240,7 @@ static int handle_input(char *inbuf)
  * is assumed to be NULL-terminated. */
 static void tab_complete(char *inbuf, unsigned int *bp)
 {
-    int i, n, m;
+    unsigned int i, n, m;
     const char *fm = NULL;
 
     PRINTF("\r\n");
@@ -650,7 +650,7 @@ int cli_submit_cmd_buffer(char **buff)
  * text string, if any. */
 void help_command(int argc, char **argv)
 {
-    int i, n;
+    unsigned int i, n;
 
     PRINTF("\r\n");
     for (i = 0, n = 0; i < MAX_COMMANDS && n < cli.num_commands; i++)
@@ -707,7 +707,7 @@ static struct cli_command built_ins[] = {
 
 int cli_register_command(const struct cli_command *command)
 {
-    int i;
+    unsigned int i;
     if (!command->name || !command->function)
         return 1;
 
@@ -730,7 +730,7 @@ int cli_register_command(const struct cli_command *command)
 
 int cli_unregister_command(const struct cli_command *command)
 {
-    int i;
+    unsigned int i;
     if (!command->name || !command->function)
         return 1;
 

@@ -166,8 +166,7 @@ uint32_t a2hex_or_atoi(char *value)
 
 int get_uint(const char *arg, unsigned int *dest, unsigned int len)
 {
-    int i;
-    unsigned int val = 0;
+    unsigned int i, val = 0;
 
     for (i = 0; i < len; i++)
     {
