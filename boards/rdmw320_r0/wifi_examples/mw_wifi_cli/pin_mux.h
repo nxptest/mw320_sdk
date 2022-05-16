@@ -21,8 +21,11 @@
 #define BOARD_LED_YELLOW_PIN 41                               /*!< Routed pin */
 #define BOARD_LED_YELLOW_PIN_FUNCTION_ID PINMUX_GPIO41_GPIO41 /*!< Pin function id */
 
-#define BOARD_PUSH_SW1_PIN 24                               /*!< Routed pin */
-#define BOARD_PUSH_SW1_PIN_FUNCTION_ID PINMUX_GPIO24_GPIO24 /*!< Pin function id */
+#define BOARD_PUSH_SW1_PIN 24                                 /*!< Routed pin */
+#define BOARD_PUSH_SW1_PIN_FUNCTION_ID PINMUX_GPIO24_GPIO24   /*!< Pin function id */
+
+#define BOARD_PUSH_SW2_PIN 26                                 /*!< Routed pin */
+#define BOARD_PUSH_SW2_PIN_FUNCTION_ID PINMUX_GPIO26_GPIO26   /*!< Pin function id */
 
 /*!
  * @addtogroup pin_mux

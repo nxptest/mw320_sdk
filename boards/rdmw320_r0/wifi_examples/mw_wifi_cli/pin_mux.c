@@ -32,6 +32,7 @@ void BOARD_InitPins(void)
     PINMUX_PinMuxSet(BOARD_UART0_RX_PIN, BOARD_UART0_RX_PIN_FUNCTION_ID | PINMUX_MODE_DEFAULT);
     PINMUX_PinMuxSet(BOARD_LED_YELLOW_PIN, BOARD_LED_YELLOW_PIN_FUNCTION_ID | PINMUX_MODE_DEFAULT);
     PINMUX_PinMuxSet(BOARD_PUSH_SW1_PIN, BOARD_PUSH_SW1_PIN_FUNCTION_ID | PINMUX_MODE_DEFAULT);
+    PINMUX_PinMuxSet(BOARD_PUSH_SW2_PIN, BOARD_PUSH_SW2_PIN_FUNCTION_ID | PINMUX_MODE_DEFAULT);
 }
 
 /***********************************************************************************************************************
