@@ -28,7 +28,7 @@ static uint8_t s_iv[]  = {0U, 1U, 4U, 9U, 16U, 25U, 36U, 49U, 64U, 81U, 100U, 12
 mflash_file_t g_file_table[2];
 #endif
 
-static uint8_t s_buf[512];
+static uint8_t s_buf[2048];
 static char s_fname[64];
 
 static uint32_t save_file(char *filename, uint8_t *data, uint32_t dataLen)
@@ -209,4 +209,56 @@ uint32_t reset_saved_wifi_network(char *filename)
     s_buf[0] = '\0';
     return save_file(filename, s_buf, 1);
 #endif
+}
+
+// Added:
+// Erase all saved parameters
+// Method_1: Erase all saved object
+// Method_2: Format the whole partition
+
+#define MAX_ARG_CNT     64
+static uint16_t g_arg_cnt=0;
+static char g_argname[MAX_ARG_CNT][32];
+
+int psmobj_cb_handler(const uint8_t *name)
+{
+    //PRINTF("==> %s(), [%s] \r\n", __FUNCTION__, name);
+    if (g_arg_cnt < MAX_ARG_CNT) {
+        strcpy(g_argname[g_arg_cnt++], (char*)name);
+    } else {
+        PRINTF("[error], too many saved args \r\n");
+    }
+    return 0;
+}
+
+uint32_t erase_all_params(void)
+{
+#if 1
+    // ===> Using Method_1
+#if CONFIG_USE_PSM
+    uint16_t i;
+
+    psm_objects_list(g_psm_handle, psmobj_cb_handler);
+    for (i=0 ; i<g_arg_cnt ; i++) {
+        reset_saved_wifi_network(g_argname[i]);
+    }
+    g_arg_cnt=0;
+#endif // CONFIG_USE_PSM
+    return 0;
+#else
+    // ===> Use Method_2
+    // Fromat the whole partition => It will take effect only if after rebooting the device
+    int32_t res = 0;
+
+#if CONFIG_USE_PSM
+    res = psm_format(g_psm_handle);
+#endif //CONFIG_USE_PSM
+    if (res == WM_SUCCESS) {
+        PRINTF("psm_format ok\r\n");
+        return 0;
+    } else {
+        PRINTF("psm_format error \r\n");
+        return 1;
+    }
+#endif //
 }
