@@ -3130,6 +3130,13 @@ void wlan_initialize_uap_network(struct wlan_network * net)
     net->ip.ipv4.addr_type = ADDR_TYPE_STATIC;
 }
 
+int wlan_abort_connect()
+{
+    wlan.reassoc_count = WLAN_RECONNECT_LIMIT;
+    wlan.scan_count = WLAN_RESCAN_LIMIT;
+    return WM_SUCCESS;
+}
+
 int wlan_add_network(struct wlan_network * network)
 {
     int pos = -1;
@@ -3141,8 +3148,9 @@ int wlan_add_network(struct wlan_network * network)
         return -WM_E_INVAL;
 
     if (network->role == WLAN_BSS_ROLE_STA)
-        if (is_running() && !is_state(CM_STA_IDLE) && !is_state(CM_STA_ASSOCIATED) && !is_state(CM_STA_CONNECTED))
+        if (is_running() && !is_state(CM_STA_IDLE) && !is_state(CM_STA_ASSOCIATED) && !is_state(CM_STA_CONNECTED)) {
             return WLAN_ERROR_STATE;
+        }
 
     /* make sure that the network name length is acceptable */
     len = strlen(network->name);
@@ -3406,7 +3414,7 @@ int wlan_connect(char * name)
         return -WM_E_INVAL;
 
     /* connect to a specific network */
-    for (i = 0; i < ARRAY_SIZE(wlan.networks); i++)
+    for (i = 0; i < ARRAY_SIZE(wlan.networks); i++) {
         if (wlan.networks[i].name[0] != '\0' && strlen(wlan.networks[i].name) == len && !strncmp(wlan.networks[i].name, name, len))
         {
             wlcm_d("taking the scan lock (connect scan)");
@@ -3422,6 +3430,7 @@ int wlan_connect(char * name)
             return send_user_request(CM_STA_USER_REQUEST_CONNECT, i);
         }
 
+    }
     /* specified network was not found */
     return -WM_E_INVAL;
 }

@@ -923,6 +923,8 @@ void wlan_deinit(int action);
  */
 void wlan_initialize_uap_network(struct wlan_network * net);
 
+int wlan_abort_connect(void);
+
 /** Add a network profile to the list of known networks.
  *
  *  This function copies the contents of \a network to the list of known
