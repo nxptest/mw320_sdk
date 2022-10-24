@@ -1722,4 +1722,10 @@ static inline void os_enable_all_interrupts()
 
 unsigned int os_get_timestamp();
 
+// TRNG
+void get_hash_from_uninit_mem(void);
+uint8_t *get_uninit_mem_hash_buff(uint8_t offset);
+
+
+
 #endif /* ! _WM_OS_H_ */
