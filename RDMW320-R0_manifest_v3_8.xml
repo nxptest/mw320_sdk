@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_88MW320_xx_xxxx" name="88MW320_xx_xxxx" brief="This is SDK version 2.9.4 manifest file. It describes the content of the 88MW320_xx_xxxx and additional settings for tools that support SDK version 2.9.4" format_version="3.8" api_version="2.0.0" configuration="aa19505805bfe1e3d142562513cf7ae2" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-16 12:59:52.153771-->
-  <!--This manifest is generated based on sdk repo commit: 33b6c277f30b9e07d5c1248cf80dc81e4cebc3fe-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_RDMW320-R0" name="RDMW320-R0" brief="This is SDK version 2.9.11 manifest file. It describes the content of the RDMW320-R0 and additional settings for tools that support SDK version 2.9.11" format_version="3.8" api_version="2.0.0" configuration="c939b353cf48fb5aa3117f2585fa2851" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
+  <!--Timestamp (UTC): 2023-02-17 02:12:13.787401-->
+  <!--This manifest is generated based on sdk repo commit: 4bed4180d36fe3cf20242fb24a0e7470d1acbc28-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
   </defines>
   <externalDefinitions>
+    <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
     <definition extID="PROGRAM_FLASH_88MW320_xx_xxxx"/>
   </externalDefinitions>
-  <ksdk id="MCUXpresso294" name="MCUXpresso294" version="2.9.4" revision="450 2021-03-02"/>
+  <ksdk id="MCUXpresso2911" name="MCUXpresso2911" version="2.9.11" revision="669 2023-01-25"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
-    <compiler id="compiler_iar" name="iar" type="iar"/>
   </compilers>
   <toolchainSettings/>
   <toolchains>
     <toolchain id="armgcc" name="GCC_ARM_Embedded" version="10.2.1" full_name="GCC ARM Embedded" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="http://launchpad.net/gcc-arm-embedded"/>
-    <toolchain id="iar" name="IAR_Embedded_Workbench_for_ARM" version="8.50.9" full_name="IAR Embedded Workbench for ARM" compiler="compiler_iar" type="iar" vendor="IAR Systems" vendor_url="http://www.iar.com"/>
   </toolchains>
   <boards>
     <board id="rdmw320_r0" name="RDMW320-R0" href="" version="1.0.0" package="PART_88MW320_A0_NAPC">
@@ -27,228 +26,242 @@
       <image path="MIR/marketing_data/1.0/boards/images" type="image">
         <files mask="215-RDMW320-R0.gif"/>
       </image>
+      <memory>
+        <memoryBlock id="QSPI_FLASH_rdmw320_r0" name="QSPI_FLASH" addr="1f000000" size="00090000" type="ExtFlash" access="RO"/>
+      </memory>
       <examples>
-        <example id="rdmw320_r0_cjson_demo" name="cjson_demo" brief="The cjson_construct example demonstrates how to construct and parse JSON using cJSON. This example constructs a JSON stucture using cJSON and then print it to string, then parses the string as JSON and checks whether the data is correct." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="demo_apps" path="boards/rdmw320_r0/demo_apps/cjson">
-          <external path="boards/rdmw320_r0/demo_apps/cjson" type="xml">
-            <files mask="cjson_demo_v3_8.xml"/>
-          </external>
-        </example>
-        <example id="rdmw320_r0_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="rtos_examples" path="boards/rdmw320_r0/rtos_examples/freertos_hello">
+        <example id="rdmw320_r0_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc" compiler="compiler_gcc" category="rtos_examples" path="boards/rdmw320_r0/rtos_examples/freertos_hello">
           <external path="boards/rdmw320_r0/rtos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="demo_apps" path="boards/rdmw320_r0/demo_apps/hello_world">
+        <example id="rdmw320_r0_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="boards/rdmw320_r0/demo_apps/hello_world">
           <external path="boards/rdmw320_r0/demo_apps/hello_world" type="xml">
             <files mask="hello_world_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to theterminal." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="mbedtls_examples" path="boards/rdmw320_r0/mbedtls_examples/mbedtls_benchmark">
+        <example id="rdmw320_r0_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to theterminal." toolchain="armgcc" compiler="compiler_gcc" category="mbedtls_examples" path="boards/rdmw320_r0/mbedtls_examples/mbedtls_benchmark">
           <external path="boards/rdmw320_r0/mbedtls_examples/mbedtls_benchmark" type="xml">
             <files mask="mbedtls_benchmark_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to theterminal." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="mbedtls_examples" path="boards/rdmw320_r0/mbedtls_examples/mbedtls_selftest">
+        <example id="rdmw320_r0_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to theterminal." toolchain="armgcc" compiler="compiler_gcc" category="mbedtls_examples" path="boards/rdmw320_r0/mbedtls_examples/mbedtls_selftest">
           <external path="boards/rdmw320_r0/mbedtls_examples/mbedtls_selftest" type="xml">
             <files mask="mbedtls_selftest_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_acomp_basic" name="acomp_basic" brief="The acomp basic driver example demostrates the basic usage of the ACOMP module. This example compares the user input analog signal with interanl reference voltage(VDDIO_3 * 0.5) and toggle the LED when the result changed. The purpose of this demo is to show how to use the ACOMP driver in SDK software." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/acomp" path="boards/rdmw320_r0/driver_examples/acomp/basic">
+        <example id="rdmw320_r0_acomp_basic" name="acomp_basic" brief="The acomp basic driver example demostrates the basic usage of the ACOMP module. This example compares the user input analog signal with interanl reference voltage(VDDIO_3 * 0.5) and toggle the LED when the result changed. The purpose of this demo is to show how to use the ACOMP driver in SDK software." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/acomp" path="boards/rdmw320_r0/driver_examples/acomp/basic">
           <external path="boards/rdmw320_r0/driver_examples/acomp/basic" type="xml">
             <files mask="acomp_basic_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_adc_software_trigger" name="adc_software_trigger" brief="The adc_software_trigger example shows how to software trigger ADC conversion. In this example, ADC resolution is set as 16bit, the reference voltage is selected as the internal 1.8V bandgap, and input gain is set as 1. So the input voltage range is from 0 to 1.8V. Users can trigger ADC conversion by press any key in the terminal. ADC interrupt will be asserted once the conversion is completed." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/adc" path="boards/rdmw320_r0/driver_examples/adc/software_trigger">
+        <example id="rdmw320_r0_adc_software_trigger" name="adc_software_trigger" brief="The adc_software_trigger example shows how to software trigger ADC conversion. In this example, ADC resolution is set as 16bit, the reference voltage is selected as the internal 1.8V bandgap, and input gain is set as 1. So the input voltage range is from 0 to 1.8V. Users can trigger ADC conversion by press any key in the terminal. ADC interrupt will be asserted once the conversion is completed." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/adc" path="boards/rdmw320_r0/driver_examples/adc/software_trigger">
           <external path="boards/rdmw320_r0/driver_examples/adc/software_trigger" type="xml">
             <files mask="adc_software_trigger_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_adc_temperature_measurement" name="adc_temperature_measurement" brief="The adc_temperature_measurement examples shows how to measure internal temperature sensor." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/adc" path="boards/rdmw320_r0/driver_examples/adc/temperature_measurement">
+        <example id="rdmw320_r0_adc_temperature_measurement" name="adc_temperature_measurement" brief="The adc_temperature_measurement examples shows how to measure internal temperature sensor." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/adc" path="boards/rdmw320_r0/driver_examples/adc/temperature_measurement">
           <external path="boards/rdmw320_r0/driver_examples/adc/temperature_measurement" type="xml">
             <files mask="adc_temperature_measurement_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_aes_basic" name="aes_basic" brief="This project demostrates how to use AES driver for CBC, ECB, CTR, CCM, MMO calculation." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/aes" path="boards/rdmw320_r0/driver_examples/aes/basic">
+        <example id="rdmw320_r0_aes_basic" name="aes_basic" brief="This project demostrates how to use AES driver for CBC, ECB, CTR, CCM, MMO calculation." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/aes" path="boards/rdmw320_r0/driver_examples/aes/basic">
           <external path="boards/rdmw320_r0/driver_examples/aes/basic" type="xml">
             <files mask="aes_basic_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_aes_lock" name="aes_lock" brief="This project demostrates how to use AES driver for CBC, ECB, CTR, CCM, MMO calculation in multi-task case." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/aes" path="boards/rdmw320_r0/driver_examples/aes/lock">
+        <example id="rdmw320_r0_aes_lock" name="aes_lock" brief="This project demostrates how to use AES driver for CBC, ECB, CTR, CCM, MMO calculation in multi-task case." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/aes" path="boards/rdmw320_r0/driver_examples/aes/lock">
           <external path="boards/rdmw320_r0/driver_examples/aes/lock" type="xml">
             <files mask="aes_lock_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples" path="boards/rdmw320_r0/driver_examples/crc">
+        <example id="rdmw320_r0_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples" path="boards/rdmw320_r0/driver_examples/crc">
           <external path="boards/rdmw320_r0/driver_examples/crc" type="xml">
             <files mask="crc_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_dmac_memory_to_memory" name="dmac_memory_to_memory" brief="The DMAC memory to memory example is a simple demonstration program that uses the SDK software.It executes one shot transfer from source buffer to destination buffer using the SDK DMAC drivers.The purpose of this example is to show how to use the DMAC and to provide a simple example for debugging and further development." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/dmac" path="boards/rdmw320_r0/driver_examples/dmac/memory_to_memory">
+        <example id="rdmw320_r0_dmac_memory_to_memory" name="dmac_memory_to_memory" brief="The DMAC memory to memory example is a simple demonstration program that uses the SDK software.It executes one shot transfer from source buffer to destination buffer using the SDK DMAC drivers.The purpose of this example is to show how to use the DMAC and to provide a simple example for debugging and further development." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/dmac" path="boards/rdmw320_r0/driver_examples/dmac/memory_to_memory">
           <external path="boards/rdmw320_r0/driver_examples/dmac/memory_to_memory" type="xml">
             <files mask="dmac_memory_to_memory_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_dmac_memory_to_memory_transfer" name="dmac_memory_to_memory_transfer" brief="The DMAC memory to memory transfer example is a simple demonstration program that uses the SDK software.It executes one shot transfer from source buffer to destination buffer using the SDK DMAC drivers.The purpose of this example is to show how to use the DMAC and to provide a simple example for debugging and further development." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/dmac" path="boards/rdmw320_r0/driver_examples/dmac/memory_to_memory_transfer">
+        <example id="rdmw320_r0_dmac_memory_to_memory_transfer" name="dmac_memory_to_memory_transfer" brief="The DMAC memory to memory transfer example is a simple demonstration program that uses the SDK software.It executes one shot transfer from source buffer to destination buffer using the SDK DMAC drivers.The purpose of this example is to show how to use the DMAC and to provide a simple example for debugging and further development." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/dmac" path="boards/rdmw320_r0/driver_examples/dmac/memory_to_memory_transfer">
           <external path="boards/rdmw320_r0/driver_examples/dmac/memory_to_memory_transfer" type="xml">
             <files mask="dmac_memory_to_memory_transfer_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_gpio_input_interrupt" name="gpio_input_interrupt" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs.The example is supported by the set, clear, and toggle write-only registers for each port output data register. The example uses the software button to control/toggle the LED." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/gpio" path="boards/rdmw320_r0/driver_examples/gpio/input_interrupt">
+        <example id="rdmw320_r0_gpio_input_interrupt" name="gpio_input_interrupt" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs.The example is supported by the set, clear, and toggle write-only registers for each port output data register. The example uses the software button to control/toggle the LED." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/gpio" path="boards/rdmw320_r0/driver_examples/gpio/input_interrupt">
           <external path="boards/rdmw320_r0/driver_examples/gpio/input_interrupt" type="xml">
             <files mask="gpio_input_interrupt_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_gpio_led_output" name="gpio_led_output" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs.The example is supported by the set, clear, and toggle write-only registers for each port output data register. The example take turns to shine the LED." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/gpio" path="boards/rdmw320_r0/driver_examples/gpio/led_output">
+        <example id="rdmw320_r0_gpio_led_output" name="gpio_led_output" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs.The example is supported by the set, clear, and toggle write-only registers for each port output data register. The example take turns to shine the LED." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/gpio" path="boards/rdmw320_r0/driver_examples/gpio/led_output">
           <external path="boards/rdmw320_r0/driver_examples/gpio/led_output" type="xml">
             <files mask="gpio_led_output_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_mw_gpt_input_capture" name="mw_gpt_input_capture" brief="The GPT project is a demonstration program of the SDK GPT driver's input capture feature. The example sets up a GPT channel for capture. Once the input signal is received, this example will print the captured value." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/mw_gpt" path="boards/rdmw320_r0/driver_examples/gpt/input_capture">
+        <example id="rdmw320_r0_mw_gpt_input_capture" name="mw_gpt_input_capture" brief="The GPT project is a demonstration program of the SDK GPT driver's input capture feature. The example sets up a GPT channel for capture. Once the input signal is received, this example will print the captured value." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/mw_gpt" path="boards/rdmw320_r0/driver_examples/gpt/input_capture">
           <external path="boards/rdmw320_r0/driver_examples/gpt/input_capture" type="xml">
             <files mask="mw_gpt_input_capture_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_mw_gpt_one_shot" name="mw_gpt_one_shot" brief="The GPT project is a simple demonstration program of the SDK GPT driver. It sets up the GPT hardware block to output a square waveform with 1s period. If having an LED connected to the GPT pin, the user will see the LED blinking." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/mw_gpt" path="boards/rdmw320_r0/driver_examples/gpt/one_shot">
+        <example id="rdmw320_r0_mw_gpt_one_shot" name="mw_gpt_one_shot" brief="The GPT project is a simple demonstration program of the SDK GPT driver. It sets up the GPT hardware block to output a square waveform with 1s period. If having an LED connected to the GPT pin, the user will see the LED blinking." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/mw_gpt" path="boards/rdmw320_r0/driver_examples/gpt/one_shot">
           <external path="boards/rdmw320_r0/driver_examples/gpt/one_shot" type="xml">
             <files mask="mw_gpt_one_shot_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_mw_gpt_simple_pwm" name="mw_gpt_simple_pwm" brief="The GPT project is a simple demonstration program of the SDK GPT driver. It sets up the GPT hardware block to output a center-aligned PWM signal. The PWM dutycycle is periodically updated. On boards that have an LED connected to the GPT pin, the user will see a change in LED brightness." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/mw_gpt" path="boards/rdmw320_r0/driver_examples/gpt/simple_pwm">
+        <example id="rdmw320_r0_mw_gpt_simple_pwm" name="mw_gpt_simple_pwm" brief="The GPT project is a simple demonstration program of the SDK GPT driver. It sets up the GPT hardware block to output a center-aligned PWM signal. The PWM dutycycle is periodically updated. On boards that have an LED connected to the GPT pin, the user will see a change in LED brightness." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/mw_gpt" path="boards/rdmw320_r0/driver_examples/gpt/simple_pwm">
           <external path="boards/rdmw320_r0/driver_examples/gpt/simple_pwm" type="xml">
             <files mask="mw_gpt_simple_pwm_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_mw_gpt_timer" name="mw_gpt_timer" brief="The GPT project is a simple demonstration program of the SDK GPT driver to use GPT as a timer. It sets up the GPT hardware block to trigger an interrupt every 1 millisecond. When the GPT interrupt is triggered a message is printed on the UART terminal." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/mw_gpt" path="boards/rdmw320_r0/driver_examples/gpt/timer">
+        <example id="rdmw320_r0_mw_gpt_timer" name="mw_gpt_timer" brief="The GPT project is a simple demonstration program of the SDK GPT driver to use GPT as a timer. It sets up the GPT hardware block to trigger an interrupt every 1 millisecond. When the GPT interrupt is triggered a message is printed on the UART terminal." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/mw_gpt" path="boards/rdmw320_r0/driver_examples/gpt/timer">
           <external path="boards/rdmw320_r0/driver_examples/gpt/timer" type="xml">
             <files mask="mw_gpt_timer_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_i2c_dmac_b2b_transfer_master" name="i2c_dmac_b2b_transfer_master" brief="The i2c_dmac_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with slave using DMA controller:In this example, one i2c instance is used as master and another i2c instance on the other board is used as slave. Master sends a piece of data to slave, and receives the same data from slave, then checks whether the data received from slave is correct." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/i2c" path="boards/rdmw320_r0/driver_examples/i2c/dmac_b2b_transfer/master">
+        <example id="rdmw320_r0_i2c_dmac_b2b_transfer_master" name="i2c_dmac_b2b_transfer_master" brief="The i2c_dmac_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with slave using DMA controller:In this example, one i2c instance is used as master and another i2c instance on the other board is used as slave. Master sends a piece of data to slave, and receives the same data from slave, then checks whether the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/i2c" path="boards/rdmw320_r0/driver_examples/i2c/dmac_b2b_transfer/master">
           <external path="boards/rdmw320_r0/driver_examples/i2c/dmac_b2b_transfer/master" type="xml">
             <files mask="i2c_dmac_b2b_transfer_master_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_i2c_dmac_b2b_transfer_slave" name="i2c_dmac_b2b_transfer_slave" brief="The i2c_dmac_b2b_transfer_slave example shows how to use i2c driver as slave in interrupt way to do board to board transfer with master that uses DMA controller:In this example, one i2c instance is used as slave and another i2c instance on the other board is used as master. Slave receives a piece of data from master and sends them back, master checks whether the data received from slave is correct." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/i2c" path="boards/rdmw320_r0/driver_examples/i2c/dmac_b2b_transfer/slave">
+        <example id="rdmw320_r0_i2c_dmac_b2b_transfer_slave" name="i2c_dmac_b2b_transfer_slave" brief="The i2c_dmac_b2b_transfer_slave example shows how to use i2c driver as slave in interrupt way to do board to board transfer with master that uses DMA controller:In this example, one i2c instance is used as slave and another i2c instance on the other board is used as master. Slave receives a piece of data from master and sends them back, master checks whether the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/i2c" path="boards/rdmw320_r0/driver_examples/i2c/dmac_b2b_transfer/slave">
           <external path="boards/rdmw320_r0/driver_examples/i2c/dmac_b2b_transfer/slave" type="xml">
             <files mask="i2c_dmac_b2b_transfer_slave_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" brief="The i2c_interrupt_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with slave in interrupt way:In this example, one i2c instance is used as master and another i2c instance on the other board is used as slave. Master sends a piece of data to slave, and receives the same data from slave, then checks whether the data received from slave is correct." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/i2c" path="boards/rdmw320_r0/driver_examples/i2c/interrupt_b2b_transfer/master">
+        <example id="rdmw320_r0_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" brief="The i2c_interrupt_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with slave in interrupt way:In this example, one i2c instance is used as master and another i2c instance on the other board is used as slave. Master sends a piece of data to slave, and receives the same data from slave, then checks whether the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/i2c" path="boards/rdmw320_r0/driver_examples/i2c/interrupt_b2b_transfer/master">
           <external path="boards/rdmw320_r0/driver_examples/i2c/interrupt_b2b_transfer/master" type="xml">
             <files mask="i2c_interrupt_b2b_transfer_master_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" brief="The i2c_interrupt_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with master in interrupt way:In this example, one i2c instance is used as slave and another i2c instance on the other board is used as master. Slave receives a piece of data from master and sends them back, master checks whether the data received from slave is correct." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/i2c" path="boards/rdmw320_r0/driver_examples/i2c/interrupt_b2b_transfer/slave">
+        <example id="rdmw320_r0_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" brief="The i2c_interrupt_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with master in interrupt way:In this example, one i2c instance is used as slave and another i2c instance on the other board is used as master. Slave receives a piece of data from master and sends them back, master checks whether the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/i2c" path="boards/rdmw320_r0/driver_examples/i2c/interrupt_b2b_transfer/slave">
           <external path="boards/rdmw320_r0/driver_examples/i2c/interrupt_b2b_transfer/slave" type="xml">
             <files mask="i2c_interrupt_b2b_transfer_slave_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_i2c_polling_b2b_transfer_master" name="i2c_polling_b2b_transfer_master" brief="The i2c_polling_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with slave in polling way:In this example, one i2c instance is used as master and another i2c instance on the other board is used as slave. Master sends a piece of data to slave, and receives the same data from slave, then checks whether the data received from slave is correct." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/i2c" path="boards/rdmw320_r0/driver_examples/i2c/polling_b2b_transfer/master">
+        <example id="rdmw320_r0_i2c_polling_b2b_transfer_master" name="i2c_polling_b2b_transfer_master" brief="The i2c_polling_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with slave in polling way:In this example, one i2c instance is used as master and another i2c instance on the other board is used as slave. Master sends a piece of data to slave, and receives the same data from slave, then checks whether the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/i2c" path="boards/rdmw320_r0/driver_examples/i2c/polling_b2b_transfer/master">
           <external path="boards/rdmw320_r0/driver_examples/i2c/polling_b2b_transfer/master" type="xml">
             <files mask="i2c_polling_b2b_transfer_master_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_i2c_polling_b2b_transfer_slave" name="i2c_polling_b2b_transfer_slave" brief="The i2c_polling_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with master in polling way:In this example, one i2c instance is used as slave and another i2c instance on the other board is used as master. Slave receives a piece of data from master and sends them back, master checks whether the data received from slave is correct." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/i2c" path="boards/rdmw320_r0/driver_examples/i2c/polling_b2b_transfer/slave">
+        <example id="rdmw320_r0_i2c_polling_b2b_transfer_slave" name="i2c_polling_b2b_transfer_slave" brief="The i2c_polling_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with master in polling way:In this example, one i2c instance is used as slave and another i2c instance on the other board is used as master. Slave receives a piece of data from master and sends them back, master checks whether the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/i2c" path="boards/rdmw320_r0/driver_examples/i2c/polling_b2b_transfer/slave">
           <external path="boards/rdmw320_r0/driver_examples/i2c/polling_b2b_transfer/slave" type="xml">
             <files mask="i2c_polling_b2b_transfer_slave_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_mw_lwip_httpssrv_ota" name="mw_lwip_httpssrv_ota" brief="The lwip_httpsrv_ota demo application demonstrates OTA using an HTTPServer set up on lwIP TCP/IP and the MbedTLS stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="lwip_examples" path="boards/rdmw320_r0/lwip_examples/mw_lwip_httpssrv_ota">
+        <example id="rdmw320_r0_mw_lwip_httpsclient_ota" name="mw_lwip_httpsclient_ota" brief="The lwip_httpsclient_ota demo application demonstrates OTA update for mcufw through HTTPS client set up on lwIP TCP/IP and the MbedTLS stack with FreeRTOS. The user should place the new version of firmware on HTTPS server and provide the URL for device to update it." toolchain="armgcc" compiler="compiler_gcc" category="lwip_examples" path="boards/rdmw320_r0/lwip_examples/mw_lwip_httpsclient_ota">
+          <external path="boards/rdmw320_r0/lwip_examples/mw_lwip_httpsclient_ota" type="xml">
+            <files mask="mw_lwip_httpsclient_ota_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="rdmw320_r0_mw_lwip_httpssrv_ota" name="mw_lwip_httpssrv_ota" brief="The lwip_httpsrv_ota demo application demonstrates OTA using an HTTPServer set up on lwIP TCP/IP and the MbedTLS stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc" compiler="compiler_gcc" category="lwip_examples" path="boards/rdmw320_r0/lwip_examples/mw_lwip_httpssrv_ota">
           <external path="boards/rdmw320_r0/lwip_examples/mw_lwip_httpssrv_ota" type="xml">
             <files mask="mw_lwip_httpssrv_ota_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_qspi_polling_transfer" name="qspi_polling_transfer" brief="The qspi_polling example shows how to use qspi driver with polling:In this example, qspi will send data and operate the external flash connected with QSPI. Some simple flash command will be executed, such as Write Enable, Erase sector, Program page.Example will first erase the sector and programe a page into the flash, at last check if the data in flash is correct.Notice: While do program, it is not suggested to make the flash write frequency bigger than the core clock frequency.In some tool chain's Debug version, this may cause core do not have enough speed to send data to flash.The flash write frequency equals to QSPI working frequency plus data line number. For example, if QSPI working in 48MHz,program command uses quad mode, the write frequency is 48MHz * 4 = 192MHz." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/qspi" path="boards/rdmw320_r0/driver_examples/qspi/polling_transfer">
+        <example id="rdmw320_r0_qspi_polling_transfer" name="qspi_polling_transfer" brief="The qspi_polling example shows how to use qspi driver with polling:In this example, qspi will send data and operate the external flash connected with QSPI. Some simple flash command will be executed, such as Write Enable, Erase sector, Program page.Example will first erase the sector and programe a page into the flash, at last check if the data in flash is correct.Notice: While do program, it is not suggested to make the flash write frequency bigger than the core clock frequency.In some tool chain's Debug version, this may cause core do not have enough speed to send data to flash.The flash write frequency equals to QSPI working frequency plus data line number. For example, if QSPI working in 48MHz,program command uses quad mode, the write frequency is 48MHz * 4 = 192MHz." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/qspi" path="boards/rdmw320_r0/driver_examples/qspi/polling_transfer">
           <external path="boards/rdmw320_r0/driver_examples/qspi/polling_transfer" type="xml">
             <files mask="qspi_polling_transfer_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_rtc" name="rtc" brief="The RTC project is a simple demonstration program of the SDK RTC driver. It sets up the RTC hardware block to trigger an alarm after a user specified time period. The alarm will be set with reference to current counter value." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples" path="boards/rdmw320_r0/driver_examples/rtc">
+        <example id="rdmw320_r0_rtc" name="rtc" brief="The RTC project is a simple demonstration program of the SDK RTC driver. It sets up the RTC hardware block to trigger an alarm after a user specified time period. The alarm will be set with reference to current counter value." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples" path="boards/rdmw320_r0/driver_examples/rtc">
           <external path="boards/rdmw320_r0/driver_examples/rtc" type="xml">
             <files mask="rtc_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_mw_ssp_i2s_dma_loopback" name="mw_ssp_i2s_dma_loopback" brief="The ssp example shows how to use ssp driver in a dma way. In this example, the ssp send out data will be loopback to ssp rx externally." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/ssp" path="boards/rdmw320_r0/driver_examples/ssp/i2s_dma_loopback">
+        <example id="rdmw320_r0_mw_ssp_i2s_dma_loopback" name="mw_ssp_i2s_dma_loopback" brief="The ssp example shows how to use ssp driver in a dma way. In this example, the ssp send out data will be loopback to ssp rx externally." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/ssp" path="boards/rdmw320_r0/driver_examples/ssp/i2s_dma_loopback">
           <external path="boards/rdmw320_r0/driver_examples/ssp/i2s_dma_loopback" type="xml">
             <files mask="mw_ssp_i2s_dma_loopback_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_mw_ssp_i2s_interrupt_loopback" name="mw_ssp_i2s_interrupt_loopback" brief="The ssp example shows how to use ssp driver in a interrupt way. In this example, the ssp send out data will be loopback to ssp rx externally." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/ssp" path="boards/rdmw320_r0/driver_examples/ssp/i2s_interrupt_loopback">
+        <example id="rdmw320_r0_mw_ssp_i2s_interrupt_loopback" name="mw_ssp_i2s_interrupt_loopback" brief="The ssp example shows how to use ssp driver in a interrupt way. In this example, the ssp send out data will be loopback to ssp rx externally." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/ssp" path="boards/rdmw320_r0/driver_examples/ssp/i2s_interrupt_loopback">
           <external path="boards/rdmw320_r0/driver_examples/ssp/i2s_interrupt_loopback" type="xml">
             <files mask="mw_ssp_i2s_interrupt_loopback_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_uart_auto_baudrate_detect" name="uart_auto_baudrate_detect" brief="The uart_auto_baudrate_detect example shows how to use uart auto baud rate detect feature. In this example, one uart instance is connected to PC through uart. First, we should send character U(0x55, or any byte whose last bit is 1)to board. The board will set baud rate automatically. After baud rate is set, the board will send back all characters that PC sends to the board." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/auto_baudrate_detect">
+        <example id="rdmw320_r0_uart_auto_baudrate_detect" name="uart_auto_baudrate_detect" brief="The uart_auto_baudrate_detect example shows how to use uart auto baud rate detect feature. In this example, one uart instance is connected to PC through uart. First, we should send character U(0x55, or any byte whose last bit is 1)to board. The board will set baud rate automatically. After baud rate is set, the board will send back all characters that PC sends to the board." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/auto_baudrate_detect">
           <external path="boards/rdmw320_r0/driver_examples/uart/auto_baudrate_detect" type="xml">
             <files mask="uart_auto_baudrate_detect_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_uart_dmac_transfer" name="uart_dmac_transfer" brief="The uart_dmac_transfer example shows how to use uart driver with DMAC :In this example, one uart instance is connected to PC through uart, the board will send back all characters that PC sends to the board. Note: The example echoes every 8 characters, so input 8 characters each time." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/dmac_transfer">
+        <example id="rdmw320_r0_uart_dmac_transfer" name="uart_dmac_transfer" brief="The uart_dmac_transfer example shows how to use uart driver with DMAC :In this example, one uart instance is connected to PC through uart, the board will send back all characters that PC sends to the board. Note: The example echoes every 8 characters, so input 8 characters each time." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/dmac_transfer">
           <external path="boards/rdmw320_r0/driver_examples/uart/dmac_transfer" type="xml">
             <files mask="uart_dmac_transfer_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_uart_hardware_flow_control" name="uart_hardware_flow_control" brief="The uart_hardware_flow_control example project is to demonstrate usage of the hardware flow control function. This example will send data to itself, and hardware flow control is enabled in the example. The CTS(clear-to-send) pin is for transmiter to check if receiver is ready, if the CTS pin is asserted, transmiter start to send data. The RTS(request-to-send) is a pin for receiver to inform the transmiter if receiver is ready to receive data. So, please connect RTS to CTS pin directly." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/hardware_flow_control">
+        <example id="rdmw320_r0_uart_hardware_flow_control" name="uart_hardware_flow_control" brief="The uart_hardware_flow_control example project is to demonstrate usage of the hardware flow control function. This example will send data to itself, and hardware flow control is enabled in the example. The CTS(clear-to-send) pin is for transmiter to check if receiver is ready, if the CTS pin is asserted, transmiter start to send data. The RTS(request-to-send) is a pin for receiver to inform the transmiter if receiver is ready to receive data. So, please connect RTS to CTS pin directly." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/hardware_flow_control">
           <external path="boards/rdmw320_r0/driver_examples/uart/hardware_flow_control" type="xml">
             <files mask="uart_hardware_flow_control_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_uart_interrupt" name="uart_interrupt" brief="The uart_functioncal_interrupt example shows how to use uart driver functional API to receive data with interrupt method. In this example, one uart instance is connected to PC through uart, the board will send back all characters that PC sends to the board." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/interrupt">
+        <example id="rdmw320_r0_uart_interrupt" name="uart_interrupt" brief="The uart_functioncal_interrupt example shows how to use uart driver functional API to receive data with interrupt method. In this example, one uart instance is connected to PC through uart, the board will send back all characters that PC sends to the board." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/interrupt">
           <external path="boards/rdmw320_r0/driver_examples/uart/interrupt" type="xml">
             <files mask="uart_interrupt_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_uart_interrupt_rb_transfer" name="uart_interrupt_rb_transfer" brief="The uart_interrupt_ring_buffer example shows how to use uart driver in interrupt way with RX ring buffer enabled. In this example, one uart instance is connected to PC through uart, the board will send back all characters that PC sends to the board. Note: The example echos every 8 characters, so input 8 characters every time." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/interrupt_rb_transfer">
+        <example id="rdmw320_r0_uart_interrupt_rb_transfer" name="uart_interrupt_rb_transfer" brief="The uart_interrupt_ring_buffer example shows how to use uart driver in interrupt way with RX ring buffer enabled. In this example, one uart instance is connected to PC through uart, the board will send back all characters that PC sends to the board. Note: The example echos every 8 characters, so input 8 characters every time." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/interrupt_rb_transfer">
           <external path="boards/rdmw320_r0/driver_examples/uart/interrupt_rb_transfer" type="xml">
             <files mask="uart_interrupt_rb_transfer_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_uart_interrupt_transfer" name="uart_interrupt_transfer" brief="The uart_interrupt example shows how to use uart driver in interrupt way. In this example, one uart instance is connected to PC through uart, the board will send back all characters that PC sends to the board. Note: The example echos every 8 characters, so input 8 characters every time." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/interrupt_transfer">
+        <example id="rdmw320_r0_uart_interrupt_transfer" name="uart_interrupt_transfer" brief="The uart_interrupt example shows how to use uart driver in interrupt way. In this example, one uart instance is connected to PC through uart, the board will send back all characters that PC sends to the board. Note: The example echos every 8 characters, so input 8 characters every time." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/interrupt_transfer">
           <external path="boards/rdmw320_r0/driver_examples/uart/interrupt_transfer" type="xml">
             <files mask="uart_interrupt_transfer_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_uart_polling" name="uart_polling" brief="The uart_polling example shows how to use uart driver in polling way. In this example, one uart instance is connected to PC through uart, the board will send back all characters that PC sends to the board." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/polling">
+        <example id="rdmw320_r0_uart_polling" name="uart_polling" brief="The uart_polling example shows how to use uart driver in polling way. In this example, one uart instance is connected to PC through uart, the board will send back all characters that PC sends to the board." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/uart" path="boards/rdmw320_r0/driver_examples/uart/polling">
           <external path="boards/rdmw320_r0/driver_examples/uart/polling" type="xml">
             <files mask="uart_polling_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_mw_wdt" name="mw_wdt" brief="The WDT project is a simple demonstration program of the SDK WDT driver. It initializes the WDT module and enables interrupt to show the way of refreshing/clear using interrupt. Then disable interrupt and refresh the WDT module periodically, finally leave the WDT not refreshed to trigger time-out reset." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/wdt" path="boards/rdmw320_r0/driver_examples/wdt">
+        <example id="rdmw320_r0_mw_wdt" name="mw_wdt" brief="The WDT project is a simple demonstration program of the SDK WDT driver. It initializes the WDT module and enables interrupt to show the way of refreshing/clear using interrupt. Then disable interrupt and refresh the WDT module periodically, finally leave the WDT not refreshed to trigger time-out reset." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/wdt" path="boards/rdmw320_r0/driver_examples/wdt">
           <external path="boards/rdmw320_r0/driver_examples/wdt" type="xml">
             <files mask="mw_wdt_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_mw_wifi_cli" name="mw_wifi_cli" brief="mw_wifi_cli" toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="wifi_examples" path="boards/rdmw320_r0/wifi_examples/mw_wifi_cli">
+        <example id="rdmw320_r0_mw_wifi_cli" name="mw_wifi_cli" brief="mw_wifi_cli" toolchain="armgcc" compiler="compiler_gcc" category="wifi_examples" path="boards/rdmw320_r0/wifi_examples/mw_wifi_cli">
           <external path="boards/rdmw320_r0/wifi_examples/mw_wifi_cli" type="xml">
             <files mask="mw_wifi_cli_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_mw_wifi_webconfig" name="mw_wifi_webconfig" brief="Simple AP to Client configuration over web." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="wifi_examples" path="boards/rdmw320_r0/wifi_examples/mw_wifi_webconfig">
+        <example id="rdmw320_r0_mw_wifi_webconfig" name="mw_wifi_webconfig" brief="Simple AP to Client configuration over web." toolchain="armgcc" compiler="compiler_gcc" category="wifi_examples" path="boards/rdmw320_r0/wifi_examples/mw_wifi_webconfig">
           <external path="boards/rdmw320_r0/wifi_examples/mw_wifi_webconfig" type="xml">
             <files mask="mw_wifi_webconfig_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_dac_normal" name="dac_normal" brief="The DAC normal driver example demostrates the basic useage of DAC module. In this example, users input value from the terminal, and then the related voltage will be output through DAC output pin." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/dac" path="boards/rdmw320_r0/driver_examples/dac/normal">
+        <example id="rdmw320_r0_dac_normal" name="dac_normal" brief="The DAC normal driver example demostrates the basic useage of DAC module. In this example, users input value from the terminal, and then the related voltage will be output through DAC output pin." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/dac" path="boards/rdmw320_r0/driver_examples/dac/normal">
           <external path="boards/rdmw320_r0/driver_examples/dac/normal" type="xml">
             <files mask="dac_normal_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_dac_waveform_generator" name="dac_waveform_generator" brief="The DAC waveform generator driver example demonstrates how to use the DAC module to generate different types of waveforms (including triangle waveform, sawtooth waveform, sine waveform, and noise). After starting this example, user can select the waveform type based on the log, and then the selected waveform will be output from  DAC channel pin." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="driver_examples/dac" path="boards/rdmw320_r0/driver_examples/dac/waveform_generator">
+        <example id="rdmw320_r0_dac_waveform_generator" name="dac_waveform_generator" brief="The DAC waveform generator driver example demonstrates how to use the DAC module to generate different types of waveforms (including triangle waveform, sawtooth waveform, sine waveform, and noise). After starting this example, user can select the waveform type based on the log, and then the selected waveform will be output from  DAC channel pin." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/dac" path="boards/rdmw320_r0/driver_examples/dac/waveform_generator">
           <external path="boards/rdmw320_r0/driver_examples/dac/waveform_generator" type="xml">
             <files mask="dac_waveform_generator_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_power_mode_switch" name="power_mode_switch" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="demo_apps" path="boards/rdmw320_r0/demo_apps/power_mode_switch">
+        <example id="rdmw320_r0_power_mode_switch" name="power_mode_switch" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="boards/rdmw320_r0/demo_apps/power_mode_switch">
           <external path="boards/rdmw320_r0/demo_apps/power_mode_switch" type="xml">
             <files mask="power_mode_switch_v3_8.xml"/>
           </external>
         </example>
-        <example id="rdmw320_r0_sdio" name="sdio" brief="The SDIO project is a demonstration program that uses the SDK software. It reads/writes the SDIO card reigister. The purpose of this example is to show how to use SDio driver and this is a very simple example." toolchain="armgcc iar" compiler="compiler_gcc compiler_iar" category="sdmmc_examples" path="boards/rdmw320_r0/sdmmc_examples/sdio">
+        <example id="rdmw320_r0_sdio" name="sdio" brief="The SDIO project is a demonstration program that uses the SDK software. It reads/writes the SDIO card reigister. The purpose of this example is to show how to use SDio driver and this is a very simple example." toolchain="armgcc" compiler="compiler_gcc" category="sdmmc_examples" path="boards/rdmw320_r0/sdmmc_examples/sdio">
           <external path="boards/rdmw320_r0/sdmmc_examples/sdio" type="xml">
             <files mask="sdio_v3_8.xml"/>
           </external>
         </example>
       </examples>
+      <debug_configurations>
+        <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+          <drivers>
+            <driver id_refs="QSPI_FLASH_rdmw320_r0">
+              <driverBinary path="devices/88MW320/mcuxpresso" type="binary">
+                <files mask="88MW320.cfx"/>
+              </driverBinary>
+            </driver>
+          </drivers>
+        </debug_configuration>
+      </debug_configurations>
     </board>
   </boards>
   <devices>
@@ -256,24 +269,34 @@
       <description>88MW320</description>
       <metadataSet>
         <metadata key="vendor" value="NXP"/>
+        <metadata key="compatible_device.segger" value="88MW320"/>
+        <metadata key="compatible_device.pemicro" value="88MW320"/>
       </metadataSet>
       <core id="core0_88MW320_xx_xxxx" name="core0" fpu="true" type="cm4"/>
       <memory>
-        <memoryBlock id="SRAM_CODE_88MW320_xx_xxxx" name="SRAM_CODE" addr="00100000" size="00060000" type="RAM" access="RW"/>
+        <memoryBlock id="SRAM_CODE_88MW320_xx_xxxx" name="SRAM_CODE" addr="00100000" size="0005efc0" type="RAM" access="RW"/>
         <memoryBlock id="SRAM_SYS_88MW320_xx_xxxx" name="SRAM_SYS" addr="20000000" size="00020000" type="RAM" access="RW"/>
+        <memoryBlock id="SRAM_RES_88MW320_xx_xxxx" name="SRAM_RES" addr="0015efc0" size="00001040" type="RAM" access="RW"/>
       </memory>
       <total_memory flash_size_kb="0" ram_size_kb="512"/>
-      <package id="PART_88MW320_A0_NAPC" name="PART_88MW320_A0_NAPC"/>
+      <package id="PART_88MW320_A0_NAPC" name="88MW320_A0_NAPC"/>
       <evaluation_boards>
         <evaluation_board name="rdmw320_r0"/>
       </evaluation_boards>
+      <toolchainSettings>
+        <toolchainSetting id_refs="com.nxp.mcuxpresso">
+          <buildSteps>
+            <preBuildStep></preBuildStep>
+            <postBuildStep>cd ../tools/mw_img_conv/mw320 ; ./make_load_image.sh ${ProjDirPath}/${ConfigName}/${BuildArtifactFileName} ${ProjDirPath}/${ConfigName}/loadimage.o 0x1f010000</postBuildStep>
+          </buildSteps>
+        </toolchainSetting>
+      </toolchainSettings>
       <debug_configurations>
         <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
           <params>
             <params id="internal.wiretype.release.88MW320_xx_xxxx" name="internal.wiretype" value="SWD*,JTAG"/>
             <params id="internal.has_swo.release.88MW320_xx_xxxx" name="internal.has_swo" value="true"/>
             <params id="internal.connect.script.debug.mcuxpresso.88MW320_xx_xxxx" name="internal.connect.script" value="88mw320_connect.scp"/>
-            <params id="internal.connect.reset.debug.mcuxpresso.88MW320_xx_xxxx" name="internal.reset.script" value="88mw320_reset.scp"/>
           </params>
           <drivers>
             <driver id_refs="PROGRAM_FLASH_88MW320_xx_xxxx">
@@ -316,6 +339,9 @@
           <component_dependency value="platform.drivers.mw_pinmux.88MW320"/>
           <component_dependency value="platform.drivers.mw_qspi.88MW320"/>
           <component_dependency value="platform.drivers.mw_flashc.88MW320"/>
+          <component_dependency value="device.88MW320_image_tool.88MW320"/>
+          <component_dependency value="device.88MW320_mcux_link_scripts.88MW320"/>
+          <component_dependency value="board.rdmw320_r0.jlink_scripts.88MW320"/>
         </all>
       </dependencies>
       <source relative_path="./" type="c_include">
@@ -395,797 +421,6 @@
       <include_paths>
         <include_path relative_path="Include" type="c_include"/>
       </include_paths>
-    </component>
-    <component id="platform.CMSIS_DSP_Lib.88MW320" name="CMSIS_DSP_Lib" brief="Cmsis_dsp_lib" version="1.7.0" full_name="Cmsis_dsp_lib" devices="device_88MW320_xx_xxxx" user_visible="false" type="CMSIS" package_base_path="CMSIS/DSP" project_base_path="DSP">
-      <source relative_path="Examples/ARM/arm_class_marks_example" type="src">
-        <files mask="arm_class_marks_example_f32.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_class_marks_example" type="configuration">
-        <files mask="arm_class_marks_example.ini"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_class_marks_example" type="doc">
-        <files mask="Abstract.txt"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_class_marks_example" type="project">
-        <files mask="arm_class_marks_example.uvoptx"/>
-        <files mask="arm_class_marks_example.uvprojx"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_class_marks_example/RTE/Device/ARMCM0" type="src">
-        <files mask="system_ARMCM0.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_class_marks_example/RTE/Device/ARMCM0" type="asm_include">
-        <files mask="startup_ARMCM0.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_class_marks_example/RTE/Device/ARMCM3" type="src">
-        <files mask="system_ARMCM3.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_class_marks_example/RTE/Device/ARMCM3" type="asm_include">
-        <files mask="startup_ARMCM3.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_class_marks_example/RTE/Device/ARMCM4_FP" type="src">
-        <files mask="system_ARMCM4.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_class_marks_example/RTE/Device/ARMCM4_FP" type="asm_include">
-        <files mask="startup_ARMCM4.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_class_marks_example/RTE/Device/ARMCM7_SP" type="src">
-        <files mask="system_ARMCM7.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_class_marks_example/RTE/Device/ARMCM7_SP" type="asm_include">
-        <files mask="startup_ARMCM7.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example" type="src">
-        <files mask="math_helper.c"/>
-        <files mask="arm_convolution_example_f32.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example" type="c_include">
-        <files mask="math_helper.h"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example" type="configuration">
-        <files mask="arm_convolution_example.ini"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example" type="doc">
-        <files mask="Abstract.txt"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example" type="project">
-        <files mask="arm_convolution_example.uvoptx"/>
-        <files mask="arm_convolution_example.uvprojx"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example/RTE/Device/ARMCM0" type="src">
-        <files mask="system_ARMCM0.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example/RTE/Device/ARMCM0" type="asm_include">
-        <files mask="startup_ARMCM0.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example/RTE/Device/ARMCM3" type="src">
-        <files mask="system_ARMCM3.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example/RTE/Device/ARMCM3" type="asm_include">
-        <files mask="startup_ARMCM3.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example/RTE/Device/ARMCM4_FP" type="src">
-        <files mask="system_ARMCM4.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example/RTE/Device/ARMCM4_FP" type="asm_include">
-        <files mask="startup_ARMCM4.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example/RTE/Device/ARMCM7_SP" type="src">
-        <files mask="system_ARMCM7.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_convolution_example/RTE/Device/ARMCM7_SP" type="asm_include">
-        <files mask="startup_ARMCM7.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_dotproduct_example" type="src">
-        <files mask="arm_dotproduct_example_f32.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_dotproduct_example" type="configuration">
-        <files mask="arm_dotproduct_example.ini"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_dotproduct_example" type="doc">
-        <files mask="Abstract.txt"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_dotproduct_example" type="project">
-        <files mask="arm_dotproduct_example.uvoptx"/>
-        <files mask="arm_dotproduct_example.uvprojx"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_dotproduct_example/RTE/Device/ARMCM0" type="src">
-        <files mask="system_ARMCM0.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_dotproduct_example/RTE/Device/ARMCM0" type="asm_include">
-        <files mask="startup_ARMCM0.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_dotproduct_example/RTE/Device/ARMCM3" type="src">
-        <files mask="system_ARMCM3.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_dotproduct_example/RTE/Device/ARMCM3" type="asm_include">
-        <files mask="startup_ARMCM3.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_dotproduct_example/RTE/Device/ARMCM4_FP" type="src">
-        <files mask="system_ARMCM4.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_dotproduct_example/RTE/Device/ARMCM4_FP" type="asm_include">
-        <files mask="startup_ARMCM4.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_dotproduct_example/RTE/Device/ARMCM7_SP" type="src">
-        <files mask="system_ARMCM7.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_dotproduct_example/RTE/Device/ARMCM7_SP" type="asm_include">
-        <files mask="startup_ARMCM7.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fft_bin_example" type="src">
-        <files mask="arm_fft_bin_example_f32.c"/>
-        <files mask="arm_fft_bin_data.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fft_bin_example" type="configuration">
-        <files mask="arm_fft_bin_example.ini"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fft_bin_example" type="doc">
-        <files mask="Abstract.txt"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fft_bin_example" type="project">
-        <files mask="arm_fft_bin_example.uvoptx"/>
-        <files mask="arm_fft_bin_example.uvprojx"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fft_bin_example/RTE/Device/ARMCM0" type="src">
-        <files mask="system_ARMCM0.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fft_bin_example/RTE/Device/ARMCM0" type="asm_include">
-        <files mask="startup_ARMCM0.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fft_bin_example/RTE/Device/ARMCM3" type="src">
-        <files mask="system_ARMCM3.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fft_bin_example/RTE/Device/ARMCM3" type="asm_include">
-        <files mask="startup_ARMCM3.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fft_bin_example/RTE/Device/ARMCM4_FP" type="src">
-        <files mask="system_ARMCM4.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fft_bin_example/RTE/Device/ARMCM4_FP" type="asm_include">
-        <files mask="startup_ARMCM4.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fft_bin_example/RTE/Device/ARMCM7_SP" type="src">
-        <files mask="system_ARMCM7.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fft_bin_example/RTE/Device/ARMCM7_SP" type="asm_include">
-        <files mask="startup_ARMCM7.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example" type="src">
-        <files mask="arm_fir_data.c"/>
-        <files mask="math_helper.c"/>
-        <files mask="arm_fir_example_f32.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example" type="c_include">
-        <files mask="math_helper.h"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example" type="configuration">
-        <files mask="arm_fir_example.ini"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example" type="doc">
-        <files mask="Abstract.txt"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example" type="project">
-        <files mask="arm_fir_example.uvoptx"/>
-        <files mask="arm_fir_example.uvprojx"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example/RTE/Device/ARMCM0" type="src">
-        <files mask="system_ARMCM0.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example/RTE/Device/ARMCM0" type="asm_include">
-        <files mask="startup_ARMCM0.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example/RTE/Device/ARMCM3" type="src">
-        <files mask="system_ARMCM3.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example/RTE/Device/ARMCM3" type="asm_include">
-        <files mask="startup_ARMCM3.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example/RTE/Device/ARMCM4_FP" type="src">
-        <files mask="system_ARMCM4.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example/RTE/Device/ARMCM4_FP" type="asm_include">
-        <files mask="startup_ARMCM4.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example/RTE/Device/ARMCM7_SP" type="src">
-        <files mask="system_ARMCM7.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_fir_example/RTE/Device/ARMCM7_SP" type="asm_include">
-        <files mask="startup_ARMCM7.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example" type="src">
-        <files mask="math_helper.c"/>
-        <files mask="arm_graphic_equalizer_data.c"/>
-        <files mask="arm_graphic_equalizer_example_q31.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example" type="c_include">
-        <files mask="math_helper.h"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example" type="configuration">
-        <files mask="arm_graphic_equalizer_example.ini"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example" type="doc">
-        <files mask="Abstract.txt"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example" type="project">
-        <files mask="arm_graphic_equalizer_example.uvoptx"/>
-        <files mask="arm_graphic_equalizer_example.uvprojx"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example/RTE/Device/ARMCM0" type="src">
-        <files mask="system_ARMCM0.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example/RTE/Device/ARMCM0" type="asm_include">
-        <files mask="startup_ARMCM0.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example/RTE/Device/ARMCM3" type="src">
-        <files mask="system_ARMCM3.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example/RTE/Device/ARMCM3" type="asm_include">
-        <files mask="startup_ARMCM3.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example/RTE/Device/ARMCM4_FP" type="src">
-        <files mask="system_ARMCM4.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example/RTE/Device/ARMCM4_FP" type="asm_include">
-        <files mask="startup_ARMCM4.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example/RTE/Device/ARMCM7_SP" type="src">
-        <files mask="system_ARMCM7.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_graphic_equalizer_example/RTE/Device/ARMCM7_SP" type="asm_include">
-        <files mask="startup_ARMCM7.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example" type="src">
-        <files mask="arm_linear_interp_example_f32.c"/>
-        <files mask="arm_linear_interp_data.c"/>
-        <files mask="math_helper.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example" type="c_include">
-        <files mask="math_helper.h"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example" type="configuration">
-        <files mask="arm_linear_interp_example.ini"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example" type="doc">
-        <files mask="Abstract.txt"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example" type="project">
-        <files mask="arm_linear_interp_example.uvoptx"/>
-        <files mask="arm_linear_interp_example.uvprojx"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example/RTE/Device/ARMCM0" type="src">
-        <files mask="system_ARMCM0.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example/RTE/Device/ARMCM0" type="asm_include">
-        <files mask="startup_ARMCM0.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example/RTE/Device/ARMCM3" type="src">
-        <files mask="system_ARMCM3.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example/RTE/Device/ARMCM3" type="asm_include">
-        <files mask="startup_ARMCM3.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example/RTE/Device/ARMCM4_FP" type="src">
-        <files mask="system_ARMCM4.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example/RTE/Device/ARMCM4_FP" type="asm_include">
-        <files mask="startup_ARMCM4.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example/RTE/Device/ARMCM7_SP" type="src">
-        <files mask="system_ARMCM7.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_linear_interp_example/RTE/Device/ARMCM7_SP" type="asm_include">
-        <files mask="startup_ARMCM7.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example" type="src">
-        <files mask="arm_matrix_example_f32.c"/>
-        <files mask="math_helper.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example" type="c_include">
-        <files mask="math_helper.h"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example" type="configuration">
-        <files mask="arm_matrix_example.ini"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example" type="doc">
-        <files mask="Abstract.txt"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example" type="project">
-        <files mask="arm_matrix_example.uvoptx"/>
-        <files mask="arm_matrix_example.uvprojx"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example/RTE/Device/ARMCM0" type="src">
-        <files mask="system_ARMCM0.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example/RTE/Device/ARMCM0" type="asm_include">
-        <files mask="startup_ARMCM0.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example/RTE/Device/ARMCM3" type="src">
-        <files mask="system_ARMCM3.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example/RTE/Device/ARMCM3" type="asm_include">
-        <files mask="startup_ARMCM3.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example/RTE/Device/ARMCM4_FP" type="src">
-        <files mask="system_ARMCM4.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example/RTE/Device/ARMCM4_FP" type="asm_include">
-        <files mask="startup_ARMCM4.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example/RTE/Device/ARMCM7_SP" type="src">
-        <files mask="system_ARMCM7.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_matrix_example/RTE/Device/ARMCM7_SP" type="asm_include">
-        <files mask="startup_ARMCM7.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example" type="src">
-        <files mask="arm_signal_converge_data.c"/>
-        <files mask="math_helper.c"/>
-        <files mask="arm_signal_converge_example_f32.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example" type="c_include">
-        <files mask="math_helper.h"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example" type="configuration">
-        <files mask="arm_signal_converge_example.ini"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example" type="doc">
-        <files mask="Abstract.txt"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example" type="project">
-        <files mask="arm_signal_converge_example.uvoptx"/>
-        <files mask="arm_signal_converge_example.uvprojx"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example/RTE/Device/ARMCM0" type="src">
-        <files mask="system_ARMCM0.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example/RTE/Device/ARMCM0" type="asm_include">
-        <files mask="startup_ARMCM0.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example/RTE/Device/ARMCM3" type="src">
-        <files mask="system_ARMCM3.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example/RTE/Device/ARMCM3" type="asm_include">
-        <files mask="startup_ARMCM3.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example/RTE/Device/ARMCM4_FP" type="src">
-        <files mask="system_ARMCM4.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example/RTE/Device/ARMCM4_FP" type="asm_include">
-        <files mask="startup_ARMCM4.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example/RTE/Device/ARMCM7_SP" type="src">
-        <files mask="system_ARMCM7.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_signal_converge_example/RTE/Device/ARMCM7_SP" type="asm_include">
-        <files mask="startup_ARMCM7.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_sin_cos_example" type="src">
-        <files mask="arm_sin_cos_example_f32.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_sin_cos_example" type="configuration">
-        <files mask="arm_sin_cos_example.ini"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_sin_cos_example" type="doc">
-        <files mask="Abstract.txt"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_sin_cos_example" type="project">
-        <files mask="arm_sin_cos_example.uvoptx"/>
-        <files mask="arm_sin_cos_example.uvprojx"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_sin_cos_example/RTE/Device/ARMCM0" type="src">
-        <files mask="system_ARMCM0.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_sin_cos_example/RTE/Device/ARMCM0" type="asm_include">
-        <files mask="startup_ARMCM0.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_sin_cos_example/RTE/Device/ARMCM3" type="src">
-        <files mask="system_ARMCM3.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_sin_cos_example/RTE/Device/ARMCM3" type="asm_include">
-        <files mask="startup_ARMCM3.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_sin_cos_example/RTE/Device/ARMCM4_FP" type="src">
-        <files mask="system_ARMCM4.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_sin_cos_example/RTE/Device/ARMCM4_FP" type="asm_include">
-        <files mask="startup_ARMCM4.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_sin_cos_example/RTE/Device/ARMCM7_SP" type="src">
-        <files mask="system_ARMCM7.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_sin_cos_example/RTE/Device/ARMCM7_SP" type="asm_include">
-        <files mask="startup_ARMCM7.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_variance_example" type="src">
-        <files mask="arm_variance_example_f32.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_variance_example" type="configuration">
-        <files mask="arm_variance_example.ini"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_variance_example" type="doc">
-        <files mask="Abstract.txt"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_variance_example" type="project">
-        <files mask="arm_variance_example.uvoptx"/>
-        <files mask="arm_variance_example.uvprojx"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_variance_example/RTE/Device/ARMCM0" type="src">
-        <files mask="system_ARMCM0.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_variance_example/RTE/Device/ARMCM0" type="asm_include">
-        <files mask="startup_ARMCM0.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_variance_example/RTE/Device/ARMCM3" type="src">
-        <files mask="system_ARMCM3.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_variance_example/RTE/Device/ARMCM3" type="asm_include">
-        <files mask="startup_ARMCM3.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_variance_example/RTE/Device/ARMCM4_FP" type="src">
-        <files mask="system_ARMCM4.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_variance_example/RTE/Device/ARMCM4_FP" type="asm_include">
-        <files mask="startup_ARMCM4.s"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_variance_example/RTE/Device/ARMCM7_SP" type="src">
-        <files mask="system_ARMCM7.c"/>
-      </source>
-      <source relative_path="Examples/ARM/arm_variance_example/RTE/Device/ARMCM7_SP" type="asm_include">
-        <files mask="startup_ARMCM7.s"/>
-      </source>
-      <source relative_path="Projects/ARM" type="script">
-        <files mask="arm_cortexM_math_Build.bat"/>
-      </source>
-      <source relative_path="Projects/ARM" type="project">
-        <files mask="arm_cortexM_math.uvoptx"/>
-        <files mask="arm_cortexM_math.uvprojx"/>
-      </source>
-      <source relative_path="Projects/GCC" type="script">
-        <files mask="arm_cortexM_math_Build.bat"/>
-      </source>
-      <source relative_path="Projects/GCC" type="project">
-        <files mask="arm_cortexM_math.uvoptx"/>
-        <files mask="arm_cortexM_math.uvprojx"/>
-      </source>
-      <source relative_path="Projects/IAR" type="script">
-        <files mask="arm_cortexM_math_Build.bat"/>
-      </source>
-      <source relative_path="Projects/IAR" type="other">
-        <files mask="arm_cortexM_math.eww"/>
-      </source>
-      <source relative_path="Projects/IAR" type="project">
-        <files mask="arm_cortexM_math.ewp"/>
-      </source>
-      <source relative_path="Source/BasicMathFunctions" type="src">
-        <files mask="arm_mult_f32.c"/>
-        <files mask="arm_dot_prod_q31.c"/>
-        <files mask="arm_sub_f32.c"/>
-        <files mask="arm_sub_q15.c"/>
-        <files mask="arm_shift_q7.c"/>
-        <files mask="arm_abs_q7.c"/>
-        <files mask="arm_abs_q31.c"/>
-        <files mask="arm_mult_q31.c"/>
-        <files mask="arm_dot_prod_f32.c"/>
-        <files mask="arm_offset_q31.c"/>
-        <files mask="arm_shift_q15.c"/>
-        <files mask="arm_shift_q31.c"/>
-        <files mask="arm_negate_q7.c"/>
-        <files mask="arm_add_q15.c"/>
-        <files mask="arm_add_q7.c"/>
-        <files mask="arm_offset_f32.c"/>
-        <files mask="arm_dot_prod_q15.c"/>
-        <files mask="arm_mult_q7.c"/>
-        <files mask="arm_dot_prod_q7.c"/>
-        <files mask="arm_abs_f32.c"/>
-        <files mask="arm_negate_q15.c"/>
-        <files mask="arm_scale_q15.c"/>
-        <files mask="arm_mult_q15.c"/>
-        <files mask="arm_add_q31.c"/>
-        <files mask="arm_scale_q7.c"/>
-        <files mask="arm_offset_q7.c"/>
-        <files mask="BasicMathFunctions.c"/>
-        <files mask="arm_sub_q31.c"/>
-        <files mask="arm_sub_q7.c"/>
-        <files mask="arm_negate_f32.c"/>
-        <files mask="arm_abs_q15.c"/>
-        <files mask="arm_scale_f32.c"/>
-        <files mask="arm_add_f32.c"/>
-        <files mask="arm_offset_q15.c"/>
-        <files mask="arm_negate_q31.c"/>
-        <files mask="arm_scale_q31.c"/>
-      </source>
-      <source relative_path="Source/CommonTables" type="src">
-        <files mask="CommonTables.c"/>
-        <files mask="arm_common_tables.c"/>
-        <files mask="arm_const_structs.c"/>
-      </source>
-      <source relative_path="Source/ComplexMathFunctions" type="src">
-        <files mask="arm_cmplx_mag_squared_f32.c"/>
-        <files mask="arm_cmplx_conj_f32.c"/>
-        <files mask="arm_cmplx_mag_q31.c"/>
-        <files mask="arm_cmplx_conj_q31.c"/>
-        <files mask="arm_cmplx_dot_prod_f32.c"/>
-        <files mask="arm_cmplx_mag_q15.c"/>
-        <files mask="arm_cmplx_mag_f32.c"/>
-        <files mask="arm_cmplx_dot_prod_q31.c"/>
-        <files mask="arm_cmplx_dot_prod_q15.c"/>
-        <files mask="arm_cmplx_mult_cmplx_q15.c"/>
-        <files mask="arm_cmplx_mag_squared_q15.c"/>
-        <files mask="arm_cmplx_conj_q15.c"/>
-        <files mask="arm_cmplx_mult_real_q31.c"/>
-        <files mask="arm_cmplx_mult_cmplx_f32.c"/>
-        <files mask="ComplexMathFunctions.c"/>
-        <files mask="arm_cmplx_mag_squared_q31.c"/>
-        <files mask="arm_cmplx_mult_real_q15.c"/>
-        <files mask="arm_cmplx_mult_cmplx_q31.c"/>
-        <files mask="arm_cmplx_mult_real_f32.c"/>
-      </source>
-      <source relative_path="Source/ControllerFunctions" type="src">
-        <files mask="arm_sin_cos_f32.c"/>
-        <files mask="ControllerFunctions.c"/>
-        <files mask="arm_pid_reset_q31.c"/>
-        <files mask="arm_pid_init_q15.c"/>
-        <files mask="arm_sin_cos_q31.c"/>
-        <files mask="arm_pid_reset_f32.c"/>
-        <files mask="arm_pid_reset_q15.c"/>
-        <files mask="arm_pid_init_f32.c"/>
-        <files mask="arm_pid_init_q31.c"/>
-      </source>
-      <source relative_path="Source/FastMathFunctions" type="src">
-        <files mask="arm_cos_q31.c"/>
-        <files mask="FastMathFunctions.c"/>
-        <files mask="arm_sin_q31.c"/>
-        <files mask="arm_sqrt_q15.c"/>
-        <files mask="arm_cos_q15.c"/>
-        <files mask="arm_sin_f32.c"/>
-        <files mask="arm_sin_q15.c"/>
-        <files mask="arm_cos_f32.c"/>
-        <files mask="arm_sqrt_q31.c"/>
-      </source>
-      <source relative_path="Source/FilteringFunctions" type="src">
-        <files mask="arm_iir_lattice_q15.c"/>
-        <files mask="arm_iir_lattice_init_q15.c"/>
-        <files mask="arm_fir_interpolate_q15.c"/>
-        <files mask="arm_correlate_fast_q15.c"/>
-        <files mask="arm_lms_norm_init_q15.c"/>
-        <files mask="arm_fir_sparse_f32.c"/>
-        <files mask="arm_fir_interpolate_f32.c"/>
-        <files mask="arm_biquad_cascade_df1_fast_q15.c"/>
-        <files mask="arm_iir_lattice_init_q31.c"/>
-        <files mask="arm_fir_decimate_q31.c"/>
-        <files mask="arm_fir_interpolate_q31.c"/>
-        <files mask="arm_fir_decimate_init_f32.c"/>
-        <files mask="arm_correlate_fast_opt_q15.c"/>
-        <files mask="arm_lms_q31.c"/>
-        <files mask="arm_lms_init_f32.c"/>
-        <files mask="arm_fir_sparse_q7.c"/>
-        <files mask="arm_conv_fast_opt_q15.c"/>
-        <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c"/>
-        <files mask="arm_biquad_cascade_df1_init_q31.c"/>
-        <files mask="arm_biquad_cascade_df2T_init_f64.c"/>
-        <files mask="arm_iir_lattice_f32.c"/>
-        <files mask="arm_fir_lattice_f32.c"/>
-        <files mask="arm_conv_partial_opt_q15.c"/>
-        <files mask="arm_iir_lattice_q31.c"/>
-        <files mask="arm_correlate_fast_q31.c"/>
-        <files mask="arm_biquad_cascade_stereo_df2T_f32.c"/>
-        <files mask="arm_conv_f32.c"/>
-        <files mask="arm_fir_sparse_q15.c"/>
-        <files mask="arm_fir_sparse_init_q7.c"/>
-        <files mask="arm_biquad_cascade_df1_fast_q31.c"/>
-        <files mask="arm_biquad_cascade_df1_init_f32.c"/>
-        <files mask="arm_fir_sparse_init_q31.c"/>
-        <files mask="arm_fir_sparse_init_q15.c"/>
-        <files mask="arm_fir_interpolate_init_q15.c"/>
-        <files mask="arm_fir_lattice_q15.c"/>
-        <files mask="arm_fir_decimate_init_q15.c"/>
-        <files mask="arm_conv_partial_fast_opt_q15.c"/>
-        <files mask="arm_fir_q31.c"/>
-        <files mask="arm_biquad_cascade_df2T_init_f32.c"/>
-        <files mask="arm_conv_fast_q15.c"/>
-        <files mask="arm_fir_fast_q15.c"/>
-        <files mask="arm_conv_q7.c"/>
-        <files mask="arm_fir_q15.c"/>
-        <files mask="arm_correlate_q15.c"/>
-        <files mask="arm_lms_init_q15.c"/>
-        <files mask="arm_conv_q15.c"/>
-        <files mask="arm_conv_partial_q7.c"/>
-        <files mask="arm_lms_f32.c"/>
-        <files mask="arm_lms_norm_q15.c"/>
-        <files mask="arm_fir_sparse_init_f32.c"/>
-        <files mask="arm_lms_norm_init_q31.c"/>
-        <files mask="arm_biquad_cascade_df1_init_q15.c"/>
-        <files mask="arm_conv_partial_fast_q15.c"/>
-        <files mask="arm_fir_init_f32.c"/>
-        <files mask="arm_fir_decimate_f32.c"/>
-        <files mask="arm_fir_lattice_init_q15.c"/>
-        <files mask="arm_correlate_opt_q15.c"/>
-        <files mask="arm_fir_sparse_q31.c"/>
-        <files mask="arm_biquad_cascade_df2T_f32.c"/>
-        <files mask="arm_fir_init_q7.c"/>
-        <files mask="arm_fir_init_q15.c"/>
-        <files mask="arm_fir_interpolate_init_f32.c"/>
-        <files mask="arm_conv_opt_q7.c"/>
-        <files mask="arm_lms_init_q31.c"/>
-        <files mask="arm_fir_fast_q31.c"/>
-        <files mask="arm_conv_partial_f32.c"/>
-        <files mask="arm_biquad_cascade_df1_q15.c"/>
-        <files mask="arm_biquad_cascade_df1_32x64_init_q31.c"/>
-        <files mask="arm_lms_norm_q31.c"/>
-        <files mask="arm_conv_partial_q15.c"/>
-        <files mask="arm_conv_opt_q15.c"/>
-        <files mask="arm_fir_decimate_q15.c"/>
-        <files mask="arm_iir_lattice_init_f32.c"/>
-        <files mask="arm_fir_lattice_init_f32.c"/>
-        <files mask="arm_fir_decimate_fast_q31.c"/>
-        <files mask="arm_fir_f32.c"/>
-        <files mask="arm_fir_decimate_init_q31.c"/>
-        <files mask="arm_conv_q31.c"/>
-        <files mask="arm_lms_norm_f32.c"/>
-        <files mask="arm_conv_partial_fast_q31.c"/>
-        <files mask="arm_fir_lattice_init_q31.c"/>
-        <files mask="arm_fir_init_q31.c"/>
-        <files mask="arm_lms_norm_init_f32.c"/>
-        <files mask="arm_correlate_opt_q7.c"/>
-        <files mask="arm_fir_lattice_q31.c"/>
-        <files mask="arm_conv_partial_q31.c"/>
-        <files mask="arm_biquad_cascade_df2T_f64.c"/>
-        <files mask="arm_biquad_cascade_df1_f32.c"/>
-        <files mask="arm_lms_q15.c"/>
-        <files mask="arm_correlate_q31.c"/>
-        <files mask="arm_correlate_q7.c"/>
-        <files mask="arm_fir_q7.c"/>
-        <files mask="arm_conv_fast_q31.c"/>
-        <files mask="arm_conv_partial_opt_q7.c"/>
-        <files mask="arm_fir_decimate_fast_q15.c"/>
-        <files mask="arm_fir_interpolate_init_q31.c"/>
-        <files mask="arm_biquad_cascade_df1_q31.c"/>
-        <files mask="FilteringFunctions.c"/>
-        <files mask="arm_correlate_f32.c"/>
-        <files mask="arm_biquad_cascade_df1_32x64_q31.c"/>
-      </source>
-      <source relative_path="Source/MatrixFunctions" type="src">
-        <files mask="arm_mat_mult_f32.c"/>
-        <files mask="arm_mat_mult_fast_q31.c"/>
-        <files mask="arm_mat_init_q15.c"/>
-        <files mask="arm_mat_mult_fast_q15.c"/>
-        <files mask="arm_mat_trans_q15.c"/>
-        <files mask="arm_mat_cmplx_mult_q31.c"/>
-        <files mask="arm_mat_mult_q31.c"/>
-        <files mask="arm_mat_init_f32.c"/>
-        <files mask="arm_mat_inverse_f32.c"/>
-        <files mask="arm_mat_scale_q31.c"/>
-        <files mask="arm_mat_cmplx_mult_f32.c"/>
-        <files mask="arm_mat_sub_q15.c"/>
-        <files mask="arm_mat_scale_f32.c"/>
-        <files mask="arm_mat_sub_f32.c"/>
-        <files mask="arm_mat_add_q31.c"/>
-        <files mask="arm_mat_add_f32.c"/>
-        <files mask="MatrixFunctions.c"/>
-        <files mask="arm_mat_mult_q15.c"/>
-        <files mask="arm_mat_trans_q31.c"/>
-        <files mask="arm_mat_scale_q15.c"/>
-        <files mask="arm_mat_sub_q31.c"/>
-        <files mask="arm_mat_inverse_f64.c"/>
-        <files mask="arm_mat_init_q31.c"/>
-        <files mask="arm_mat_trans_f32.c"/>
-        <files mask="arm_mat_cmplx_mult_q15.c"/>
-        <files mask="arm_mat_add_q15.c"/>
-      </source>
-      <source relative_path="Source/StatisticsFunctions" type="src">
-        <files mask="arm_var_q15.c"/>
-        <files mask="arm_min_q31.c"/>
-        <files mask="arm_mean_f32.c"/>
-        <files mask="arm_max_q7.c"/>
-        <files mask="arm_max_f32.c"/>
-        <files mask="arm_var_f32.c"/>
-        <files mask="arm_power_q7.c"/>
-        <files mask="arm_rms_f32.c"/>
-        <files mask="arm_max_q31.c"/>
-        <files mask="arm_max_q15.c"/>
-        <files mask="arm_mean_q7.c"/>
-        <files mask="arm_power_f32.c"/>
-        <files mask="arm_min_q7.c"/>
-        <files mask="arm_std_q15.c"/>
-        <files mask="arm_min_f32.c"/>
-        <files mask="arm_min_q15.c"/>
-        <files mask="StatisticsFunctions.c"/>
-        <files mask="arm_std_q31.c"/>
-        <files mask="arm_rms_q31.c"/>
-        <files mask="arm_mean_q15.c"/>
-        <files mask="arm_std_f32.c"/>
-        <files mask="arm_power_q15.c"/>
-        <files mask="arm_mean_q31.c"/>
-        <files mask="arm_rms_q15.c"/>
-        <files mask="arm_power_q31.c"/>
-        <files mask="arm_var_q31.c"/>
-      </source>
-      <source relative_path="Source/SupportFunctions" type="src">
-        <files mask="SupportFunctions.c"/>
-        <files mask="arm_fill_q7.c"/>
-        <files mask="arm_q15_to_q7.c"/>
-        <files mask="arm_copy_q15.c"/>
-        <files mask="arm_copy_f32.c"/>
-        <files mask="arm_q7_to_q15.c"/>
-        <files mask="arm_q31_to_q15.c"/>
-        <files mask="arm_copy_q7.c"/>
-        <files mask="arm_q15_to_float.c"/>
-        <files mask="arm_q7_to_float.c"/>
-        <files mask="arm_float_to_q15.c"/>
-        <files mask="arm_q15_to_q31.c"/>
-        <files mask="arm_fill_f32.c"/>
-        <files mask="arm_float_to_q7.c"/>
-        <files mask="arm_fill_q31.c"/>
-        <files mask="arm_q7_to_q31.c"/>
-        <files mask="arm_q31_to_float.c"/>
-        <files mask="arm_copy_q31.c"/>
-        <files mask="arm_fill_q15.c"/>
-        <files mask="arm_q31_to_q7.c"/>
-        <files mask="arm_float_to_q31.c"/>
-      </source>
-      <source relative_path="Source/TransformFunctions" type="src">
-        <files mask="arm_cfft_radix2_f32.c"/>
-        <files mask="arm_cfft_radix8_f32.c"/>
-        <files mask="arm_cfft_radix2_q15.c"/>
-        <files mask="arm_cfft_radix4_init_f32.c"/>
-        <files mask="arm_cfft_radix4_init_q15.c"/>
-        <files mask="arm_cfft_radix2_init_q15.c"/>
-        <files mask="arm_rfft_init_f32.c"/>
-        <files mask="arm_rfft_fast_f32.c"/>
-        <files mask="arm_rfft_init_q31.c"/>
-        <files mask="arm_dct4_q15.c"/>
-        <files mask="arm_dct4_init_q31.c"/>
-        <files mask="arm_cfft_radix2_init_f32.c"/>
-        <files mask="arm_dct4_init_q15.c"/>
-        <files mask="arm_dct4_q31.c"/>
-        <files mask="arm_rfft_q15.c"/>
-        <files mask="arm_cfft_radix4_q31.c"/>
-        <files mask="arm_cfft_radix2_init_q31.c"/>
-        <files mask="TransformFunctions.c"/>
-        <files mask="arm_cfft_radix4_q15.c"/>
-        <files mask="arm_bitreversal.c"/>
-        <files mask="arm_rfft_init_q15.c"/>
-        <files mask="arm_rfft_q31.c"/>
-        <files mask="arm_bitreversal2.c"/>
-        <files mask="arm_rfft_fast_init_f32.c"/>
-        <files mask="arm_cfft_radix2_q31.c"/>
-        <files mask="arm_dct4_f32.c"/>
-        <files mask="arm_cfft_f32.c"/>
-        <files mask="arm_rfft_f32.c"/>
-        <files mask="arm_cfft_radix4_init_q31.c"/>
-        <files mask="arm_cfft_q31.c"/>
-        <files mask="arm_cfft_q15.c"/>
-        <files mask="arm_cfft_radix4_f32.c"/>
-        <files mask="arm_dct4_init_f32.c"/>
-      </source>
-      <source relative_path="Source/TransformFunctions" type="asm_include">
-        <files mask="arm_bitreversal2.S"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="Examples/ARM/arm_class_marks_example/RTE" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_convolution_example" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_convolution_example/RTE" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_dotproduct_example/RTE" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_fft_bin_example/RTE" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_fir_example" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_fir_example/RTE" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_graphic_equalizer_example" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_graphic_equalizer_example/RTE" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_linear_interp_example" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_linear_interp_example/RTE" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_matrix_example" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_matrix_example/RTE" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_signal_converge_example" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_signal_converge_example/RTE" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_sin_cos_example/RTE" type="c_include"/>
-        <include_path relative_path="Examples/ARM/arm_variance_example/RTE" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="platform.CMSIS_DSP_Lib.arm_cortexM4bf_math.88MW320" name="arm_cortexM4bf_math" brief="Cmsis_dsp_lib arm_cortexm4bf_math" version="1.7.0" full_name="Cmsis_dsp_lib arm_cortexm4bf_math" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="CMSIS_driver" package_base_path="CMSIS/DSP/Lib/ARM" project_base_path="libs"/>
-    <component id="platform.CMSIS_DSP_Lib.arm_cortexM4lf_math.88MW320" name="arm_cortexM4lf_math" brief="Cmsis_dsp_lib arm_cortexm4lf_math" version="1.7.0" full_name="Cmsis_dsp_lib arm_cortexm4lf_math" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="CMSIS_driver" package_base_path="CMSIS/DSP/Lib" project_base_path="libs">
-      <source toolchain="armgcc" relative_path="GCC" project_relative_path="./" type="lib">
-        <files mask="libarm_cortexM4lf_math.a"/>
-      </source>
     </component>
     <component id="platform.CMSIS_Driver" name="CMSIS_Driver" brief="Cmsis_driver" version="2.7.1" full_name="Cmsis_driver" user_visible="true" type="CMSIS" package_base_path="CMSIS/Driver/DriverTemplates" project_base_path="Driver/DriverTemplates">
       <source relative_path="./" type="src">
@@ -1443,6 +678,8 @@
           <component_dependency value="platform.drivers.power.88MW320"/>
           <component_dependency value="platform.drivers.mw_gpio.88MW320"/>
           <component_dependency value="platform.drivers.mw_pinmux.88MW320"/>
+          <component_dependency value="device.88MW320_image_tool.88MW320"/>
+          <component_dependency value="device.88MW320_mcux_link_scripts.88MW320"/>
         </all>
       </dependencies>
       <source relative_path="./" type="c_include">
@@ -1461,7 +698,8 @@
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="boot2.88MW320" name="boot2" brief="boot2" version="6.0" full_name="boot2" devices="device_88MW320_xx_xxxx" user_visible="true" type="other" package_base_path="tools/boot2" project_base_path="boot2">
+    <component id="board.rdmw320_r0.jlink_scripts.88MW320" name="rdmw320_r0.jlink_scripts" brief="Board rdmw320_r0.jlink_scripts" version="1.0.0" full_name="Board rdmw320_r0.jlink_scripts" devices="device_88MW320_xx_xxxx" user_visible="true" type="other" package_base_path="boards/rdmw320_r0" project_base_path="rdmw320_r0"/>
+    <component id="boot2.88MW320" name="boot2" brief="boot2" version="6.0" full_name="boot2" devices="device_88MW320_xx_xxxx" user_visible="true" type="other" package_base_path="tools/boot2" project_base_path="tools/boot2">
       <source relative_path="./" type="binary">
         <files mask="boot2.bin"/>
         <files mask="layout.bin"/>
@@ -1688,6 +926,9 @@
       <source condition="middleware.freertos-kernel.88MW320" relative_path="./" type="src">
         <files mask="fsl_os_abstraction_free_rtos.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_88MW320.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1887,23 +1128,25 @@
         <files mask="88MW320.xml"/>
       </source>
     </component>
+    <component id="device.88MW320_image_tool.88MW320" name="88MW320_image_tool" brief="Device 88MW320_image_tool" version="1.0.0" full_name="Device 88MW320_image_tool" devices="device_88MW320_xx_xxxx" user_visible="true" type="other" package_base_path="tools/mw_img_conv/mw320" project_base_path="tools/mw_img_conv/mw320">
+      <dependencies>
+        <all>
+          <component_dependency value="mw_img_conv.88MW320"/>
+          <component_dependency value="boot2.88MW320"/>
+        </all>
+      </dependencies>
+    </component>
     <component id="platform.devices.88MW320_linker.88MW320" name="88MW320_linker" brief="Device 88MW320_linker" version="1.0.0" full_name="Device 88MW320_linker" devices="device_88MW320_xx_xxxx" user_visible="true" type="linker" package_base_path="devices/88MW320" project_base_path="88MW320">
       <source toolchain="armgcc" relative_path="gcc" type="linker">
         <files mask="88MW320_xx_xxxx_flash.ld"/>
         <files mask="88MW320_xx_xxxx_ram.ld"/>
       </source>
-      <source toolchain="iar" relative_path="iar" type="linker">
-        <files mask="88MW320_xx_xxxx_flash.icf"/>
-        <files mask="88MW320_xx_xxxx_ram.icf"/>
-      </source>
     </component>
+    <component id="device.88MW320_mcux_link_scripts.88MW320" name="88MW320_mcux_link_scripts" brief="Device 88MW320_mcux_link_scripts" version="1.0.0" full_name="Device 88MW320_mcux_link_scripts" devices="device_88MW320_xx_xxxx" user_visible="true" type="other" package_base_path="boards/rdmw320_r0/linkscripts" project_base_path="linkscripts"/>
     <component id="device.88MW320_startup.88MW320" name="88MW320_startup" brief="Device 88MW320_startup" version="1.0.0" full_name="Device 88MW320_startup" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" category="Device/Startup" user_visible="true" type="startup" package_base_path="devices/88MW320" project_base_path="startup">
       <dependencies>
         <component_dependency value="device.88MW320_system.88MW320"/>
       </dependencies>
-      <source toolchain="iar" relative_path="iar" project_relative_path="./" type="asm_include">
-        <files mask="startup_88MW320.s"/>
-      </source>
       <source toolchain="armgcc" relative_path="gcc" project_relative_path="./" type="asm_include">
         <files mask="startup_88MW320.S"/>
       </source>
@@ -1934,7 +1177,7 @@
         <files mask="MCUXpresso SDK Release Notes for RDMW320-R0.pdf"/>
       </source>
     </component>
-    <component id="platform.drivers.clock.88MW320" name="clock" brief="Clock Driver" version="2.0.0" full_name="Clock Driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="driver" package_base_path="devices/88MW320/drivers" project_base_path="drivers">
+    <component id="platform.drivers.clock.88MW320" name="clock" brief="Clock Driver" version="2.0.1" full_name="Clock Driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="driver" package_base_path="devices/88MW320/drivers" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.88MW320"/>
       </dependencies>
@@ -2073,7 +1316,7 @@
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.mw_flashc.88MW320" name="flashc" brief="Flash Conftroller Driver" version="2.0.0" full_name="MW_FLASHC Driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="driver" package_base_path="devices/88MW320/drivers" project_base_path="drivers">
+    <component id="platform.drivers.mw_flashc.88MW320" name="flashc" brief="Flash Conftroller Driver" version="2.1.0" full_name="MW_FLASHC Driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="driver" package_base_path="devices/88MW320/drivers" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.88MW320"/>
       </dependencies>
@@ -2195,7 +1438,7 @@
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.mw_rtc.88MW320" name="rtc" brief="RTC Driver" version="2.0.0" full_name="MW_RTC Driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="driver" package_base_path="devices/88MW320/drivers" project_base_path="drivers">
+    <component id="platform.drivers.mw_rtc.88MW320" name="rtc" brief="RTC Driver" version="2.0.1" full_name="MW_RTC Driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="driver" package_base_path="devices/88MW320/drivers" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.88MW320"/>
       </dependencies>
@@ -2212,7 +1455,7 @@
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.mw_sdioc.88MW320" name="sdioc" brief="SDIOC Driver" version="2.0.1" full_name="MW_SDIOC Driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="driver" package_base_path="devices/88MW320/drivers" project_base_path="drivers">
+    <component id="platform.drivers.mw_sdioc.88MW320" name="sdioc" brief="SDIOC Driver" version="2.0.2" full_name="MW_SDIOC Driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="driver" package_base_path="devices/88MW320/drivers" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.88MW320"/>
       </dependencies>
@@ -2229,7 +1472,7 @@
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.mw_ssp.88MW320" name="ssp" brief="SSP Driver" version="2.0.0" full_name="MW_SSP Driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="driver" package_base_path="devices/88MW320/drivers" project_base_path="drivers">
+    <component id="platform.drivers.mw_ssp.88MW320" name="ssp" brief="SSP Driver" version="2.0.1" full_name="MW_SSP Driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="driver" package_base_path="devices/88MW320/drivers" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.88MW320"/>
       </dependencies>
@@ -2321,7 +1564,7 @@
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.power.88MW320" name="power" brief="POWER Driver" version="2.0.0" full_name="POWER Driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="driver" package_base_path="devices/88MW320/drivers" project_base_path="drivers">
+    <component id="platform.drivers.power.88MW320" name="power" brief="POWER Driver" version="2.1.2" full_name="POWER Driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" user_visible="true" type="driver" package_base_path="devices/88MW320/drivers" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.88MW320"/>
       </dependencies>
@@ -2343,31 +1586,6 @@
         <define name="FSL_RTOS_BM" value=""/>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
-    </component>
-    <component id="middleware.cjson.88MW320" name="cjson" brief="CJSON library" version="1.7.4" revision="0" full_name="Middleware cjson" devices="device_88MW320_xx_xxxx" category="JSON/CJSON library" user_visible="true" type="middleware" package_base_path="middleware/cjson" project_base_path="cjson">
-      <source relative_path="./" project_relative_path="inc" type="c_include">
-        <files mask="cJSON_Utils.h"/>
-        <files mask="cJSON.h"/>
-      </source>
-      <source relative_path="./" project_relative_path="src" type="src">
-        <files mask="cJSON_Utils.c"/>
-        <files mask="cJSON.c"/>
-      </source>
-      <source relative_path="./" type="doc">
-        <files mask="CHANGELOG.md" hidden="true"/>
-        <files mask="LICENSE" hidden="true"/>
-        <files mask="README.md" hidden="true"/>
-        <files mask="CONTRIBUTORS.md" hidden="true"/>
-      </source>
-      <source exclude="true" relative_path="./" type="doc">
-        <files mask="ChangeLogKSDK.txt" hidden="true"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_cjson_88MW320.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" project_relative_path="inc" type="c_include"/>
-      </include_paths>
     </component>
     <component id="middleware.freertos-kernel.88MW320" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="device_88MW320_xx_xxxx" user_visible="true" type="OS" package_base_path="rtos/freertos" project_base_path="freertos">
       <defines>
@@ -2415,15 +1633,6 @@
       <source toolchain="armgcc" compiler="compiler_gcc" relative_path="freertos_kernel/portable/GCC/ARM_CM4F" type="c_include" device_cores="core0_88MW320_xx_xxxx">
         <files mask="portmacro.h"/>
       </source>
-      <source toolchain="iar" relative_path="freertos_kernel/portable/IAR/ARM_CM4F" type="src" device_cores="core0_88MW320_xx_xxxx">
-        <files mask="port.c"/>
-      </source>
-      <source toolchain="iar" relative_path="freertos_kernel/portable/IAR/ARM_CM4F" type="asm_include" device_cores="core0_88MW320_xx_xxxx">
-        <files mask="portasm.s"/>
-      </source>
-      <source toolchain="iar" relative_path="freertos_kernel/portable/IAR/ARM_CM4F" type="c_include" device_cores="core0_88MW320_xx_xxxx">
-        <files mask="portmacro.h"/>
-      </source>
       <source relative_path="freertos_kernel/portable/MemMang" type="other">
         <files mask="ReadMe.url"/>
       </source>
@@ -2436,8 +1645,6 @@
       <include_paths>
         <include_path relative_path="freertos_kernel/include" type="c_include"/>
         <include_path relative_path="freertos_kernel/portable/GCC/ARM_CM4F" toolchain="armgcc" type="c_include" device_cores="core0_88MW320_xx_xxxx"/>
-        <include_path relative_path="freertos_kernel/portable/IAR/ARM_CM4F" toolchain="iar" type="c_include" device_cores="core0_88MW320_xx_xxxx"/>
-        <include_path relative_path="freertos_kernel/portable/IAR/ARM_CM4F" toolchain="iar" type="c_include" device_cores="core0_88MW320_xx_xxxx"/>
         <include_path relative_path="freertos_kernel/portable/GCC/ARM_CM4F" type="c_include" device_cores="core0_88MW320_xx_xxxx"/>
       </include_paths>
     </component>
@@ -2753,6 +1960,7 @@
         <files mask="UPGRADING" hidden="true"/>
         <files mask="FEATURES" hidden="true"/>
         <files mask="README" hidden="true"/>
+        <files mask=".git" hidden="true"/>
         <files mask="ChangeLogKSDK.txt" hidden="true"/>
         <files mask="CMakeLists.txt" hidden="true"/>
       </source>
@@ -3905,7 +3113,7 @@
           <component_dependency value="middleware.mbedtls.port.sssapi.88MW320"/>
         </any_of>
       </dependencies>
-      <source relative_path="include/mbedtls" type="src">
+      <source relative_path="include/mbedtls" type="c_include">
         <files mask="aes.h"/>
         <files mask="aesni.h"/>
         <files mask="arc4.h"/>
@@ -4748,11 +3956,13 @@
         <include_path relative_path="sdio" project_relative_path="inc" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.wifi.88MW320" name="wifi_nxp" brief="NXP WiFi functionality enables customers to quickly develop applications of interest to add connectivity to different sensors and appliances" version="1.3.21" full_name="NXP WiFi" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" category="Wireless/NXP WiFi" user_visible="true" type="middleware" package_base_path="middleware/wifi" project_base_path="wifi">
+    <component id="middleware.wifi.88MW320" name="wifi_nxp" brief="NXP Wi-Fi functionality enables customers to quickly develop applications of interest to add connectivity to different sensors and appliances" version="1.3.31" full_name="NXP Wi-Fi" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" category="Wireless/NXP Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/wifi" project_base_path="wifi">
       <dependencies>
         <all>
           <component_dependency value="middleware.freertos-kernel.88MW320"/>
           <component_dependency value="middleware.sdmmc.sdio.88MW320"/>
+          <component_dependency value="utility.debug_console.88MW320"/>
+          <component_dependency value="middleware.wifi.wifidriver.88MW320"/>
         </all>
       </dependencies>
       <source relative_path="dhcpd" type="c_include">
@@ -4761,77 +3971,12 @@
         <files mask="dns.h"/>
       </source>
       <source relative_path="dhcpd" type="src">
-        <files mask="dhcp-server.c"/>
         <files mask="dhcp-server-main.c"/>
+        <files mask="dhcp-server.c"/>
         <files mask="dns-server.c"/>
       </source>
-      <source relative_path="incl" type="c_include">
-        <files mask="dhcp-server.h"/>
-        <files mask="wm_utils.h"/>
-        <files mask="wmerrno.h"/>
-        <files mask="wmlog.h"/>
-        <files mask="wmtypes.h"/>
-      </source>
-      <source relative_path="wifidriver" type="src">
-        <files mask="mlan_sdio.c"/>
-        <files mask="mlan_11ac.c"/>
-        <files mask="mlan_11d.c"/>
-        <files mask="mlan_11h.c"/>
-        <files mask="mlan_11n.c"/>
-        <files mask="mlan_11n_aggr.c"/>
-        <files mask="mlan_11n_rxreorder.c"/>
-        <files mask="mlan_cfp.c"/>
-        <files mask="mlan_cmdevt.c"/>
-        <files mask="mlan_glue.c"/>
-        <files mask="mlan_init.c"/>
-        <files mask="mlan_join.c"/>
-        <files mask="mlan_misc.c"/>
-        <files mask="mlan_scan.c"/>
-        <files mask="mlan_shim.c"/>
-        <files mask="mlan_sta_cmd.c"/>
-        <files mask="mlan_sta_cmdresp.c"/>
-        <files mask="mlan_sta_event.c"/>
-        <files mask="mlan_sta_ioctl.c"/>
-        <files mask="mlan_sta_rx.c"/>
-        <files mask="mlan_txrx.c"/>
-        <files mask="mlan_uap_cmdevent.c"/>
-        <files mask="mlan_uap_ioctl.c"/>
-        <files mask="mlan_wmm.c"/>
-        <files mask="mlan_api.c"/>
-        <files mask="wifi.c"/>
-        <files mask="wifi_pwrmgr.c"/>
-        <files mask="wifi-debug.c"/>
-        <files mask="wifi-mem.c"/>
-        <files mask="wifi-sdio.c"/>
-        <files mask="wifi-uap.c"/>
-      </source>
-      <source relative_path="incl/wifidriver" type="c_include">
-        <files mask="mlan_sdio_api.h"/>
-        <files mask="wifi.h"/>
-        <files mask="wifi_events.h"/>
-        <files mask="wifi-decl.h"/>
-      </source>
-      <source relative_path="wifidriver/incl" type="c_include">
-        <files mask="mlan.h"/>
-        <files mask="mlan_11ac.h"/>
-        <files mask="mlan_11h.h"/>
-        <files mask="mlan_11n.h"/>
-        <files mask="mlan_11n_aggr.h"/>
-        <files mask="mlan_11n_rxreorder.h"/>
-        <files mask="mlan_decl.h"/>
-        <files mask="mlan_fw.h"/>
-        <files mask="mlan_ieee.h"/>
-        <files mask="mlan_init.h"/>
-        <files mask="mlan_ioctl.h"/>
-        <files mask="mlan_join.h"/>
-        <files mask="mlan_main.h"/>
-        <files mask="mlan_meas.h"/>
-        <files mask="mlan_remap_mem_operations.h"/>
-        <files mask="mlan_sdio.h"/>
-        <files mask="mlan_uap.h"/>
-        <files mask="mlan_util.h"/>
-        <files mask="mlan_wmm.h"/>
-        <files mask="mlan_api.h"/>
+      <source relative_path="incl/port/lwip" type="c_include">
+        <files mask="wm_net.h"/>
       </source>
       <source relative_path="port/lwip" type="src">
         <files mask="net.c"/>
@@ -4840,51 +3985,65 @@
       <source relative_path="port/lwip" type="c_include">
         <files mask="netif_decl.h"/>
       </source>
-      <source relative_path="port/os" type="src">
-        <files mask="os.c"/>
-      </source>
-      <source relative_path="wifidriver" type="c_include">
-        <files mask="wifi_common.h"/>
-        <files mask="wifi-debug.h"/>
-        <files mask="wifi-internal.h"/>
-        <files mask="wifi-sdio.h"/>
-      </source>
       <source relative_path="wlcmgr" type="src">
         <files mask="wlan.c"/>
         <files mask="wlan_txpwrlimit_cfg.c"/>
       </source>
-      <source relative_path="incl/wlcmgr" type="c_include">
-        <files mask="wlan.h"/>
-        <files mask="wlan_11d.h"/>
+      <source relative_path="wps" type="src">
+        <files mask="wmcrypto.c"/>
+        <files mask="wmcrypto_mem.c"/>
+        <files mask="wps_eapol.c"/>
+        <files mask="wps_l2.c"/>
+        <files mask="wps_main.c"/>
+        <files mask="wps_mem.c"/>
+        <files mask="wps_msg.c"/>
+        <files mask="wps_os.c"/>
+        <files mask="wps_start.c"/>
+        <files mask="wps_state.c"/>
+        <files mask="wps_wlan.c"/>
       </source>
-      <source relative_path="incl/port/lwip" type="c_include">
-        <files mask="wm_net.h"/>
+      <source relative_path="wps" type="c_include">
+        <files mask="wmcrypto.h"/>
+        <files mask="wmcrypto_mem.h"/>
+        <files mask="wps.h"/>
+        <files mask="wps_def.h"/>
+        <files mask="wps_eapol.h"/>
+        <files mask="wps_l2.h"/>
+        <files mask="wps_mem.h"/>
+        <files mask="wps_msg.h"/>
+        <files mask="wps_os.h"/>
+        <files mask="wps_wlan.h"/>
       </source>
-      <source relative_path="incl/port/os" type="c_include">
-        <files mask="wm_os.h"/>
+      <source relative_path="port/mbedtls" type="src">
+        <files mask="wm_mbedtls_entropy.c"/>
+        <files mask="wm_mbedtls_helper_api.c"/>
+        <files mask="wm_mbedtls_mem.c"/>
+        <files mask="threading_alt.c"/>
       </source>
-      <source relative_path="wifi_bt_firmware" type="c_include">
-        <files mask="sd8801_wlan.h"/>
-        <files mask="sduart8977_wlan_bt.h"/>
-        <files mask="sduart8978_wlan_bt.h"/>
+      <source relative_path="port/mbedtls" type="c_include">
+        <files mask="wm_mbedtls_entropy.h"/>
+        <files mask="wm_mbedtls_threading.h"/>
+        <files mask="wm_mbedtls_mem.h"/>
+        <files mask="threading_alt.h"/>
+        <files mask="timing_alt.h"/>
+        <files mask="wm_mbedtls_debug.h"/>
+      </source>
+      <source relative_path="incl/port/mbedtls" type="c_include">
+        <files mask="wm_mbedtls_helper_api.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="middleware_wifi_88MW320.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="dhcpd" type="c_include"/>
-        <include_path relative_path="incl" type="c_include"/>
-        <include_path relative_path="incl/wifidriver" type="c_include"/>
-        <include_path relative_path="wifidriver/incl" type="c_include"/>
-        <include_path relative_path="port/lwip" type="c_include"/>
-        <include_path relative_path="wifidriver" type="c_include"/>
-        <include_path relative_path="incl/wlcmgr" type="c_include"/>
         <include_path relative_path="incl/port/lwip" type="c_include"/>
-        <include_path relative_path="incl/port/os" type="c_include"/>
-        <include_path relative_path="wifi_bt_firmware" type="c_include"/>
+        <include_path relative_path="port/lwip" type="c_include"/>
+        <include_path relative_path="wps" type="c_include"/>
+        <include_path relative_path="incl/port/mbedtls" type="c_include"/>
+        <include_path relative_path="port/mbedtls" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.wifi.cli.88MW320" name="wifi_nxp_cli" brief="Middlware WiFi CLI" version="1.3.21" full_name="NXP WiFi CLI" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" category="Wireless/NXP WiFi" user_visible="true" type="middleware" package_base_path="middleware/wifi" project_base_path="wifi">
+    <component id="middleware.wifi.cli.88MW320" name="wifi_nxp_cli" brief="Middlware Wi-Fi CLI" version="1.3.31" full_name="NXP Wi-Fi CLI" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" category="Wireless/NXP Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/wifi" project_base_path="wifi">
       <dependencies>
         <component_dependency value="middleware.wifi.88MW320"/>
       </dependencies>
@@ -4900,14 +4059,15 @@
         <files mask="cli.h"/>
         <files mask="cli_utils.h"/>
         <files mask="iperf.h"/>
-        <files mask="ping.h"/>
+        <files mask="wifi_ping.h"/>
       </source>
       <source relative_path="nw_utils" type="src">
-        <files mask="ping.c"/>
+        <files mask="wifi_ping.c"/>
         <files mask="iperf.c"/>
       </source>
       <source relative_path="wlcmgr" type="src">
         <files mask="wlan_basic_cli.c"/>
+        <files mask="wlan_enhanced_tests.c"/>
         <files mask="wlan_tests.c"/>
         <files mask="wlan_test_mode_tests.c"/>
       </source>
@@ -4926,20 +4086,361 @@
         <include_path relative_path="incl/wlcmgr" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.wifi.unused.88MW320" name="wifi_nxp_unused" brief="Middlware WiFi unused" version="1.3.21" full_name="NXP WiFi unused" devices="device_88MW320_xx_xxxx" category="Wireless/NXP WiFi" user_visible="false" type="middleware" package_base_path="middleware/wifi" project_base_path="wifi">
+    <component id="middleware.wifi.unused.88MW320" name="wifi_nxp_unused" brief="Middlware Wi-Fi unused" version="1.3.31" full_name="NXP Wi-Fi unused" devices="device_88MW320_xx_xxxx" category="Wireless/NXP Wi-Fi" user_visible="false" type="middleware" package_base_path="middleware/wifi" project_base_path="wifi">
       <source relative_path="wifi_bt_firmware" type="doc">
         <files mask="version.txt"/>
       </source>
     </component>
-    <component id="mw_img_conv.88MW320" name="mw_img_conv" brief="mw_img_conv" version="1.0.0" full_name="mw_img_conv" devices="device_88MW320_xx_xxxx" user_visible="true" type="other" package_base_path="tools/mw_img_conv" project_base_path="mw_img_conv">
-      <source relative_path="bin" type="other">
-        <files mask="mw_img_conv.exe"/>
+    <component id="middleware.wifi.wifidriver.88MW320" name="nxp_wifi_driver" brief="NXP Wi-Fi driver" version="1.3.31" full_name="NXP Wi-Fi driver" devices="device_88MW320_xx_xxxx" device_cores="core0_88MW320_xx_xxxx" category="Wireless/NXP Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/wifi" project_base_path="wifi">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.freertos-kernel.88MW320"/>
+          <component_dependency value="middleware.sdmmc.sdio.88MW320"/>
+          <component_dependency value="utility.debug_console.88MW320"/>
+        </all>
+      </dependencies>
+      <source relative_path="incl" type="c_include">
+        <files mask="dhcp-server.h"/>
+        <files mask="wm_utils.h"/>
+        <files mask="wmerrno.h"/>
+        <files mask="wmlog.h"/>
+        <files mask="wmtypes.h"/>
       </source>
-      <source relative_path="src" type="src">
-        <files mask="mw_img_conv.c"/>
+      <source relative_path="incl/port/os" type="c_include">
+        <files mask="wm_os.h"/>
       </source>
+      <source relative_path="incl/wifidriver" type="c_include">
+        <files mask="mlan_sdio_api.h"/>
+        <files mask="wifi-decl.h"/>
+        <files mask="wifi.h"/>
+        <files mask="wifi_events.h"/>
+      </source>
+      <source relative_path="incl/wlcmgr" type="c_include">
+        <files mask="wlan.h"/>
+        <files mask="wlan_11d.h"/>
+      </source>
+      <source relative_path="port/os" type="src">
+        <files mask="os.c"/>
+      </source>
+      <source relative_path="wifi_bt_firmware" type="c_include">
+        <files mask="sd8801_wlan.h"/>
+        <files mask="sduart8977_wlan_bt.h"/>
+        <files mask="sduart8978_wlan_bt.h"/>
+        <files mask="sduart8987_wlan_bt.h"/>
+      </source>
+      <source relative_path="wifidriver/incl" type="c_include">
+        <files mask="mlan.h"/>
+        <files mask="mlan_11ac.h"/>
+        <files mask="mlan_11h.h"/>
+        <files mask="mlan_11n.h"/>
+        <files mask="mlan_11n_aggr.h"/>
+        <files mask="mlan_11n_rxreorder.h"/>
+        <files mask="mlan_api.h"/>
+        <files mask="mlan_decl.h"/>
+        <files mask="mlan_fw.h"/>
+        <files mask="mlan_ieee.h"/>
+        <files mask="mlan_init.h"/>
+        <files mask="mlan_ioctl.h"/>
+        <files mask="mlan_join.h"/>
+        <files mask="mlan_main_defs.h"/>
+        <files mask="mlan_main.h"/>
+        <files mask="mlan_meas.h"/>
+        <files mask="mlan_remap_mem_operations.h"/>
+        <files mask="type_decls.h"/>
+        <files mask="mlan_sdio_defs.h"/>
+        <files mask="mlan_sdio.h"/>
+        <files mask="mlan_uap.h"/>
+        <files mask="mlan_util.h"/>
+        <files mask="mlan_wmm.h"/>
+      </source>
+      <source relative_path="wifidriver" type="src">
+        <files mask="mlan_11ac.c"/>
+        <files mask="mlan_11d.c"/>
+        <files mask="mlan_11h.c"/>
+        <files mask="mlan_11n.c"/>
+        <files mask="mlan_11n_aggr.c"/>
+        <files mask="mlan_11n_rxreorder.c"/>
+        <files mask="mlan_api.c"/>
+        <files mask="mlan_cfp.c"/>
+        <files mask="mlan_cmdevt.c"/>
+        <files mask="mlan_glue.c"/>
+        <files mask="mlan_init.c"/>
+        <files mask="mlan_join.c"/>
+        <files mask="mlan_misc.c"/>
+        <files mask="mlan_scan.c"/>
+        <files mask="mlan_sdio.c"/>
+        <files mask="mlan_shim.c"/>
+        <files mask="mlan_sta_cmd.c"/>
+        <files mask="mlan_sta_cmdresp.c"/>
+        <files mask="mlan_sta_event.c"/>
+        <files mask="mlan_sta_ioctl.c"/>
+        <files mask="mlan_sta_rx.c"/>
+        <files mask="mlan_txrx.c"/>
+        <files mask="mlan_uap_cmdevent.c"/>
+        <files mask="mlan_uap_ioctl.c"/>
+        <files mask="mlan_wmm.c"/>
+        <files mask="wifi-debug.c"/>
+        <files mask="wifi-mem.c"/>
+        <files mask="wifi-sdio.c"/>
+        <files mask="wifi-uap.c"/>
+        <files mask="wifi-wps.c"/>
+        <files mask="wifi.c"/>
+        <files mask="wifi_pwrmgr.c"/>
+        <files mask="sdio.c"/>
+        <files mask="firmware_dnld.c"/>
+      </source>
+      <source relative_path="wifidriver" type="c_include">
+        <files mask="wifi-debug.h"/>
+        <files mask="wifi-internal.h"/>
+        <files mask="wifi-sdio.h"/>
+        <files mask="wifi_common.h"/>
+        <files mask="sdio.h"/>
+        <files mask="firmware_dnld.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wifi_wifidriver_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="incl" type="c_include"/>
+        <include_path relative_path="incl/port/os" type="c_include"/>
+        <include_path relative_path="incl/wifidriver" type="c_include"/>
+        <include_path relative_path="incl/wlcmgr" type="c_include"/>
+        <include_path relative_path="wifi_bt_firmware" type="c_include"/>
+        <include_path relative_path="wifidriver" type="c_include"/>
+        <include_path relative_path="wifidriver/incl" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.UART_Adapter.88MW320" name="wireless UART_Adapter" brief="Middleware wireless uart_adapter" version="1.0.0" full_name="wireless UART_Adapter" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <source relative_path="framework/SerialManager/Source" project_relative_path="SerialManager/source" type="c_include">
+        <files mask="UART_Serial_Adapter.h"/>
+      </source>
+      <source relative_path="framework/SerialManager/Source" project_relative_path="SerialManager/source" type="src">
+        <files mask="UART_Serial_Adapter.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_UART_Adapter_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/SerialManager/Source" project_relative_path="SerialManager/source" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.bluetooth_host.88MW320" name="wireless bluetooth host" brief="Middleware wireless bluetooth_host" version="1.0.0" full_name="wireless bluetooth host" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="bluetooth">
+      <source relative_path="bluetooth/host/interface" project_relative_path="host/interface" type="c_include">
+        <files mask="att_errors.h"/>
+        <files mask="att_types.h"/>
+        <files mask="ble_constants.h"/>
+        <files mask="ble_general.h"/>
+        <files mask="ble_sig_defines.h"/>
+        <files mask="ble_utils.h"/>
+        <files mask="gap_interface.h"/>
+        <files mask="gap_types.h"/>
+        <files mask="gatt_client_interface.h"/>
+        <files mask="gatt_database.h"/>
+        <files mask="gatt_db_app_interface.h"/>
+        <files mask="gatt_interface.h"/>
+        <files mask="gatt_types.h"/>
+        <files mask="l2ca_cb_interface.h"/>
+        <files mask="l2ca_types.h"/>
+        <files mask="vendor_debug_commands.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_bluetooth_host_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="bluetooth/host/interface" project_relative_path="host/interface" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.framework_Common.88MW320" name="wireless framework Common" brief="Middleware wireless framework_common" version="1.0.0" full_name="wireless framework Common" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <source relative_path="framework/Common" project_relative_path="Common" type="c_include">
+        <files mask="EmbeddedTypes.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_framework_Common_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/Common" project_relative_path="Common" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.framework_FSCI.88MW320" name="wireless framework FSCI" brief="Middleware wireless framework_fsci" version="1.0.0" full_name="wireless framework FSCI" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <source relative_path="framework/FSCI/Interface" project_relative_path="FSCI/interface" type="c_include">
+        <files mask="FsciInterface.h"/>
+      </source>
+      <source relative_path="framework/FSCI/Source" project_relative_path="FSCI/source" type="src">
+        <files mask="FsciCommands.c"/>
+        <files mask="FsciCommunication.c"/>
+        <files mask="FsciLogging.c"/>
+        <files mask="FsciMain.c"/>
+      </source>
+      <source relative_path="framework/FSCI/Source" project_relative_path="FSCI/source" type="c_include">
+        <files mask="FsciCommands.h"/>
+        <files mask="FsciCommunication.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_framework_FSCI_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/FSCI/Interface" project_relative_path="FSCI/interface" type="c_include"/>
+        <include_path relative_path="framework/FSCI/Source" project_relative_path="FSCI/source" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.framework_MemManager.88MW320" name="wireless framework MemManager" brief="Middleware wireless framework_memmanager" version="1.0.0" full_name="wireless framework MemManager" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <dependencies>
+        <component_dependency value="middleware.wireless.framework_lists.88MW320"/>
+      </dependencies>
+      <source relative_path="framework/MemManager/Interface" project_relative_path="MemManager/interface" type="c_include">
+        <files mask="MemManager.h"/>
+      </source>
+      <source relative_path="framework/MemManager/Source" project_relative_path="MemManager/source" type="src">
+        <files mask="MemManager.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_framework_MemManager_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/MemManager/Interface" project_relative_path="MemManager/interface" type="c_include"/>
+        <include_path relative_path="framework/MemManager/Source" project_relative_path="MemManager/source" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.framework_Messaging.88MW320" name="wireless framework Messaging" brief="Middleware wireless framework_messaging" version="1.0.0" full_name="wireless framework Messaging" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <source relative_path="framework/Messaging/Interface" project_relative_path="Messaging/interface" type="c_include">
+        <files mask="Messaging.h"/>
+      </source>
+      <source relative_path="framework/Messaging/Source" project_relative_path="Messaging/source" type="src">
+        <files mask="Messaging.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_framework_Messaging_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/Messaging/Interface" project_relative_path="Messaging/interface" type="c_include"/>
+        <include_path relative_path="framework/Messaging/Source" project_relative_path="Messaging/source" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.framework_OSAbstraction_freertos.88MW320" name="wireless framework OSAbstraction Freertos" brief="Middleware wireless framework_osabstraction_freertos" version="1.0.0" full_name="wireless framework OSAbstraction Freertos" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <source relative_path="framework/OSAbstraction/Interface" project_relative_path="OSAbstraction/interface" type="c_include">
+        <files mask="frm_os_abstraction.h"/>
+        <files mask="frm_os_abstraction_config.h"/>
+        <files mask="frm_os_abstraction_free_rtos.h"/>
+      </source>
+      <source relative_path="framework/OSAbstraction/Source" project_relative_path="OSAbstraction/source" type="src">
+        <files mask="frm_os_abstraction_free_rtos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_framework_OSAbstraction_freertos_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/OSAbstraction/Interface" project_relative_path="OSAbstraction/interface" type="c_include"/>
+        <include_path relative_path="framework/OSAbstraction/Source" project_relative_path="OSAbstraction/source" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.framework_Panic.88MW320" name="wireless framework Panic" brief="Middleware wireless framework_panic" version="1.0.0" full_name="wireless framework Panic" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <source relative_path="framework/Panic/Interface" project_relative_path="Panic/interface" type="c_include">
+        <files mask="Panic.h"/>
+      </source>
+      <source relative_path="framework/Panic/Source" project_relative_path="Panic/source" type="src">
+        <files mask="Panic.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_framework_Panic_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/Panic/Interface" project_relative_path="Panic/interface" type="c_include"/>
+        <include_path relative_path="framework/Panic/Source" project_relative_path="Panic/source" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.framework_SerialManager.88MW320" name="wireless framework SerialManager" brief="Middleware wireless framework_serialmanager" version="1.0.0" full_name="wireless framework SerialManager" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <source relative_path="framework/SerialManager/Interface" project_relative_path="SerialManager/interface" type="c_include">
+        <files mask="SerialManager.h"/>
+      </source>
+      <source relative_path="framework/SerialManager/Source" project_relative_path="SerialManager/source" type="src">
+        <files mask="SerialManager.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_framework_SerialManager_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/SerialManager/Interface" project_relative_path="SerialManager/interface" type="c_include"/>
+        <include_path relative_path="framework/SerialManager/Source" project_relative_path="SerialManager/source" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.framework_TimersManager.88MW320" name="wireless framework TimersManager" brief="Middleware wireless framework_timersmanager" version="1.0.0" full_name="wireless framework TimersManager" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <source relative_path="framework/TimersManager/Interface" project_relative_path="TimersManager/interface" type="c_include">
+        <files mask="TimersManager.h"/>
+      </source>
+      <source relative_path="framework/TimersManager/Source" project_relative_path="TimersManager/source" type="src">
+        <files mask="TimersManager.c"/>
+      </source>
+      <source relative_path="framework/TimersManager/Source" project_relative_path="TimersManager/source" type="c_include">
+        <files mask="TimersManagerInternal.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_framework_TimersManager_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/TimersManager/Interface" project_relative_path="TimersManager/interface" type="c_include"/>
+        <include_path relative_path="framework/TimersManager/Source" project_relative_path="TimersManager/source" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.framework_function_lib.88MW320" name="wireless framework Function Lib" brief="Middleware wireless framework_function_lib" version="1.0.0" full_name="wireless framework Function Lib" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <source relative_path="framework/FunctionLib" project_relative_path="FunctionLib" type="src">
+        <files mask="FunctionLib.c"/>
+      </source>
+      <source relative_path="framework/FunctionLib" project_relative_path="FunctionLib" type="c_include">
+        <files mask="FunctionLib.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_framework_function_lib_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/FunctionLib" project_relative_path="FunctionLib" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.framework_lists.88MW320" name="wireless framework lists" brief="Middleware wireless framework_lists" version="1.0.0" full_name="wireless framework lists" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <source relative_path="framework/Lists" project_relative_path="Lists/interface" type="c_include">
+        <files mask="GenericList.h"/>
+      </source>
+      <source relative_path="framework/Lists" project_relative_path="Lists/source" type="src">
+        <files mask="GenericList.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_framework_lists_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/Lists" project_relative_path="Lists/interface" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.framework_module_info.88MW320" name="wireless framework Module Info" brief="Middleware wireless framework_module_info" version="1.0.0" full_name="wireless framework Module Info" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <source relative_path="framework/ModuleInfo" project_relative_path="ModuleInfo" type="c_include">
+        <files mask="ModuleInfo.h"/>
+      </source>
+      <source relative_path="framework/ModuleInfo" project_relative_path="ModuleInfo" type="src">
+        <files mask="ModuleInfo.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_framework_module_info_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/ModuleInfo" project_relative_path="ModuleInfo" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.framework_sec_lib.88MW320" name="wireless framework Sec_lib" brief="Middleware wireless framework_sec_lib" version="1.0.0" full_name="wireless framework Sec_lib" devices="device_88MW320_xx_xxxx" user_visible="true" type="middleware" package_base_path="middleware/wireless" project_base_path="framework">
+      <source relative_path="framework/SecLib" project_relative_path="SecLib" type="c_include">
+        <files mask="SecLib.h"/>
+      </source>
+      <source relative_path="framework/SecLib" project_relative_path="SecLib" type="src">
+        <files mask="SecLib.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wireless_framework_sec_lib_88MW320.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="framework/SecLib" project_relative_path="SecLib" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="mw_img_conv.88MW320" name="mw_img_conv" brief="mw_img_conv" version="1.1.0" full_name="mw_img_conv" devices="device_88MW320_xx_xxxx" user_visible="true" type="other" package_base_path="tools/mw_img_conv" project_base_path="tools/mw_img_conv">
       <source relative_path="mw320" type="script">
         <files mask="mkimg.sh"/>
+        <files mask="mw_img_conv.py"/>
       </source>
     </component>
     <component id="platform.utilities.misc_utilities.88MW320" name="misc_utilities" brief="Utilities which is needed for particular toolchain like the SBRK function required to address limitation between HEAP and STACK in GCC toolchain library." version="1.0.0" full_name="Utilities miscellaneous" devices="device_88MW320_xx_xxxx" user_visible="true" type="utilities" package_base_path="devices/88MW320/utilities" project_base_path="utilities">
