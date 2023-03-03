@@ -237,8 +237,8 @@ static struct
 
     /* known networks list */
     struct wlan_network networks[WLAN_MAX_KNOWN_NETWORKS];
-    int cur_network_idx;
-    int cur_uap_network_idx;
+    unsigned int cur_network_idx;
+    unsigned int cur_uap_network_idx;
 
     unsigned int num_networks;
     unsigned int scan_count;
@@ -2087,21 +2087,21 @@ static void wlcm_process_authentication_event(struct wifi_message *msg,
 
         if (is_state(CM_STA_REQUESTING_ADDRESS) || is_state(CM_STA_OBTAINING_ADDRESS))
         {
-            void *if_handle = NULL;
+            void *if_handle_tmp = NULL;
             /* On Link loss, we need to take down the interface. */
             if (network->type == WLAN_BSS_TYPE_STA)
             {
-                if_handle = net_get_mlan_handle();
+                if_handle_tmp = net_get_mlan_handle();
             }
 
-            if (if_handle != NULL)
+            if (if_handle_tmp != NULL)
             {
                 /* Forcefully stop dhcp on given interface.
                  * net_interface_dhcp_stop internally does nothing
                  * if dhcp client is not started.
                  */
-                net_interface_dhcp_stop(if_handle);
-                net_interface_down(if_handle);
+                net_interface_dhcp_stop(if_handle_tmp);
+                net_interface_down(if_handle_tmp);
             }
         }
 
@@ -3211,7 +3211,7 @@ static void cm_main(os_thread_arg_t data)
 /* WLAN Connection Manager scan results callback */
 static int prov_wps_scan_results(unsigned int count)
 {
-    int i;
+    unsigned int i;
     int err;
 
     if (count == 0)
@@ -3715,7 +3715,7 @@ void wlan_initialize_uap_network(struct wlan_network *net)
 
 static bool isHexNumber(const char *str, const size_t len)
 {
-    for (int i = 0; i < len; ++i)
+    for (unsigned int i = 0; i < len; ++i)
     {
         if (('0' > str[i] || '9' < str[i]) && ('A' > str[i] || 'F' < str[i]) && ('a' > str[i] || 'f' < str[i]))
         {
@@ -3775,10 +3775,17 @@ static bool wlan_is_key_valid(struct wlan_network *network)
     return true;
 }
 
+int wlan_abort_connect()
+{
+    wlan.reassoc_count = WLAN_RECONNECT_LIMIT;
+    wlan.scan_count = WLAN_RESCAN_LIMIT;
+    return WM_SUCCESS;
+}
+
 int wlan_add_network(struct wlan_network *network)
 {
     int pos = -1;
-    int i;
+    unsigned int i;
     unsigned int len;
     int ret;
 
@@ -4106,7 +4113,7 @@ int wlan_disconnect(void)
 int wlan_connect(char *name)
 {
     unsigned int len = name != NULL ? strlen(name) : 0U;
-    int i            = 0, ret;
+    unsigned int i            = 0, ret;
 
     if (!wlan.running)
     {

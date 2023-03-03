@@ -50,7 +50,7 @@ static void wlan_card_fw_status(t_u16 *dat)
 static bool wlan_card_ready_wait(t_u32 poll)
 {
     t_u16 dat;
-    int i;
+    t_u32 i;
 
     for (i = 0; i < poll; i++)
     {
@@ -65,7 +65,7 @@ static bool wlan_card_ready_wait(t_u32 poll)
     return false;
 }
 
-int32_t wlan_download_normal_fw(enum wlan_fw_storage_type st, const t_u8 *wlanfw, t_u32 firmwarelen, t_u32 ioport)
+int32_t wlan_download_normal_fw(enum wlan_fw_storage_type st, const t_u8 *wlanfw_tmp, t_u32 firmwarelen, t_u32 ioport)
 {
     t_u32 tx_blocks = 0, txlen = 0, buflen = 0;
     t_u16 len    = 0;
@@ -130,12 +130,12 @@ int32_t wlan_download_normal_fw(enum wlan_fw_storage_type st, const t_u8 *wlanfw
 #if 0
 		if (st == WLAN_FW_IN_FLASH)
 			flash_drv_read(fl_dev, outbuf, txlen,
-				       (t_u32) (wlanfw + offset));
+				       (t_u32) (wlanfw_tmp + offset));
 		else
 #endif
         if (st == WLAN_FW_IN_RAM)
         {
-            (void)memcpy((void *)outbuf, (const void *)(wlanfw + offset), txlen);
+            (void)memcpy((void *)outbuf, (const void *)(wlanfw_tmp + offset), txlen);
         }
 
         (void)sdio_drv_write(ioport, 1, tx_blocks, buflen, (t_u8 *)outbuf, &resp);

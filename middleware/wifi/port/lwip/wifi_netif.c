@@ -709,7 +709,7 @@ err_t lwip_netif_uap_init(struct netif *netif)
 #ifdef CONFIG_WPS2
 int wps_low_level_output(const u8_t interface, const u8_t *buf, t_u32 len)
 {
-    int i;
+    mlan_status i;
     u32_t pkt_len, outbuf_len;
 
     uint8_t *outbuf = wifi_get_outbuf(&outbuf_len);

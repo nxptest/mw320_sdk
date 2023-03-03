@@ -134,11 +134,11 @@ Change log:
 /** Rate index for HR/DSSS 3 */
 #define MLAN_RATE_INDEX_HRDSSS3 3
 /** Rate index for OFDM 0 */
-#define MLAN_RATE_INDEX_OFDM0 4U
+#define MLAN_RATE_INDEX_OFDM0 4
 /** Rate index for OFDM 7 */
 #define MLAN_RATE_INDEX_OFDM7 11
 /** Rate index for MCS 0 */
-#define MLAN_RATE_INDEX_MCS0 12U
+#define MLAN_RATE_INDEX_MCS0 12
 /** Rate index for MCS 7 */
 #define MLAN_RATE_INDEX_MCS7 19
 /** Rate index for MCS 9 */
@@ -178,12 +178,12 @@ Change log:
 #define MLAN_RX_CMD_BUF_SIZE (2 * 1024)
 
 /** MLAN MAC Address Length */
-#define MLAN_MAC_ADDR_LENGTH (6U)
+#define MLAN_MAC_ADDR_LENGTH (6)
 /** MLAN 802.11 MAC Address */
 typedef t_u8 mlan_802_11_mac_addr[MLAN_MAC_ADDR_LENGTH];
 
 /** MLAN Maximum SSID Length */
-#define MLAN_MAX_SSID_LENGTH (32U)
+#define MLAN_MAX_SSID_LENGTH (32)
 
 /** RTS/FRAG related defines */
 /** Minimum RTS value */

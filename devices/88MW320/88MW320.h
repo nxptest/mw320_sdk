@@ -2825,11 +2825,11 @@ typedef struct {
 /** Peripheral DAC base address */
 #define DAC_BASE                                 (0x460B0200u)
 /** Peripheral DAC base pointer */
-#define DAC                                      ((DAC_Type *)DAC_BASE)
+#define DAC_MW320                                ((DAC_Type *)DAC_BASE)
 /** Array initializer of DAC peripheral base addresses */
 #define DAC_BASE_ADDRS                           { DAC_BASE }
 /** Array initializer of DAC peripheral base pointers */
-#define DAC_BASE_PTRS                            { DAC }
+#define DAC_BASE_PTRS                            { DAC_MW320 }
 /** Interrupt vectors for the DAC peripheral type */
 #define DAC_IRQS                                 { DAC_IRQn }
 

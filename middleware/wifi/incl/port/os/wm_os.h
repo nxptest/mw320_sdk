@@ -544,7 +544,7 @@ static inline void os_exit_critical_section(unsigned long state)
 }
 
 /*** Tick function */
-#define MAX_CUSTOM_HOOKS 4U
+#define MAX_CUSTOM_HOOKS 4
 
 extern void (*g_os_tick_hooks[MAX_CUSTOM_HOOKS])(void);
 extern void (*g_os_idle_hooks[MAX_CUSTOM_HOOKS])(void);
@@ -1767,4 +1767,7 @@ static inline void os_enable_all_interrupts(void)
 
 unsigned int os_get_timestamp(void);
 
+// TRNG
+void get_hash_from_uninit_mem(void);
+uint8_t *get_uninit_mem_hash_buff(uint8_t offset);
 #endif /* ! _WM_OS_H_ */

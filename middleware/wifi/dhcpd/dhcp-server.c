@@ -248,7 +248,7 @@ int dhcp_send_response(int sock, struct sockaddr *addr, char *msg, int len)
 {
     int nb;
     unsigned int sent = 0;
-    while (sent < len)
+    while (sent < (unsigned int)len)
     {
         nb = sendto(sock, msg + sent, len - sent, 0, addr, sizeof(struct sockaddr_in));
         if (nb < 0)
@@ -275,7 +275,7 @@ static int process_dhcp_message(char *msg, int len)
     bool got_client_ip    = 0;
     uint32_t new_ip;
 
-    if (!msg || len < sizeof(struct bootp_header) + sizeof(struct bootp_option) + 1U)
+    if (!msg || (unsigned int)len < sizeof(struct bootp_header) + sizeof(struct bootp_option) + 1U)
         return -WM_E_DHCPD_INVALID_INPUT;
 
     hdr = (struct bootp_header *)(void *)msg;

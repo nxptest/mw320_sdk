@@ -348,7 +348,7 @@ static mlan_status wlan_decode_rx_packet(t_u8 *pmbuf, t_u32 upld_type)
         wifi_io_d(" --- Rx: EVENT Response ---");
     }
 
-    SDIOPkt *sdiopkt = (SDIOPkt *)(void *)pmbuf;
+    SDIOPkt *sdiopkt_tmp = (SDIOPkt *)(void *)pmbuf;
     int ret;
     struct bus_message msg;
 
@@ -357,16 +357,16 @@ static mlan_status wlan_decode_rx_packet(t_u8 *pmbuf, t_u32 upld_type)
         if (upld_type == MLAN_TYPE_CMD)
             msg.data = wifi_mem_malloc_cmdrespbuf();
         else
-            msg.data = wifi_malloc_eventbuf((size_t)sdiopkt->size);
+            msg.data = wifi_malloc_eventbuf((size_t)sdiopkt_tmp->size);
 
         if (msg.data == MNULL)
         {
-            wifi_io_e("[fail] Buffer alloc: T: %d S: %d", upld_type, sdiopkt->size);
+            wifi_io_e("[fail] Buffer alloc: T: %d S: %d", upld_type, sdiopkt_tmp->size);
             return MLAN_STATUS_FAILURE;
         }
 
         msg.event = (uint16_t)upld_type;
-        (void)memcpy((void *)msg.data, (const void *)pmbuf, sdiopkt->size);
+        (void)memcpy((void *)msg.data, (const void *)pmbuf, sdiopkt_tmp->size);
 
         ret = os_queue_send(bus.event_queue, &msg, os_msec_to_ticks(WIFI_RESP_WAIT_TIME));
 
@@ -1286,7 +1286,8 @@ static mlan_status wlan_get_rd_port(mlan_adapter *pmadapter, t_u32 *pport, t_u32
     t_u32 port_count = 0;
 #endif
 
-    *pport    = -1;
+    //*pport    = -1;
+    *pport    = 0xffffffff;
     *rxlen    = 0;
     *rxblocks = 0;
 
@@ -1411,7 +1412,7 @@ static mlan_status wlan_get_rd_port(mlan_adapter *pmadapter, t_u32 *pport, t_u32
 #endif
         }
 
-        if (*pport == -1)
+        if (*pport == 0xffffffff)
         {
             wifi_io_e("wlan_get_rd_port : Returning FAILURE");
             return MLAN_STATUS_FAILURE;

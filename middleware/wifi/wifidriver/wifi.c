@@ -1003,7 +1003,7 @@ static int remove_mcast_ip(uint8_t *mac_addr)
 static int make_filter_list(char *mlist, int maxlen)
 {
     mcast_filter *node_t;
-    int maddr_cnt = 0;
+    uint8_t maddr_cnt = 0;
     (void)wifi_get_mcastf_lock();
     node_t = wm_wifi.start_list;
     while (node_t != NULL)

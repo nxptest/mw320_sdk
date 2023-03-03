@@ -405,7 +405,7 @@ extern t_void (*assert_callback)(IN t_void *pmoal_handle, IN t_u32 cond);
 #define MLAN_DEFAULT_LISTEN_INTERVAL 10
 
 /** Maximum number of region codes */
-#define MRVDRV_MAX_REGION_CODE 10U
+#define MRVDRV_MAX_REGION_CODE 10
 
 /** Maximum number of CFP codes for BG */
 #define MRVDRV_MAX_CFP_CODE_BG 0

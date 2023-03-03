@@ -1323,7 +1323,7 @@ typedef struct _mlan_bss_info
 } mlan_bss_info, *pmlan_bss_info;
 
 /** MAXIMUM number of TID */
-#define MAX_NUM_TID 8U
+#define MAX_NUM_TID 8
 
 /** Max RX Win size */
 #define MAX_RX_WINSIZE 64
@@ -1484,7 +1484,7 @@ typedef struct _mlan_debug_info
 } mlan_debug_info, *pmlan_debug_info;
 
 /** Maximum number of clients supported by AP */
-#define MAX_NUM_CLIENTS 16U
+#define MAX_NUM_CLIENTS 16
 
 /** station info */
 typedef struct _sta_info

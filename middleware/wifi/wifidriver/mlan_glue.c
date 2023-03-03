@@ -2114,18 +2114,18 @@ int wifi_process_cmd_response(HostCmd_DS_COMMAND *resp)
                     {
                         if (wm_wifi.cmd_resp_priv != NULL)
                         {
-                            wifi_cal_data_t *cal_data = (wifi_cal_data_t *)wm_wifi.cmd_resp_priv;
-                            cal_data->data            = (uint8_t *)os_mem_alloc(cfg_data->data_len);
-                            if (cal_data->data == MNULL)
+                            wifi_cal_data_t *cal_data_tmp = (wifi_cal_data_t *)wm_wifi.cmd_resp_priv;
+                            cal_data_tmp->data            = (uint8_t *)os_mem_alloc(cfg_data->data_len);
+                            if (cal_data_tmp->data == MNULL)
                             {
                                 wifi_w(
                                     "No mem. Cannot"
                                     "process CAL DATA command");
                                 break;
                             }
-                            cal_data->data_len = cfg_data->data_len;
+                            cal_data_tmp->data_len = cfg_data->data_len;
 
-                            (void)memcpy((void *)cal_data->data, (const void *)cfg_data->data, cfg_data->data_len);
+                            (void)memcpy((void *)cal_data_tmp->data, (const void *)cfg_data->data, cfg_data->data_len);
                         }
                     }
                     wm_wifi.cmd_resp_status = WM_SUCCESS;
@@ -2915,10 +2915,11 @@ int wifi_handle_fw_event(struct bus_message *msg)
                 wifi_event_completion(WIFI_EVENT_UAP_CLIENT_DEAUTH, WIFI_EVENT_REASON_SUCCESS, sta_addr);
             }
             wlan_update_uap_ampdu_info(evt->src_mac_addr, 0);
-            if (evt->reason_code == AP_DEAUTH_REASON_MAC_ADDR_BLOCKED)
+            if (evt->reason_code == AP_DEAUTH_REASON_MAC_ADDR_BLOCKED) {
                 wevt_d("EVENT: Blacklist sta %02x:%02x:%02x:%02x:%02x:%02x: try to join the network \r\n",
                        evt->src_mac_addr[0], evt->src_mac_addr[1], evt->src_mac_addr[2], evt->src_mac_addr[3],
                        evt->src_mac_addr[4], evt->src_mac_addr[5]);
+	    }
             break;
         case EVENT_MICRO_AP_BSS_START:
             wifi_d("uAP start event received");
@@ -3214,7 +3215,7 @@ int wrapper_bssdesc_first_set(int bss_index,
                               _Cipher_t *rsn_ucstCipher,
                               bool *is_pmf_required)
 {
-    if (bss_index >= mlan_adap->num_in_scan_table)
+    if ((t_u32)bss_index >= mlan_adap->num_in_scan_table)
     {
         wifi_w("Unable to find given entry %d in BSS table", bss_index);
         return -WM_FAIL;
@@ -3291,7 +3292,7 @@ int wrapper_bssdesc_second_set(int bss_index,
                                int *trans_ssid_len,
                                uint8_t *trans_ssid)
 {
-    if (bss_index >= mlan_adap->num_in_scan_table)
+    if ((t_u32)bss_index >= mlan_adap->num_in_scan_table)
     {
         wifi_w("Unable to find given entry %d in BSS table", bss_index);
         return -WM_FAIL;
@@ -3448,9 +3449,9 @@ void wifi_get_value1_from_cmdresp(const HostCmd_DS_COMMAND *resp, uint32_t *dev_
 /*
  * fixme: This function will be present till mlan integration is complete
  */
-void wifi_get_mac_address_from_cmdresp(const HostCmd_DS_COMMAND *resp, uint8_t *mac_addr)
+void wifi_get_mac_address_from_cmdresp(const HostCmd_DS_COMMAND *resp, uint8_t *addr)
 {
-    (void)memcpy((void *)mac_addr, (const void *)&resp->params.mac_addr.mac_addr, MLAN_MAC_ADDR_LENGTH);
+    (void)memcpy((void *)addr, (const void *)&resp->params.mac_addr.mac_addr, MLAN_MAC_ADDR_LENGTH);
 }
 
 void wifi_get_firmware_ver_ext_from_cmdresp(const HostCmd_DS_COMMAND *resp, uint8_t *fw_ver_ext)

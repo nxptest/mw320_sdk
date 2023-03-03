@@ -20,7 +20,7 @@
 
 #define CONFIG_FLASH_PARTITION_COUNT 16
 
-#define CONFIG_WPS2
+//#define CONFIG_WPS2
 #define CONFIG_IPV6 1
 
 #define CONFIG_EXT_COEX

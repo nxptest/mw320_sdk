@@ -133,7 +133,7 @@ int process_dns_message(char *msg, int len, struct sockaddr_in *fromaddr)
     char *outp = msg + len;
     int found  = 0, nq, i;
 
-    if (len < sizeof(struct dns_header))
+    if ((unsigned int)len < sizeof(struct dns_header))
     {
         dhcp_e("DNS request is not complete, hence ignoring it");
         return -WM_E_DHCPD_DNS_IGNORE;

@@ -1371,6 +1371,32 @@ int wifi_set_antenna(t_u32 ant_mode, t_u16 evaluate_time)
     return wifi_send_rf_antenna_cmd(HostCmd_ACT_GEN_SET, &ant_mode, &evaluate_time);
 }
 
+static int wifi_send_get_log_cmd(wlan_pkt_stats_t *stats)
+{
+    mlan_private *pmpriv = (mlan_private *)mlan_adap->priv[0];
+
+    wifi_get_command_lock();
+    HostCmd_DS_COMMAND *cmd = wifi_get_command_buffer();
+
+    cmd->seq_num = 0x0;
+    cmd->result  = 0x0;
+
+    mlan_status rv =
+        wlan_ops_sta_prepare_cmd(pmpriv, HostCmd_CMD_802_11_GET_LOG, HostCmd_ACT_GEN_GET, 0, NULL, NULL, cmd);
+    if (rv != MLAN_STATUS_SUCCESS)
+        return -WM_FAIL;
+
+    return wifi_wait_for_cmdresp(stats);
+}
+
+int wifi_get_log(wlan_pkt_stats_t *stats)
+{
+    int rv = wifi_send_get_log_cmd(stats);
+    if (rv != WM_SUCCESS || wm_wifi.cmd_resp_status != WM_SUCCESS)
+        return -WM_FAIL;
+
+    return WM_SUCCESS;
+}
 
 static int wifi_send_cmd_802_11_supplicant_pmk(int mode, mlan_ds_sec_cfg *sec, mlan_act_ioctl action)
 {

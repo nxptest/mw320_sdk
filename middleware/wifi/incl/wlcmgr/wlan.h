@@ -629,6 +629,9 @@ struct wifi_scan_params_t
     int split_scan_delay;
 };
 
+/** Wi-Fi firmware stat from \ref wifi_pkt_stats_t
+ */
+typedef wifi_pkt_stats_t wlan_pkt_stats_t;
 /** Configuration for Wireless scan channel list from
  * \ref wifi_scan_channel_list_t
  */
@@ -976,6 +979,7 @@ void wlan_deinit(int action);
  */
 void wlan_initialize_uap_network(struct wlan_network *net);
 
+int wlan_abort_connect(void);
 /** Add a network profile to the list of known networks.
  *
  *  This function copies the contents of \a network to the list of known

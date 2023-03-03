@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <wm_os.h>
 #include <wmlog.h>
+#include <hkdf-sha.h>
 
 #define mainTEST_TASK_PRIORITY (tskIDLE_PRIORITY)
 #define mainTEST_DELAY         (400 / portTICK_RATE_MS)
@@ -603,4 +604,62 @@ unsigned int os_get_timestamp(void)
 
     vPortExitCritical();
     return ((CNTMAX - counter) / CPU_CLOCK_TICKSPERUSEC) + (nticks * USECSPERTICK);
+}
+
+extern unsigned long __nvram_end__;
+extern unsigned long  __bss_start__;
+extern unsigned long  __HeapBase;
+static uint8_t u_hash_buff[SHA256HashSize];
+static uint8_t _uninit_mem_hash_len;
+
+/*end address of uninitialized heap memory */
+const unsigned long _uninit_heap_end = 0x0015BFFF;
+
+/*end address of uninitialized heap_2 memory*/
+const unsigned long _uninit_heap_2_end = 0x2001AFFF;
+
+/*last address of 4K NVRAM */
+const unsigned long _uninit_nvram_end = 0x480C3FFF;
+
+#define MIN_UNINIT_RAM_REQ_FOR_128BIT_ENTROPY (44 * 1024)
+
+uint8_t *get_uninit_mem_hash_buff(uint8_t offset)
+{
+        if ((_uninit_mem_hash_len == SHA256HashSize) && (offset < SHA256HashSize))
+                return u_hash_buff+offset;
+        else
+                return NULL;
+}
+
+void get_hash_from_uninit_mem()
+{
+        int uninit_len = 0;
+        int total_uninit_len = 0;
+        SHA256Context ctx;
+
+        SHA256Reset(&ctx);
+
+        uninit_len = _uninit_nvram_end - (unsigned)&__nvram_end__ + 1;
+        if (uninit_len > 0){
+                SHA256Input(&ctx, (uint8_t *)&__nvram_end__, uninit_len);
+                total_uninit_len += uninit_len;
+        }
+
+        uninit_len = _uninit_heap_end - (unsigned)&__bss_start__ + 1;
+        if (uninit_len > 0){
+                SHA256Input(&ctx, (uint8_t *)&__bss_start__, uninit_len);
+                total_uninit_len += uninit_len;
+        }
+
+        uninit_len = _uninit_heap_2_end - (unsigned)&__HeapBase + 1;
+        if (uninit_len > 0){
+                SHA256Input(&ctx, (uint8_t *)&__HeapBase, uninit_len);
+                total_uninit_len += uninit_len;
+        }
+
+        SHA256Result(&ctx, u_hash_buff);
+
+        if (total_uninit_len >= MIN_UNINIT_RAM_REQ_FOR_128BIT_ENTROPY)
+                _uninit_mem_hash_len = SHA256HashSize;
+   return;
 }

@@ -1137,7 +1137,7 @@ static mlan_status wlan_interpret_bss_desc_with_ie(IN pmlan_adapter pmadapter,
     /* IEEEtypes_ERPInfo_t *perp_info; */
 
     IEEEtypes_VendorSpecific_t *pvendor_ie;
-    const t_u8 wpa_oui[3]  = {0x00, 0x50, 0xf2};
+    const t_u8 wpa_oui_tmp[3]  = {0x00, 0x50, 0xf2};
     const t_u8 wpa_type[1] = {0x01};
     const t_u8 wmm_oui[3]  = {0x00, 0x50, 0xf2};
     const t_u8 wmm_type[1] = {0x02};
@@ -1415,7 +1415,7 @@ static mlan_status wlan_interpret_bss_desc_with_ie(IN pmlan_adapter pmadapter,
             case VENDOR_SPECIFIC_221:
                 pvendor_ie = (IEEEtypes_VendorSpecific_t *)(void *)pcurrent_ptr;
 
-                if (!(__memcmp(pmadapter, pvendor_ie->vend_hdr.oui, wpa_oui, sizeof(wpa_oui))) &&
+                if (!(__memcmp(pmadapter, pvendor_ie->vend_hdr.oui, wpa_oui_tmp, sizeof(wpa_oui_tmp))) &&
                     (pvendor_ie->vend_hdr.oui_type == wpa_type[0]))
                 {
                     /* Save it here since we do not have beacon buffer */

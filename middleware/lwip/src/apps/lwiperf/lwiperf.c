@@ -99,11 +99,17 @@
 #define CLOCK_RESOLUTION_US 1000u
 #endif
 
+#ifndef LWIP_TIMEVAL_PRIVATE
+#define LWIP_TIMEVAL_PRIVATE 1
+#endif
+
+#if LWIP_TIMEVAL_PRIVATE
 /** Added for compatibility */
 struct timespec {
   long tv_sec;
   long tv_nsec;
 };
+#endif
 
 /** This is the Iperf settings struct sent from the client */
 typedef struct _lwiperf_settings {
@@ -1107,7 +1113,7 @@ lwiperf_udp_client_send_more(lwiperf_state_udp_t *conn)
   struct timespec ts, dt;
   err_t err;
   int ending = 0;
-  int i;
+  unsigned int i;
 
   LWIP_ASSERT("conn invalid", (conn != NULL) && !conn->base.tcp && (conn->base.server == 0));
 

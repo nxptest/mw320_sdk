@@ -622,7 +622,116 @@ int wrapper_wlan_sta_ampdu_enable(void);
 
 int wrapper_wlan_upa_ampdu_enable(uint8_t *addr);
 
+/** WiFi Statistics counter */
+typedef PACK_START struct
+{
+    /** Multicast transmitted frame count */
+    t_u32 mcast_tx_frame;
+    /** Failure count */
+    t_u32 failed;
+    /** Retry count */
+    t_u32 retry;
+    /** Multi entry count */
+    t_u32 multi_retry;
+    /** Duplicate frame count */
+    t_u32 frame_dup;
+    /** RTS success count */
+    t_u32 rts_success;
+    /** RTS failure count */
+    t_u32 rts_failure;
+    /** Ack failure count */
+    t_u32 ack_failure;
+    /** Rx fragmentation count */
+    t_u32 rx_frag;
+    /** Multicast Tx frame count */
+    t_u32 mcast_rx_frame;
+    /** FCS error count */
+    t_u32 fcs_error;
+    /** Tx frame count */
+    t_u32 tx_frame;
+    /** Reserved */
+    t_u32 reserved;
+    /** WEP ICV error count */
+    t_u32 wep_icv_error[4];
+    /** Beacon receive count */
+    t_u32 bcn_rcv_cnt;
+    /** Beacon miss count */
+    t_u32 bcn_miss_cnt;
+    /** Tx frag count */
+    t_u32 tx_frag_cnt;
+    /** Qos Tx frag count */
+    t_u32 qos_tx_frag_cnt[8];
+    /** Qos failed count */
+    t_u32 qos_failed_cnt[8];
+    /** Qos retry count */
+    t_u32 qos_retry_cnt[8];
+    /** Qos multi retry count */
+    t_u32 qos_multi_retry_cnt[8];
+    /** Qos frame dup count */
+    t_u32 qos_frm_dup_cnt[8];
+    /** Qos rts success count */
+    t_u32 qos_rts_suc_cnt[8];
+    /** Qos rts failure count */
+    t_u32 qos_rts_failure_cnt[8];
+    /** Qos ack failure count */
+    t_u32 qos_ack_failure_cnt[8];
+    /** Qos Rx frag count */
+    t_u32 qos_rx_frag_cnt[8];
+    /** Qos Tx frame count */
+    t_u32 qos_tx_frm_cnt[8];
+    /** Qos discarded frame count */
+    t_u32 qos_discarded_frm_cnt[8];
+    /** Qos mpdus Rx count */
+    t_u32 qos_mpdus_rx_cnt[8];
+    /** Qos retry rx count */
+    t_u32 qos_retries_rx_cnt[8];
+    /** CMAC ICV errors count */
+    t_u32 cmacicv_errors;
+    /** CMAC replays count */
+    t_u32 cmac_replays;
+    /** mgmt CCMP replays count */
+    t_u32 mgmt_ccmp_replays;
+    /** TKIP ICV errors count */
+    t_u32 tkipicv_errors;
+    /** TKIP replays count */
+    t_u32 tkip_replays;
+    /** CCMP decrypt errors count */
+    t_u32 ccmp_decrypt_errors;
+    /** CCMP replays count */
+    t_u32 ccmp_replays;
+    /** Tx amsdu count */
+    t_u32 tx_amsdu_cnt;
+    /** failed amsdu count */
+    t_u32 failed_amsdu_cnt;
+    /** retry amsdu count */
+    t_u32 retry_amsdu_cnt;
+    /** multi-retry amsdu count */
+    t_u32 multi_retry_amsdu_cnt;
+    /** Tx octets in amsdu count */
+    t_u64 tx_octets_in_amsdu_cnt;
+    /** amsdu ack failure count */
+    t_u32 amsdu_ack_failure_cnt;
+    /** Rx amsdu count */
+    t_u32 rx_amsdu_cnt;
+    /** Rx octets in amsdu count */
+    t_u64 rx_octets_in_amsdu_cnt;
+    /** Tx ampdu count */
+    t_u32 tx_ampdu_cnt;
+    /** tx mpdus in ampdu count */
+    t_u32 tx_mpdus_in_ampdu_cnt;
+    /** tx octets in ampdu count */
+    t_u64 tx_octets_in_ampdu_cnt;
+    /** ampdu Rx count */
+    t_u32 ampdu_rx_cnt;
+    /** mpdu in Rx ampdu count */
+    t_u32 mpdu_in_rx_ampdu_cnt;
+    /** Rx octets ampdu count */
+    t_u64 rx_octets_in_ampdu_cnt;
+    /** ampdu delimiter CRC error count */
+    t_u32 ampdu_delimiter_crc_error_cnt;
+} PACK_END wifi_pkt_stats_t;
 
+int wifi_get_log(wifi_pkt_stats_t * stats);
 
 void handle_cdint(int error);
 

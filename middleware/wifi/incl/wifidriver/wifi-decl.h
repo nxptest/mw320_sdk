@@ -20,7 +20,7 @@
 #include <wifi_events.h>
 
 /* fixme: remove these after complete integration with mlan */
-#define MLAN_MAC_ADDR_LENGTH (6U)
+#define MLAN_MAC_ADDR_LENGTH (6)
 /** Version string buffer length */
 #define MLAN_MAX_VER_STR_LEN 128
 
@@ -210,7 +210,7 @@ typedef struct
  * remove ifdefs, consolidate security info */
 
 /** MLAN Maximum SSID Length */
-#define MLAN_MAX_SSID_LENGTH (32U)
+#define MLAN_MAX_SSID_LENGTH (32)
 /** MLAN Maximum PASSPHRASE Length */
 #define MLAN_MAX_PASS_LENGTH (64)
 
