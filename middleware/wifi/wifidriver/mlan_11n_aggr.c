@@ -2,25 +2,9 @@
  *
  *  @brief  This file provides contains functions for 11n Aggregation
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -58,18 +42,19 @@ void wrapper_deliver_amsdu_subframe(pmlan_buffer amsdu_pmbuf, t_u8 *data, t_u16 
  *
  *  @return			Number of packets
  */
-static int wlan_11n_get_num_aggrpkts(t_u8 *data, int total_pkt_len)
+static int wlan_11n_get_num_aggrpkts(t_u8 *data, t_s32 total_pkt_len)
 {
-    int pkt_count = 0, pkt_len, pad;
+    int pkt_count = 0;
+    t_u32 pkt_len, pad;
 
     ENTER();
     while (total_pkt_len > 0)
     {
         /* Length will be in network format, change it to host */
-        pkt_len = mlan_ntohs((*(t_u16 *)(data + (2 * MLAN_MAC_ADDR_LENGTH))));
-        pad     = (((pkt_len + sizeof(Eth803Hdr_t)) & 3)) ? (4 - ((pkt_len + sizeof(Eth803Hdr_t)) & 3)) : 0;
+        pkt_len = mlan_ntohs((*(t_u16 *)(void *)(data + (2 * MLAN_MAC_ADDR_LENGTH))));
+        pad     = (((pkt_len + sizeof(Eth803Hdr_t)) & 3U)) ? (4U - ((pkt_len + sizeof(Eth803Hdr_t)) & 3U)) : 0U;
         data += pkt_len + pad + sizeof(Eth803Hdr_t);
-        total_pkt_len -= pkt_len + pad + sizeof(Eth803Hdr_t);
+        total_pkt_len -= (t_s32)pkt_len + (t_s32)pad + (t_s32)sizeof(Eth803Hdr_t);
         ++pkt_count;
     }
     LEAVE();
@@ -91,7 +76,7 @@ static int wlan_11n_get_num_aggrpkts(t_u8 *data, int total_pkt_len)
 mlan_status wlan_11n_deaggregate_pkt(mlan_private *priv, pmlan_buffer pmbuf)
 {
     t_u16 pkt_len;
-    int total_pkt_len;
+    t_s32 total_pkt_len;
     t_u8 *data;
     int pad;
     mlan_status ret = MLAN_STATUS_FAILURE;
@@ -103,7 +88,7 @@ mlan_status wlan_11n_deaggregate_pkt(mlan_private *priv, pmlan_buffer pmbuf)
     ENTER();
 
     data          = (t_u8 *)(pmbuf->pbuf + pmbuf->data_offset);
-    total_pkt_len = pmbuf->data_len;
+    total_pkt_len = (t_s32)pmbuf->data_len;
 
     /* Sanity test */
     if (total_pkt_len > MLAN_RX_DATA_BUF_SIZE)
@@ -119,10 +104,10 @@ mlan_status wlan_11n_deaggregate_pkt(mlan_private *priv, pmlan_buffer pmbuf)
 
     while (total_pkt_len > 0)
     {
-        prx_pkt = (RxPacketHdr_t *)data;
+        prx_pkt = (RxPacketHdr_t *)(void *)data;
         /* Length will be in network format, change it to host */
-        pkt_len = mlan_ntohs((*(t_u16 *)(data + (2 * MLAN_MAC_ADDR_LENGTH))));
-        if (pkt_len > total_pkt_len)
+        pkt_len = mlan_ntohs((*(t_u16 *)(void *)(data + (2 * MLAN_MAC_ADDR_LENGTH))));
+        if ((t_s32)pkt_len > total_pkt_len)
         {
             PRINTM(MERROR, "Error in packet length: total_pkt_len = %d, pkt_len = %d\n", total_pkt_len, pkt_len);
             break;
@@ -130,17 +115,17 @@ mlan_status wlan_11n_deaggregate_pkt(mlan_private *priv, pmlan_buffer pmbuf)
 
         pad = (((pkt_len + sizeof(Eth803Hdr_t)) & 3)) ? (4 - ((pkt_len + sizeof(Eth803Hdr_t)) & 3)) : 0;
 
-        total_pkt_len -= pkt_len + pad + sizeof(Eth803Hdr_t);
+        total_pkt_len -= (t_s32)pkt_len + pad + (t_s32)sizeof(Eth803Hdr_t);
 
-        if (memcmp(pmadapter, &prx_pkt->rfc1042_hdr, rfc1042_eth_hdr, sizeof(rfc1042_eth_hdr)) == 0)
+        if (__memcmp(pmadapter, &prx_pkt->rfc1042_hdr, rfc1042_eth_hdr, sizeof(rfc1042_eth_hdr)) == 0)
         {
-            memmove(pmadapter, data + LLC_SNAP_LEN, data, (2 * MLAN_MAC_ADDR_LENGTH));
+            (void)__memmove(pmadapter, data + LLC_SNAP_LEN, data, (2 * MLAN_MAC_ADDR_LENGTH));
             data += LLC_SNAP_LEN;
             pkt_len += sizeof(Eth803Hdr_t) - LLC_SNAP_LEN;
         }
         else
         {
-            *(t_u16 *)(data + (2 * MLAN_MAC_ADDR_LENGTH)) = (t_u16)0;
+            *(t_u16 *)(void *)(data + (2 * MLAN_MAC_ADDR_LENGTH)) = (t_u16)0;
             pkt_len += sizeof(Eth803Hdr_t);
         }
 

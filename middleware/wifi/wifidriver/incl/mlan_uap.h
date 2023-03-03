@@ -3,25 +3,9 @@
  *  @brief This file contains related macros, enum, and struct
  *  of uap functionalities
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -48,7 +32,7 @@ Change log:
 #define UAP_BAND_CONFIG_5GHZ 0x01
 
 /** Packet forwarding to be done by FW or host */
-#define PKT_FWD_FW_BIT 0x01
+#define PKT_FWD_FW_BIT 0x01U
 /** Intra-BSS broadcast packet forwarding allow bit */
 #define PKT_FWD_INTRA_BCAST 0x02
 /** Intra-BSS unicast packet forwarding allow bit */
@@ -60,13 +44,7 @@ Change log:
 /** Inter-BSS unicast packet */
 #define PKT_INTER_UCAST 0x02
 /** Enable Host PKT forwarding */
-#define PKT_FWD_ENABLE_BIT 0x01
-
-mlan_status wlan_uap_get_channel(IN pmlan_private pmpriv);
-
-mlan_status wlan_uap_set_channel(IN pmlan_private pmpriv, IN t_u8 uap_band_cfg, IN t_u8 channel);
-
-mlan_status wlan_uap_get_beacon_dtim(IN pmlan_private pmpriv);
+#define PKT_FWD_ENABLE_BIT 0x01U
 
 mlan_status wlan_ops_uap_ioctl(t_void *adapter, pmlan_ioctl_req pioctl_req);
 
@@ -78,14 +56,31 @@ mlan_status wlan_ops_uap_prepare_cmd(IN t_void *priv,
                                      IN t_void *pdata_buf,
                                      IN t_void *pcmd_buf);
 
-mlan_status wlan_ops_uap_process_cmdresp(IN t_void *priv, IN t_u16 cmdresp_no, IN t_void *pcmd_buf, IN t_void *pioctl);
+int wifi_uap_enable_11d_support();
 
-mlan_status wlan_ops_uap_process_rx_packet(IN t_void *adapter, IN pmlan_buffer pmbuf);
+int wifi_uap_group_rekey_timer_getset(uint8_t action, uint32_t *group_rekey_timer);
 
-mlan_status wlan_ops_uap_process_event(IN t_void *priv);
+int wifi_uap_mcbc_rate_getset(uint8_t action, uint16_t *mcbc_rate);
 
-t_void *wlan_ops_uap_process_txpd(IN t_void *priv, IN pmlan_buffer pmbuf);
+int wifi_uap_tx_power_getset(uint8_t action, uint8_t *tx_power_dbm);
 
-mlan_status wlan_ops_uap_init_cmd(IN t_void *priv, IN t_u8 first_bss);
+int wifi_set_uap_max_clients(unsigned int *max_sta_num);
 
+int wifi_get_uap_max_clients(unsigned int *max_sta_num);
+
+void wifi_uap_set_ecsa(void);
+
+int wifi_uap_ctrl_deauth(bool enable);
+
+void wifi_uap_set_hidden_ssid(const t_u8 bcast_ssid_ctl);
+
+void wifi_uap_set_htcapinfo(const t_u16 ht_cap_info);
+
+int wifi_uap_enable_11d(void);
+
+int wifi_uap_set_domain_params(wifi_domain_param_t *dp);
+
+int wifi_uap_set_params(int channel);
+
+void wifi_uap_set_beacon_period(const t_u16 beacon_period);
 #endif /* _MLAN_UAP_H_ */

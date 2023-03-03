@@ -1,23 +1,7 @@
 /*
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -81,7 +65,7 @@
  * \return -WM_FAIL if operation was failed.
  * \return WM_SUCCESS if operation was successful.
  */
-static inline int wlan_enable_11d()
+static inline int wlan_enable_11d(void)
 {
     return wifi_enable_11d_support();
 }
@@ -95,7 +79,7 @@ static inline int wlan_enable_11d()
  * \return Country code. Refer to \ref country_code_t.
  *
  */
-static inline int wlan_get_country()
+static inline int wlan_get_country(void)
 {
     return wifi_get_country();
 }
@@ -103,7 +87,26 @@ static inline int wlan_get_country()
 /** Set country code in WLAN Driver.
  *
  * \note This API should be called after WLAN is initialized
- * but before starting uAP or making any connection attempts on station
+ * but before starting uAP interface.
+ *
+ * \note Either this function or wlan_enable_11d() should be used
+ * at a time. If both functions are called in the application, then WLAN
+ * Driver properties will be set as per the wlan_uap_set_country() function.
+ *
+ * \param[in] country Country code. Refer to \ref country_code_t.
+ *
+ * \return -WM_FAIL if operation was failed.
+ * \return WM_SUCCESS if operation was successful.
+ */
+static inline int wlan_uap_set_country(country_code_t country)
+{
+    return wifi_uap_set_country((int)country);
+}
+
+/** Set country code in WLAN Driver.
+ *
+ * \note This API should be called after WLAN is initialized
+ * but before making any connection attempts on station
  * interface.
  *
  * \note Either this function or wlan_enable_11d() should be used
@@ -117,7 +120,7 @@ static inline int wlan_get_country()
  */
 static inline int wlan_set_country(country_code_t country)
 {
-    return wifi_set_country(country);
+    return wifi_set_country((int)country);
 }
 
 /**  wlan_11d_custom Custom Wi-Fi Region Configuration
@@ -344,12 +347,12 @@ wifi_sub_band_set_t subband_JP_5_GHz[] = {
    (sizeof(wifi_sub_band_set_t) * (nr_sb - 1)));
 
  // COUNTRY_CODE_LEN is 3. Add extra ' ' as country code is 2 characters
- memcpy(dp->country_code, "KR ", COUNTRY_CODE_LEN);
+ (void)memcpy(dp->country_code, "KR ", COUNTRY_CODE_LEN);
 
  dp->no_of_sub_band = nr_sb;
- memcpy(&dp->sub_band[0], &subband_EU_AU_KR_CN_2_4GHz[0],
+ (void)memcpy(&dp->sub_band[0], &subband_EU_AU_KR_CN_2_4GHz[0],
    1 * sizeof(wifi_sub_band_set_t));
- memcpy(&dp->sub_band[1], &subband_EU_AU_KR_5GHz,
+ (void)memcpy(&dp->sub_band[1], &subband_EU_AU_KR_5GHz,
    (nr_sb - 1) * sizeof(wifi_sub_band_set_t));
 
  wlan_set_domain_params(dp);

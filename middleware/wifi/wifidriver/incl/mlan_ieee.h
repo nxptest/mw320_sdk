@@ -3,25 +3,9 @@
  *  @brief This file contains IEEE information element related
  *  definitions used in MLAN and MOAL module.
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2021 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -36,10 +20,10 @@ Change log:
 /** FIX IES size in beacon buffer */
 #define WLAN_802_11_FIXED_IE_SIZE 12
 /** WLAN supported rates */
-#define WLAN_SUPPORTED_RATES 14
+#define WLAN_SUPPORTED_RATES 14U
 
 /** WLAN supported rates extension*/
-#define WLAN_SUPPORTED_RATES_EXT 60
+#define WLAN_SUPPORTED_RATES_EXT 60U
 
 /** Enumeration definition*/
 /** WLAN_802_11_NETWORK_TYPE */
@@ -57,10 +41,18 @@ typedef enum _WLAN_802_11_NETWORK_TYPE
 /** Frame control: Type Mgmt frame */
 #define IEEE80211_FC_MGMT_FRAME_TYPE_MASK 0x000C
 /** Frame control: SubType Mgmt frame */
-#define IEEE80211_GET_FC_MGMT_FRAME_SUBTYPE(fc) (((fc)&0x00F0) >> 4)
+#define IEEE80211_GET_FC_MGMT_FRAME_SUBTYPE(fc) (((fc)&0x00F0U) >> 4)
 
 #ifdef PRAGMA_PACK
 #pragma pack(push, 1)
+#endif
+
+#ifdef CONFIG_11AX
+typedef enum _IEEEtypes_Ext_ElementId_e
+{
+    HE_CAPABILITY = 35,
+    HE_OPERATION  = 36
+} IEEEtypes_Ext_ElementId_e;
 #endif
 
 /** IEEE Type definitions  */
@@ -109,17 +101,19 @@ typedef MLAN_PACK_START enum _IEEEtypes_ElementId_e {
 
     WPS_IE = VENDOR_SPECIFIC_221,
 
-    WPA_IE  = VENDOR_SPECIFIC_221,
-    RSN_IE  = 48,
-    VS_IE   = VENDOR_SPECIFIC_221,
-    WAPI_IE = 68,
+    WPA_IE    = VENDOR_SPECIFIC_221,
+    RSN_IE    = 48,
+    VS_IE     = VENDOR_SPECIFIC_221,
+    WAPI_IE   = 68,
+    RSNX_IE   = 244,
+    EXTENSION = 255,
 } MLAN_PACK_END IEEEtypes_ElementId_e;
 
 /** IEEE IE header */
 typedef MLAN_PACK_START struct _IEEEtypes_Header_t
 {
     /** Element ID */
-    t_u8 element_id;
+    IEEEtypes_ElementId_e element_id;
     /** Length */
     t_u8 len;
 } MLAN_PACK_END IEEEtypes_Header_t, *pIEEEtypes_Header_t;
@@ -128,7 +122,7 @@ typedef MLAN_PACK_START struct _IEEEtypes_Header_t
 typedef MLAN_PACK_START struct _IEEEtypes_VendorHeader_t
 {
     /** Element ID */
-    t_u8 element_id;
+    IEEEtypes_ElementId_e element_id;
     /** Length */
     t_u8 len;
     /** OUI */
@@ -201,7 +195,7 @@ typedef MLAN_PACK_START struct _IEEEtypes_CapInfo_t
 typedef MLAN_PACK_START struct _IEEEtypes_CfParamSet_t
 {
     /** CF peremeter : Element ID */
-    t_u8 element_id;
+    IEEEtypes_ElementId_e element_id;
     /** CF peremeter : Length */
     t_u8 len;
     /** CF peremeter : Count */
@@ -218,7 +212,7 @@ typedef MLAN_PACK_START struct _IEEEtypes_CfParamSet_t
 typedef MLAN_PACK_START struct _IEEEtypes_IbssParamSet_t
 {
     /** Element ID */
-    t_u8 element_id;
+    IEEEtypes_ElementId_e element_id;
     /** Length */
     t_u8 len;
     /** ATIM window value in milliseconds */
@@ -238,7 +232,7 @@ typedef MLAN_PACK_START union _IEEEtypes_SsParamSet_t
 typedef MLAN_PACK_START struct _IEEEtypes_FhParamSet_t
 {
     /** FH parameter : Element ID */
-    t_u8 element_id;
+    IEEEtypes_ElementId_e element_id;
     /** FH parameter : Length */
     t_u8 len;
     /** FH parameter : Dwell time in milliseconds */
@@ -255,7 +249,7 @@ typedef MLAN_PACK_START struct _IEEEtypes_FhParamSet_t
 typedef MLAN_PACK_START struct _IEEEtypes_DsParamSet_t
 {
     /** DS parameter : Element ID */
-    t_u8 element_id;
+    IEEEtypes_ElementId_e element_id;
     /** DS parameter : Length */
     t_u8 len;
     /** DS parameter : Current channel */
@@ -266,7 +260,7 @@ typedef MLAN_PACK_START struct _IEEEtypes_DsParamSet_t
 typedef MLAN_PACK_START struct _IEEEtypes_DtimParamSet_t
 {
     /** Element ID */
-    t_u8 element_id;
+    IEEEtypes_ElementId_e element_id;
     /** Length */
     t_u8 len;
     /** DTIM Count */
@@ -292,7 +286,7 @@ typedef MLAN_PACK_START union _IEEEtypes_PhyParamSet_t
 typedef MLAN_PACK_START struct _IEEEtypes_ERPInfo_t
 {
     /** Element ID */
-    t_u8 element_id;
+    IEEEtypes_ElementId_e element_id;
     /** Length */
     t_u8 len;
     /** ERP flags */
@@ -352,7 +346,7 @@ typedef MLAN_PACK_START struct
 typedef MLAN_PACK_START struct _IEEEtypes_Rsn_t
 {
     /** Rsn : Element ID */
-    t_u8 element_id;
+    IEEEtypes_ElementId_e element_id;
     /** Rsn : Length */
     t_u8 len;
     /** Rsn : version */
@@ -369,7 +363,7 @@ typedef MLAN_PACK_START struct _IEEEtypes_Rsn_t
 typedef MLAN_PACK_START struct _IEEEtypes_Wpa_t
 {
     /** Wpa : Element ID */
-    t_u8 element_id;
+    IEEEtypes_ElementId_e element_id;
     /** Wpa : Length */
     t_u8 len;
     /** Wpa : oui */
@@ -676,7 +670,7 @@ typedef MLAN_PACK_START struct _IEEEtypes_SubbandSet_t
 typedef MLAN_PACK_START struct _IEEEtypes_CountryInfoSet_t
 {
     /** Element ID */
-    t_u8 element_id;
+    IEEEtypes_ElementId_e element_id;
     /** Length */
     t_u8 len;
     /** Country code */
@@ -689,7 +683,7 @@ typedef MLAN_PACK_START struct _IEEEtypes_CountryInfoSet_t
 typedef MLAN_PACK_START struct _IEEEtypes_CountryInfoFullSet_t
 {
     /** Element ID */
-    t_u8 element_id;
+    IEEEtypes_ElementId_e element_id;
     /** Length */
     t_u8 len;
     /** Country code */
@@ -781,6 +775,47 @@ typedef MLAN_PACK_START struct _ExtCap_t
     t_u8 TDLSSupport : 1;          /* bit 37 */
     t_u8 TDLSProhibited : 1;       /* bit 38 */
     t_u8 TDLSChlSwitchProhib : 1;  /* bit 39 */
+    t_u8 rsvdBit40 : 1;            /* bit 40 */
+    t_u8 rsvdBit41 : 1;            /* bit 41 */
+    t_u8 rsvdBit42 : 1;            /* bit 42 */
+    t_u8 rsvdBit43 : 1;            /* bit 43 */
+    t_u8 rsvdBit44 : 1;            /* bit 44 */
+    t_u8 rsvdBit45 : 1;            /* bit 45 */
+    t_u8 rsvdBit46 : 1;            /* bit 46 */
+    t_u8 rsvdBit47 : 1;            /* bit 47 */
+    t_u8 rsvdBit48 : 1;            /* bit 48 */
+    t_u8 rsvdBit49 : 1;            /* bit 49 */
+    t_u8 rsvdBit50 : 1;            /* bit 50 */
+    t_u8 rsvdBit51 : 1;            /* bit 51 */
+    t_u8 rsvdBit52 : 1;            /* bit 52 */
+    t_u8 rsvdBit53 : 1;            /* bit 53 */
+    t_u8 rsvdBit54 : 1;            /* bit 54 */
+    t_u8 rsvdBit55 : 1;            /* bit 55 */
+    t_u8 rsvdBit56 : 1;            /* bit 56 */
+    t_u8 rsvdBit57 : 1;            /* bit 57 */
+    t_u8 rsvdBit58 : 1;            /* bit 58 */
+    t_u8 rsvdBit59 : 1;            /* bit 59 */
+    t_u8 rsvdBit60 : 1;            /* bit 60 */
+    t_u8 TDLSWildBandwidth : 1;    /* bit 61 */
+    t_u8 OperModeNtf : 1;          /* bit 62 */
+    t_u8 MaxAMSDU0 : 1;            /* bit 63 */
+    t_u8 MaxAMSDU1 : 1;            /* bit 64 */
+    t_u8 chanSchedMgnt : 1;        /* bit 65 */
+    t_u8 rsvdBit66 : 1;            /* bit 66 */
+    t_u8 NCC : 1;                  /* bit 67 */
+    t_u8 rsvdBit68 : 1;            /* bit 68 */
+    t_u8 CAQ : 1;                  /* bit 69 */
+    t_u8 FTMR : 1;                 /* bit 70 */
+    t_u8 FTMI : 1;                 /* bit 71 */
+    t_u8 FILS : 1;                 /* bit 72 */
+    t_u8 rsvdBit73 : 1;            /* bit 73 */
+    t_u8 rsvdBit74 : 1;            /* bit 74 */
+    t_u8 rsvdBit75 : 1;            /* bit 75 */
+    t_u8 rsvdBit76 : 1;            /* bit 76 */
+    t_u8 TWTReq : 1;               /* bit 77 */
+    t_u8 TWTResp : 1;              /* bit 78 */
+    t_u8 rsvdBit79 : 1;            /* bit 79 */
+
 } MLAN_PACK_END ExtCap_t, *pExtCap_t;
 
 /** Overlapping BSS Scan Parameters Data */
@@ -911,7 +946,7 @@ typedef MLAN_PACK_START struct _IEEEtypes_VHTOprat_t
 } MLAN_PACK_END IEEEtypes_VHTOprat_t, *pIEEEtypes_VHTOprat_t;
 
 #define VHT_OPER_CHWD_20_40MHZ 0
-#define VHT_OPER_CHWD_80MHZ    1
+#define VHT_OPER_CHWD_80MHZ    1U
 #define VHT_OPER_CHWD_160MHZ   2
 #define VHT_OPER_CHWD_80_80MHZ 3
 
@@ -1013,27 +1048,27 @@ typedef MLAN_PACK_START struct _IEEEtypes_OperModeNtf_t
 /**  IEEE Power Constraint element (7.3.2.15) */
 typedef MLAN_PACK_START struct
 {
-    t_u8 element_id;       /**< IEEE Element ID = 32 */
-    t_u8 len;              /**< Element length after id and len */
-    t_u8 local_constraint; /**< Local power constraint applied to 11d chan info */
+    IEEEtypes_ElementId_e element_id; /**< IEEE Element ID = 32 */
+    t_u8 len;                         /**< Element length after id and len */
+    t_u8 local_constraint;            /**< Local power constraint applied to 11d chan info */
 } MLAN_PACK_END IEEEtypes_PowerConstraint_t;
 
 /**  IEEE Power Capability element (7.3.2.16) */
 typedef MLAN_PACK_START struct
 {
-    t_u8 element_id;              /**< IEEE Element ID = 33 */
-    t_u8 len;                     /**< Element length after id and len */
-    t_s8 min_tx_power_capability; /**< Minimum Transmit power (dBm) */
-    t_s8 max_tx_power_capability; /**< Maximum Transmit power (dBm) */
+    IEEEtypes_ElementId_e element_id; /**< IEEE Element ID = 33 */
+    t_u8 len;                         /**< Element length after id and len */
+    t_s8 min_tx_power_capability;     /**< Minimum Transmit power (dBm) */
+    t_s8 max_tx_power_capability;     /**< Maximum Transmit power (dBm) */
 } MLAN_PACK_END IEEEtypes_PowerCapability_t;
 
 /**  IEEE TPC Report element (7.3.2.18) */
 typedef MLAN_PACK_START struct
 {
-    t_u8 element_id;  /**< IEEE Element ID = 35 */
-    t_u8 len;         /**< Element length after id and len */
-    t_s8 tx_power;    /**< Max power used to transmit the TPC Report frame (dBm) */
-    t_s8 link_margin; /**< Link margin when TPC Request received (dB) */
+    IEEEtypes_ElementId_e element_id; /**< IEEE Element ID = 35 */
+    t_u8 len;                         /**< Element length after id and len */
+    t_s8 tx_power;                    /**< Max power used to transmit the TPC Report frame (dBm) */
+    t_s8 link_margin;                 /**< Link margin when TPC Request received (dB) */
 } MLAN_PACK_END IEEEtypes_TPCReport_t;
 
 /*  IEEE Supported Channel sub-band description (7.3.2.19) */
@@ -1054,8 +1089,8 @@ typedef MLAN_PACK_START struct
  */
 typedef MLAN_PACK_START struct
 {
-    t_u8 element_id; /**< IEEE Element ID = 36 */
-    t_u8 len;        /**< Element length after id and len */
+    IEEEtypes_ElementId_e element_id; /**< IEEE Element ID = 36 */
+    t_u8 len;                         /**< Element length after id and len */
 
     /** Configured sub-bands information in the element */
     IEEEtypes_SupportChan_Subband_t subband[WLAN_11H_MAX_SUBBANDS];
@@ -1070,11 +1105,11 @@ typedef MLAN_PACK_START struct
  */
 typedef MLAN_PACK_START struct
 {
-    t_u8 element_id;        /**< IEEE Element ID = 37 */
-    t_u8 len;               /**< Element length after id and len */
-    t_u8 chan_switch_mode;  /**< STA should not transmit any frames if 1 */
-    t_u8 new_channel_num;   /**< Channel # that AP/IBSS is moving to */
-    t_u8 chan_switch_count; /**< # of TBTTs before channel switch */
+    IEEEtypes_ElementId_e element_id; /**< IEEE Element ID = 37 */
+    t_u8 len;                         /**< Element length after id and len */
+    t_u8 chan_switch_mode;            /**< STA should not transmit any frames if 1 */
+    t_u8 new_channel_num;             /**< Channel # that AP/IBSS is moving to */
+    t_u8 chan_switch_count;           /**< # of TBTTs before channel switch */
 
 } MLAN_PACK_END IEEEtypes_ChanSwitchAnn_t;
 
@@ -1086,12 +1121,12 @@ typedef MLAN_PACK_START struct
  */
 typedef MLAN_PACK_START struct
 {
-    t_u8 element_id;      /**< IEEE Element ID = 40 */
-    t_u8 len;             /**< Element length after id and len */
-    t_u8 quiet_count;     /**< Number of TBTTs until beacon with the quiet period */
-    t_u8 quiet_period;    /**< Regular quiet period, # of TBTTS between periods */
-    t_u16 quiet_duration; /**< Duration of the quiet period in TUs */
-    t_u16 quiet_offset;   /**< Offset in TUs from the TBTT for the quiet period */
+    IEEEtypes_ElementId_e element_id; /**< IEEE Element ID = 40 */
+    t_u8 len;                         /**< Element length after id and len */
+    t_u8 quiet_count;                 /**< Number of TBTTs until beacon with the quiet period */
+    t_u8 quiet_period;                /**< Regular quiet period, # of TBTTS between periods */
+    t_u16 quiet_duration;             /**< Duration of the quiet period in TUs */
+    t_u16 quiet_offset;               /**< Offset in TUs from the TBTT for the quiet period */
 
 } MLAN_PACK_END IEEEtypes_Quiet_t;
 
@@ -1130,7 +1165,7 @@ typedef MLAN_PACK_START struct
  */
 typedef MLAN_PACK_START struct
 {
-    t_u8 element_id;                      /**< IEEE Element ID = 41 */
+    IEEEtypes_ElementId_e element_id;     /**< IEEE Element ID = 41 */
     t_u8 len;                             /**< Element length after id and len */
     t_u8 dfs_owner[MLAN_MAC_ADDR_LENGTH]; /**< DFS Owner STA Address */
     t_u8 dfs_recovery_interval;           /**< DFS Recovery time in TBTTs */
@@ -1162,13 +1197,13 @@ typedef struct
 #define MAX_SCAN_RSP_BUF (16 * 1024)
 
 /** Maximum number of channels that can be sent in user scan config */
-#define WLAN_USER_SCAN_CHAN_MAX 40
+#define WLAN_USER_SCAN_CHAN_MAX 50U
 
 /** Maximum length of SSID list */
 #define MRVDRV_MAX_SSID_LIST_LENGTH 2
 
 /** Scan all the channels in specified band */
-#define BAND_SPECIFIED 0x80
+#define BAND_SPECIFIED 0x80U
 
 /**
  *  IOCTL SSID List sub-structure sent in wlan_ioctl_user_scan_cfg
@@ -1197,7 +1232,7 @@ typedef MLAN_PACK_START struct _wlan_user_scan_chan
     /** Radio type: 'B/G' Band = 0, 'A' Band = 1 */
     t_u8 radio_type;
     /** Scan type: Active = 1, Passive = 2 */
-    t_u8 scan_type;
+    mlan_scan_type scan_type;
     /** Reserved */
     t_u8 reserved;
     /** Scan duration in milliseconds; if 0 default used */
@@ -1273,6 +1308,33 @@ typedef MLAN_PACK_START struct
 /** Maximum number of channels that can be sent in bg scan config */
 #define WLAN_BG_SCAN_CHAN_MAX 32
 
+#ifdef CONFIG_11AX
+typedef MLAN_PACK_START struct _IEEEtypes_Extension_t
+{
+    /** Generic IE header */
+    IEEEtypes_Header_t ieee_hdr;
+    /** Element id extension */
+    t_u8 ext_id;
+    /** payload */
+    t_u8 data[];
+} MLAN_PACK_END IEEEtypes_Extension_t, *pIEEEtypes_Extension_t;
+
+typedef MLAN_PACK_START struct _IEEEtypes_HECap_t
+{
+    /** Generic IE header */
+    IEEEtypes_Header_t ieee_hdr;
+    /** Element id extension */
+    t_u8 ext_id;
+    /** he mac capability info */
+    t_u8 he_mac_cap[6];
+    /** he phy capability info */
+    t_u8 he_phy_cap[11];
+    /** he txrx mcs support , size would be 4 or 8 or 12 */
+    t_u8 he_txrx_mcs_support[4];
+    /** PPE Thresholds (optional) */
+} MLAN_PACK_END IEEEtypes_HECap_t, *pIEEEtypes_HECap_t;
+#endif
+
 /**
  *  Input structure to configure bs scan cmd to firmware
  */
@@ -1310,11 +1372,6 @@ typedef MLAN_PACK_START struct
     /** Variable number (fixed maximum) of channels to scan up */
     wlan_user_scan_chan chan_list[WLAN_BG_SCAN_CHAN_MAX];
 } MLAN_PACK_END wlan_bgscan_cfg;
-
-/** The open AP in OWE transmition Mode */
-#define OWE_TRANS_MODE_OPEN 1
-/** The security AP in OWE trsnsition Mode */
-#define OWE_TRANS_MODE_OWE 2
 
 #ifdef PRAGMA_PACK
 #pragma pack(pop)
@@ -1365,7 +1422,7 @@ typedef struct _BSSDescriptor_t
     WLAN_802_11_NETWORK_TYPE network_type_use;
 
     /** Network infrastructure mode */
-    t_u32 bss_mode;
+    mlan_bss_mode bss_mode;
 
     /** Network supported rates */
     WLAN_802_11_RATES supported_rates;
@@ -1386,7 +1443,7 @@ typedef struct _BSSDescriptor_t
      * BAND_G(0x02): 'g' band
      * BAND_A(0X04): 'a' band
      */
-    t_u16 bss_band;
+    mlan_band_def bss_band;
 
     /** TSF timestamp from the current firmware TSF */
     t_u64 network_tsf;
@@ -1479,6 +1536,17 @@ typedef struct _BSSDescriptor_t
     IEEEtypes_VHTOprat_t vht_oprat_saved;
     IEEEtypes_VHTtxpower_t vht_txpower_saved;
     IEEEtypes_OperModeNtf_t poper_mode_saved;
+    IEEEtypes_ExtCap_t ext_cap_saved;
+#ifdef CONFIG_11AX
+    /** HE Capability IE */
+    IEEEtypes_HECap_t *phe_cap;
+    /** HE Capability IE offset */
+    t_u16 he_cap_offset;
+    /** HE operation IE */
+    IEEEtypes_Extension_t *phe_oprat;
+    /** HE operation IE offset */
+    t_u16 he_oprat_offset;
+#endif
     /*
       fixme: The legacy code used IEEEtypes_RSN_IE_t which is of 24
       bytes. There seems to be confusion about the exact structure to
@@ -1487,14 +1555,18 @@ typedef struct _BSSDescriptor_t
       reasonable amount.
     */
     unsigned char wpa_ie_buff[MLAN_WMSDK_MAX_WPA_IE_LEN];
-    unsigned int wpa_ie_buff_len;
+    size_t wpa_ie_buff_len;
     unsigned char rsn_ie_buff[MLAN_WMSDK_MAX_WPA_IE_LEN];
-    unsigned int rsn_ie_buff_len;
+    size_t rsn_ie_buff_len;
 
     bool wps_IE_exist;
     t_u16 wps_session;
 
     bool wpa2_entp_IE_exist;
+    /** RSNX IE */
+    IEEEtypes_Generic_t *prsnx_ie;
+    /** RSNX IE offset in the beacon buffer */
+    t_u16 rsnx_offset;
 } BSSDescriptor_t, *pBSSDescriptor_t;
 
 #endif /* !_MLAN_IEEE_H_ */

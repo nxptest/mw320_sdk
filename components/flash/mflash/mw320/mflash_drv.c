@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 NXP
+ * Copyright 2017-2021 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -117,6 +117,7 @@ const struct FlashDeviceConfig flashDevList[] = {
     {"MX25V4035F", 0xc22313, 512 * KILO_BYTE, 4 * KILO_BYTE, 64 * KILO_BYTE, 256},
     {"MX25V8035F", 0xc22314, 1 * MEGA_BYTE, 4 * KILO_BYTE, 64 * KILO_BYTE, 256},
     {"MX25V1635F", 0xc22315, 2 * MEGA_BYTE, 4 * KILO_BYTE, 64 * KILO_BYTE, 256},
+    {"MX25V1606F", 0xc22015, 2 * MEGA_BYTE, 4 * KILO_BYTE, 64 * KILO_BYTE, 256},
 };
 
 #define FLASH_WEL_BIT_SET   0x02U
@@ -125,6 +126,10 @@ const struct FlashDeviceConfig flashDevList[] = {
 #ifndef FLASH_DEFAULT_INDEX
 #define FLASH_DEFAULT_INDEX (0x0C)
 #endif
+
+#define FLASH_PROG_MODE(mode) ((mode == 4U) ? kFLASH_ProgramQuad : kFLASH_ProgramNormal)
+#define FLASH_READ_MODE(mode) ((mode == 4U) ? kFLASH_FastReadQuadIO : kFLASH_FastReadDualOUT)
+#define FLASHC_READ_MODE(mode) ((mode == 4U) ? kFLASHC_HardwareCmdFastReadQuadIO : kFLASHC_HardwareCmdFastReadDualOutput)
 
 /*******************************************************************************
  * Prototypes
@@ -139,12 +144,62 @@ static bool FLASH_GetBusyStatus(QSPI_Type *base);
 /* Flash address offset from AHB access. */
 static uint32_t mflashOffset;
 static bool mflashInitialized;
+static uint8_t mflashMode;
 
 static const struct FlashDeviceConfig *g_flashConfig = &flashDevList[FLASH_DEFAULT_INDEX];
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
+static uint8_t QSPI_GetFlashSupportedReadMode(uint32_t jedecID)
+{
+    /* 1: single mode;
+       2: dual mode;
+       4: quad mode. */
+    uint8_t mode = 0x01U;
+
+    switch (jedecID)
+    {
+        case 0xef4014:
+        case 0xef4015:
+        case 0xef4016:
+        case 0xef4017:
+        case 0xef4018:
+        case 0xc84016:
+        case 0xc86016:
+        case 0xc84018:
+        case 0xc84015:
+        case 0xc22014:
+        case 0xc22016:
+        case 0xc22017:
+        case 0xc22018:
+        case 0xc22810:
+        case 0xc22811:
+        case 0xc22812:
+        case 0xc22813:
+        case 0xc22814:
+        case 0xc22815:
+        case 0xc22816:
+        case 0xc22817:
+        case 0xc22310:
+        case 0xc22311:
+        case 0xc22312:
+        case 0xc22313:
+        case 0xc22314:
+        case 0xc22315:
+            mode = 0x04U;
+            break;
+        case 0xc22015:
+            mode = 0x02U;
+            break;
+        default:
+            assert(NULL);
+            break;
+    }
+
+    return mode;
+}
+
 static status_t FLASH_CheckWriteEnableLatch(QSPI_Type *base)
 {
     status_t status        = kStatus_Success;
@@ -218,6 +273,44 @@ static void FLASH_WriteEnableVolatileStatusReg(QSPI_Type *base)
 
     /* Set instruction for volatile status register. */
     QSPI_SetInstruction(base, FLASH_INS_CODE_WE_VSR);
+
+    /* Set QSPI write */
+    QSPI_StartTransfer(base, kQSPI_Write);
+
+    /* Stop QSPI transfer */
+    QSPI_StopTransfer(base);
+}
+
+/* Reset Flash Continuous Dual Read mode */
+static void FLASH_ResetFastReadDual(QSPI_Type *base)
+{
+    qspi_header_count_config_t config;
+
+    config.instructionCnt = kQSPI_InstructionCnt2Byte;
+    config.addressCnt     = kQSPI_AddressCnt0Byte;
+    config.readModeCnt    = kQSPI_ReadModeCnt1Byte;
+    config.dummyCnt       = kQSPI_DummyCnt0Byte;
+
+    /* Clear QSPI1 FIFO */
+    QSPI_FlushFIFO(base);
+
+    /* Set QSPI data pin mode */
+    QSPI_SetDatePin(base, kQSPI_DataPinDual);
+
+    /* Set QSPI address pin mode */
+    QSPI_SetAddressPin(base, kQSPI_AddrPinSingle);
+
+    /* Set Header count register: instruction counter, address counter, read mode counter and dummy counter */
+    QSPI_SetHeaderCount(base, &config);
+
+    /* Set read mode. */
+    QSPI_SetReadMode(base, 0x00U);
+
+    /* Set data in counter */
+    QSPI_SetDataInCnt(base, 0x00U);
+
+    /* Set instruction for fast read dual mode reset. */
+    QSPI_SetInstruction(base, FLASH_INS_CODE_FDRST);
 
     /* Set QSPI write */
     QSPI_StartTransfer(base, kQSPI_Write);
@@ -1156,7 +1249,7 @@ static void FLASH_EnableFlashC(void)
 {
     assert(g_flashConfig != NULL);
 
-    FLASHC_EnableFLASHCPad(FLASHC, kFLASHC_HardwareCmdFastReadQuadIO, g_flashConfig->jedecId);
+    FLASHC_EnableFLASHCPad(FLASHC, FLASHC_READ_MODE(mflashMode), g_flashConfig->jedecId);
 }
 
 /* API - initialize 'mflash' */
@@ -1189,8 +1282,6 @@ int32_t mflash_drv_init(void)
 
     FLASH_Init(QSPI);
 
-    FLASH_ResetFastReadQuad(QSPI);
-
     /*Get JEDEC ID. */
     jedecID = FLASH_GetJEDECID(QSPI);
 
@@ -1198,6 +1289,18 @@ int32_t mflash_drv_init(void)
     if (status == kStatus_Success)
     {
         mflashInitialized = true;
+    }
+
+    mflashMode = QSPI_GetFlashSupportedReadMode(jedecID);
+    if (mflashMode == 0x04U)
+    {
+        /* This calling is only for quad mode. */
+        FLASH_ResetFastReadQuad(QSPI);
+    }
+    else if (mflashMode == 0x02U)
+    {
+        /* This calling is only for dual mode. */
+        FLASH_ResetFastReadDual(QSPI);
     }
 
     FLASH_EnableFlashC();
@@ -1249,7 +1352,7 @@ int32_t mflash_drv_page_program(uint32_t page_addr, uint32_t *data)
 
     FLASH_EnableQSPI();
 
-    status = FLASH_PageProgram(QSPI, kFLASH_ProgramQuad, page_addr, (uint8_t *)data, MFLASH_PAGE_SIZE);
+    status = FLASH_PageProgram(QSPI, FLASH_PROG_MODE(mflashMode), page_addr, (uint8_t *)data, MFLASH_PAGE_SIZE);
 
     FLASH_EnableFlashC();
 
@@ -1279,7 +1382,7 @@ int32_t mflash_drv_read(uint32_t addr, uint32_t *buffer, uint32_t len)
 
         FLASH_EnableQSPI();
 
-        status = (FLASH_Read(QSPI, kFLASH_FastReadQuadIO, addr, (uint8_t *)(void *)buffer, len) == len) ?
+        status = (FLASH_Read(QSPI, FLASH_READ_MODE(mflashMode), addr, (uint8_t *)(void *)buffer, len) == len) ?
                      kStatus_Success :
                      kStatus_Fail;
 
@@ -1305,7 +1408,7 @@ int32_t mflash_drv_write(uint32_t addr, uint32_t *buffer, uint32_t len)
 
     FLASH_EnableQSPI();
 
-    status = FLASH_Program(QSPI, kFLASH_ProgramQuad, addr, (uint8_t *)buffer, len);
+    status = FLASH_Program(QSPI, FLASH_PROG_MODE(mflashMode), addr, (uint8_t *)buffer, len);
 
     FLASH_EnableFlashC();
 

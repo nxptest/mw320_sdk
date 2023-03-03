@@ -2,25 +2,9 @@
  *
  *  @brief  This file provides functions for 802.11H
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -122,7 +106,7 @@ t_void wlan_11h_init(mlan_adapter *adapter)
     pstate_11h->is_slave_radar_det_active       = MFALSE;
 
     /* Initialize quiet_ie */
-    memset(adapter, pquiet, 0, sizeof(IEEEtypes_Quiet_t));
+    (void)__memset(adapter, pquiet, 0, sizeof(IEEEtypes_Quiet_t));
     pquiet->element_id = QUIET;
     pquiet->len        = (sizeof(pquiet->quiet_count) + sizeof(pquiet->quiet_period) + sizeof(pquiet->quiet_duration) +
                    sizeof(pquiet->quiet_offset));
@@ -132,7 +116,7 @@ t_void wlan_11h_init(mlan_adapter *adapter)
     pstate_dfs->dfs_radar_found     = MFALSE;
     pstate_dfs->dfs_check_channel   = 0;
     pstate_dfs->dfs_report_time_sec = 0;
-    util_init_list((pmlan_linked_list)&pstate_dfs->dfs_ts_head);
+    util_init_list((pmlan_linked_list)(void *)&pstate_dfs->dfs_ts_head);
 
     /* Initialize RDH struct */
     pstate_rdh->stage           = RDH_OFF;
@@ -142,7 +126,7 @@ t_void wlan_11h_init(mlan_adapter *adapter)
     pstate_rdh->new_channel     = 0;
     pstate_rdh->uap_band_cfg    = 0;
     pstate_rdh->max_bcn_dtim_ms = 0;
-    memset(adapter, pstate_rdh->priv_list, 0, sizeof(pstate_rdh->priv_list));
+    (void)__memset(adapter, pstate_rdh->priv_list, 0, sizeof(pstate_rdh->priv_list));
 
     LEAVE();
 }
@@ -205,10 +189,12 @@ t_bool wlan_11h_radar_detect_required(mlan_private *priv, t_u8 channel)
                "is %srequired for channel %d\n",
                priv->adapter->cfp_code_bg, priv->adapter->cfp_code_a, (required ? "" : "not "), channel);
     else
+    {
         PRINTM(MINFO,
                "11h: Radar detection in region %#02x "
                "is %srequired for channel %d\n",
                priv->adapter->region_code, (required ? "" : "not "), channel);
+    }
 
     if (required == MTRUE && priv->media_connected == MTRUE && priv->curr_bss_params.bss_descriptor.channel == channel)
     {

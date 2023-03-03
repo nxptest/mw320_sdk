@@ -2,25 +2,9 @@
  *
  *  @brief  This file provides  APIs to MOAL module
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -80,7 +64,7 @@ mlan_operations *mlan_ops[] = {
 t_void (*assert_callback)(IN t_void *pmoal_handle, IN t_u32 cond) = MNULL;
 #ifdef DEBUG_LEVEL1
 #ifdef DEBUG_LEVEL2
-#define DEFAULT_DEBUG_MASK (0xffffffff)
+#define DEFAULT_DEBUG_MASK (0xffffffffU)
 #else
 #define DEFAULT_DEBUG_MASK (MMSG | MFATAL | MERROR)
 #endif
@@ -155,19 +139,19 @@ mlan_status mlan_register(IN pmlan_device pmdevice, OUT t_void **ppmlan_adapter)
 
     /* Allocate memory for adapter structure */
     if ((pmdevice->callbacks.moal_malloc(/* pmdevice->pmoal_handle */ NULL, sizeof(mlan_adapter), MLAN_MEM_DEF,
-                                         (t_u8 **)&pmadapter) != MLAN_STATUS_SUCCESS) ||
-        !pmadapter)
+                                         (t_u8 **)(void **)&pmadapter) != MLAN_STATUS_SUCCESS) ||
+        (pmadapter == MNULL))
     {
         ret = MLAN_STATUS_FAILURE;
         goto exit_register;
     }
 
-    memset(pmadapter, pmadapter, 0, sizeof(mlan_adapter));
+    (void)__memset(pmadapter, pmadapter, 0, sizeof(mlan_adapter));
 
     pcb = &pmadapter->callbacks;
 
     /* Save callback functions */
-    memmove(pmadapter->pmoal_handle, pcb, &pmdevice->callbacks, sizeof(mlan_callbacks));
+    (void)__memmove(pmadapter->pmoal_handle, pcb, &pmdevice->callbacks, sizeof(mlan_callbacks));
 
     pmadapter->priv_num = 0;
     for (i = 0; i < MLAN_MAX_BSS_NUM; i++)
@@ -177,20 +161,20 @@ mlan_status mlan_register(IN pmlan_device pmdevice, OUT t_void **ppmlan_adapter)
         {
             /* For valid bss_attr, allocate memory for private structure */
             if ((pcb->moal_malloc(pmadapter->pmoal_handle, sizeof(mlan_private), MLAN_MEM_DEF,
-                                  (t_u8 **)&pmadapter->priv[i]) != MLAN_STATUS_SUCCESS) ||
-                !pmadapter->priv[i])
+                                  (t_u8 **)(void **)&pmadapter->priv[i]) != MLAN_STATUS_SUCCESS) ||
+                (pmadapter->priv[i] == MNULL))
             {
                 ret = MLAN_STATUS_FAILURE;
                 goto error;
             }
 
             pmadapter->priv_num++;
-            memset(pmadapter, pmadapter->priv[i], 0, sizeof(mlan_private));
+            (void)__memset(pmadapter, pmadapter->priv[i], 0, sizeof(mlan_private));
 
             pmadapter->priv[i]->adapter = pmadapter;
 
             /* Save bss_type, frame_type & bss_priority */
-            pmadapter->priv[i]->bss_type     = (t_u8)pmdevice->bss_attr[i].bss_type;
+            pmadapter->priv[i]->bss_type     = pmdevice->bss_attr[i].bss_type;
             pmadapter->priv[i]->frame_type   = (t_u8)pmdevice->bss_attr[i].frame_type;
             pmadapter->priv[i]->bss_priority = (t_u8)pmdevice->bss_attr[i].bss_priority;
             if (pmdevice->bss_attr[i].bss_type == MLAN_BSS_TYPE_STA)
@@ -202,11 +186,11 @@ mlan_status mlan_register(IN pmlan_device pmdevice, OUT t_void **ppmlan_adapter)
             pmadapter->priv[i]->bss_num   = (t_u8)pmdevice->bss_attr[i].bss_num;
 
             /* init function table */
-            for (j = 0; mlan_ops[j]; j++)
+            for (j = 0; mlan_ops[j] != MNULL; j++)
             {
                 if (mlan_ops[j]->bss_role == GET_BSS_ROLE(pmadapter->priv[i]))
                 {
-                    memcpy(pmadapter, &pmadapter->priv[i]->ops, mlan_ops[j], sizeof(mlan_operations));
+                    (void)__memcpy(pmadapter, &pmadapter->priv[i]->ops, mlan_ops[j], sizeof(mlan_operations));
                 }
             }
         }
@@ -220,7 +204,7 @@ mlan_status mlan_register(IN pmlan_device pmdevice, OUT t_void **ppmlan_adapter)
     }
 
     /* Allocate memory for member of adapter structure */
-    if (wlan_allocate_adapter(pmadapter))
+    if (wlan_allocate_adapter(pmadapter) != MLAN_STATUS_SUCCESS)
     {
         ret = MLAN_STATUS_FAILURE;
         goto error;
@@ -233,9 +217,48 @@ mlan_status mlan_register(IN pmlan_device pmdevice, OUT t_void **ppmlan_adapter)
 
 error:
     PRINTM(MINFO, "Leave mlan_register with error\n");
-    pcb->moal_mfree(pmadapter->pmoal_handle, (t_u8 *)pmadapter);
+    (void)pcb->moal_mfree(pmadapter->pmoal_handle, (t_u8 *)pmadapter);
 
 exit_register:
+    LEAVE();
+    return ret;
+}
+
+/**
+ *  @brief This function unregisters MOAL from MLAN module.
+ *
+ *  @param pmlan_adapter   A pointer to a mlan_device structure
+ *                         allocated in MOAL
+ *
+ *  @return                MLAN_STATUS_SUCCESS
+ *                             The deregistration succeeded.
+ */
+mlan_status mlan_unregister(IN t_void *pmlan_adapter)
+{
+    mlan_status ret         = MLAN_STATUS_SUCCESS;
+    mlan_adapter *pmadapter = (mlan_adapter *)pmlan_adapter;
+    pmlan_callbacks pcb;
+    t_s32 i = 0;
+
+    MASSERT(pmlan_adapter);
+
+    ENTER();
+
+    pcb = &pmadapter->callbacks;
+
+    /* Free private structures */
+    for (i = 0; i < pmadapter->priv_num; i++)
+    {
+        if (pmadapter->priv[i])
+        {
+            pcb->moal_mfree(pmadapter->pmoal_handle, (t_u8 *)pmadapter->priv[i]);
+            pmadapter->priv[i] = MNULL;
+        }
+    }
+
+    /* Free mlan_adapter */
+    pcb->moal_mfree(pmadapter->pmoal_handle, (t_u8 *)pmadapter);
+
     LEAVE();
     return ret;
 }

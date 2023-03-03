@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2021 NXP
  * All rights reserved.
  *
  *
@@ -41,6 +41,7 @@ const struct FlashDeviceConfig flashDevList[] = {
     {"MX25V4035F", 0xc22313, 512 * KILO_BYTE, 4 * KILO_BYTE, 64 * KILO_BYTE, 256},
     {"MX25V8035F", 0xc22314, 1 * MEGA_BYTE, 4 * KILO_BYTE, 64 * KILO_BYTE, 256},
     {"MX25V1635F", 0xc22315, 2 * MEGA_BYTE, 4 * KILO_BYTE, 64 * KILO_BYTE, 256},
+    {"MX25V1606F", 0xc22015, 2 * MEGA_BYTE, 4 * KILO_BYTE, 64 * KILO_BYTE, 256},
 };
 
 #define FLASH_WEL_BIT_SET   0x02U

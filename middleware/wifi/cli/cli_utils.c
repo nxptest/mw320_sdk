@@ -2,25 +2,9 @@
  *
  *  @brief This file provides  Convenience functions for the CLI
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -28,6 +12,13 @@
  *
  */
 #include <string.h>
+
+/* MW320 Specific Code Starts here */
+#if defined(__arm__)
+#include <strings.h>
+#endif
+/* MW320 Specific Code Ends here */
+
 #include <stdlib.h>
 #include <fsl_debug_console.h>
 
@@ -39,7 +30,9 @@ int string_equal(const char *s1, const char *s2)
     size_t len = strlen(s1);
 
     if (len == strlen(s2) && !strncmp(s1, s2, len))
+    {
         return 1;
+    }
     return 0;
 }
 
@@ -52,12 +45,21 @@ int string_equal(const char *s1, const char *s2)
 uint8_t hexc2bin(char chr)
 {
     if (chr >= '0' && chr <= '9')
+    {
         chr -= '0';
+    }
     else if (chr >= 'A' && chr <= 'F')
+    {
         chr -= ('A' - 10);
+    }
     else if (chr >= 'a' && chr <= 'f')
+    {
         chr -= ('a' - 10);
-    return chr;
+    }
+    else
+    { /* Do Nothing */
+    }
+    return (uint8_t)chr;
 }
 
 /**
@@ -93,8 +95,12 @@ int ISDIGIT(char *x)
 {
     unsigned int i;
     for (i = 0; i < strlen(x); i++)
+    {
         if (isdigit((unsigned char)x[i]) == 0)
+        {
             return 0;
+        }
+    }
     return 1;
 }
 
@@ -107,11 +113,17 @@ int ISDIGIT(char *x)
 static int hex2num(char c)
 {
     if (c >= '0' && c <= '9')
+    {
         return c - '0';
+    }
     if (c >= 'a' && c <= 'f')
+    {
         return c - 'a' + 10;
+    }
     if (c >= 'A' && c <= 'F')
+    {
         return c - 'A' + 10;
+    }
 
     return -1;
 }
@@ -126,7 +138,7 @@ int ishexstring(void *hex)
 {
     int i, a;
     char *p = hex;
-    int len = strlen(p);
+    int len = (int)strlen(p);
     if (!strncasecmp("0x", p, 2))
     {
         p += 2;
@@ -136,7 +148,9 @@ int ishexstring(void *hex)
     {
         a = hex2num(*p);
         if (a < 0)
+        {
             return 0;
+        }
         p++;
     }
     return 1;
@@ -154,25 +168,28 @@ uint32_t a2hex_or_atoi(char *value)
     {
         return a2hex(value + 2);
     }
-    else if (isdigit((unsigned char)*value))
+    else if (isdigit((unsigned char)*value) != 0)
     {
-        return atoi(value);
+        return strtol(value, NULL, 10);
     }
     else
     {
-        return *value;
+        return (uint32_t)(*value);
     }
 }
 
 int get_uint(const char *arg, unsigned int *dest, unsigned int len)
 {
-    unsigned int i, val = 0;
+    unsigned int i;
+    unsigned int val = 0;
 
     for (i = 0; i < len; i++)
     {
         if (arg[i] < '0' || arg[i] > '9')
+        {
             return 1;
-        val *= 10;
+        }
+        val *= 10U;
         val += arg[i] - '0';
     }
 
@@ -188,29 +205,41 @@ int get_mac(const char *arg, char *dest, char sep)
     unsigned char n;
     int i, j, k;
 
-    if (strlen(arg) < 17)
+    if (strlen(arg) < 17U)
+    {
         return 1;
+    }
 
-    memset(dest, 0, 6);
+    (void)memset(dest, 0, 6);
 
     for (i = 0, k = 0; i < 17; i += 3, k++)
     {
         for (j = 0; j < 2; j++)
         {
             if (arg[i + j] >= '0' && arg[i + j] <= '9')
-                n = arg[i + j] - '0';
+            {
+                n = (unsigned char)(arg[i + j] - '0');
+            }
             else if (arg[i + j] >= 'A' && arg[i + j] <= 'F')
-                n = arg[i + j] - 'A' + 10;
+            {
+                n = (unsigned char)(arg[i + j] - 'A' + 10);
+            }
             else if (arg[i + j] >= 'a' && arg[i + j] <= 'f')
-                n = arg[i + j] - 'a' + 10;
+            {
+                n = (unsigned char)(arg[i + j] - 'a' + 10);
+            }
             else
+            {
                 return 1;
+            }
 
             n <<= 4 * (1 - j);
             dest[k] += n;
         }
         if (i < 15 && arg[i + 2] != sep)
+        {
             return 1;
+        }
     }
 
     return 0;
@@ -218,7 +247,7 @@ int get_mac(const char *arg, char *dest, char sep)
 
 void print_mac(const char *mac)
 {
-    PRINTF("%02X:%02X:%02X:%02X:%02X:%02X ", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+    (void)PRINTF("%02X:%02X:%02X:%02X:%02X:%02X ", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 }
 
 /* Non-reentrant getopt implementation */
@@ -229,21 +258,31 @@ int cli_getopt(int argc, char **argv, const char *fmt)
     char *opt, *c;
 
     if (cli_optind == argc)
+    {
         return -1;
+    }
     cli_optarg = NULL;
     opt        = argv[cli_optind];
     if (opt[0] != '-')
+    {
         return -1;
-    if (opt[0] == 0 || opt[1] == 0)
-        return '?';
+    }
+    if (opt[0] == '\0' || opt[1] == '\0')
+    {
+        return (int)'?';
+    }
     cli_optind++;
-    c = strchr(fmt, opt[1]);
+    c = strchr(fmt, (int)opt[1]);
     if (c == NULL)
-        return opt[1];
+    {
+        return (int)opt[1];
+    }
     if (c[1] == ':')
     {
         if (cli_optind < argc)
+        {
             cli_optarg = argv[cli_optind++];
+        }
     }
-    return c[0];
+    return (int)c[0];
 }

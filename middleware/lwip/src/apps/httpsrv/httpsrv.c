@@ -54,7 +54,10 @@ uint32_t HTTPSRV_init(HTTPSRV_PARAM_STRUCT *params)
 }
 
 /*
-** Function for releasing/stopping HTTP server
+** Function for releasing/stopping HTTP server.
+**
+** Signals HTTP server to stop and will not return until
+** the server and all its sessions/resources are closed.
 **
 ** IN:
 **      uint32_t       server_h - server handle
@@ -63,7 +66,7 @@ uint32_t HTTPSRV_init(HTTPSRV_PARAM_STRUCT *params)
 **      none
 **
 ** Return Value:
-**      uint32_t      error code. HTTPSRV_OK if everything went right, positive number otherwise
+**      none
 */
 void HTTPSRV_release(uint32_t server_h)
 {

@@ -2,25 +2,9 @@
  *
  *  @brief  This file provides initialization for FW and HW
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2021 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -44,10 +28,11 @@ Change log:
 ********************************************************/
 
 /* We are allocating BSS list globally as we need heap for other purposes */
-__attribute__((section(".wlan_data"))) static BSSDescriptor_t BSS_List[MRVDRV_MAX_BSSID_LIST];
+static BSSDescriptor_t BSS_List[MRVDRV_MAX_BSSID_LIST];
 
 //_IOBUFS_ALIGNED(SDIO_DMA_ALIGNMENT)
-#if defined(SD8977) || defined(SD8978) || defined(SD8987) || defined(SD8997) || defined(SD9097) || defined(SD9098)
+#if defined(SD8977) || defined(SD8978) || defined(SD8987) || defined(SD8997) || defined(SD9097) || defined(SD9098) || \
+    defined(IW61x)
 static t_u8 mp_regs_buffer[MAX_MP_REGS + DMA_ALIGNMENT];
 #elif defined(SD8801)
 SDK_ALIGN(uint8_t mp_regs_buffer[MAX_MP_REGS], BOARD_SDMMC_DATA_BUFFER_ALIGN_SIZE);
@@ -76,12 +61,18 @@ mlan_status wlan_allocate_adapter(pmlan_adapter pmadapter)
     /* wmsdk: Use a statically allocated DMA aligned buffer */
 #if defined(SD8801)
     pmadapter->mp_regs = mp_regs_buffer;
-#elif defined(SD8977) || defined(SD8978) || defined(SD8987) || defined(SD8997) || defined(SD9097) || defined(SD9098)
+#elif defined(SD8977) || defined(SD8978) || defined(SD8987) || defined(SD8997) || defined(SD9097) || \
+    defined(SD9098) || defined(IW61x)
     pmadapter->mp_regs = (t_u8 *)ALIGN_ADDR(mp_regs_buffer, DMA_ALIGNMENT);
 // mp_regs_buffer;
 #endif
 
     return MLAN_STATUS_SUCCESS;
+}
+
+void wlan_clear_scan_bss(void)
+{
+    (void)__memset(MNULL, &BSS_List, 0x00, sizeof(BSS_List));
 }
 
 /**
@@ -101,7 +92,7 @@ mlan_status wlan_init_priv(pmlan_private priv)
     ENTER();
 
     priv->media_connected = MFALSE;
-    memset(pmadapter, priv->curr_addr, 0xff, MLAN_MAC_ADDR_LENGTH);
+    (void)__memset(pmadapter, priv->curr_addr, 0xff, MLAN_MAC_ADDR_LENGTH);
 
     priv->pkt_tx_ctrl = 0;
     priv->bss_mode    = MLAN_BSS_MODE_INFRA;
@@ -116,19 +107,21 @@ mlan_status wlan_init_priv(pmlan_private priv)
     priv->sec_info.authentication_mode = MLAN_AUTH_MODE_AUTO;
     priv->sec_info.encryption_mode     = MLAN_ENCRYPTION_MODE_NONE;
     for (i = 0; i < sizeof(priv->wep_key) / sizeof(priv->wep_key[0]); i++)
-        memset(pmadapter, &priv->wep_key[i], 0, sizeof(mrvl_wep_key_t));
+    {
+        (void)__memset(pmadapter, &priv->wep_key[i], 0, sizeof(mrvl_wep_key_t));
+    }
     priv->wep_key_curr_index = 0;
     priv->ewpa_query         = MFALSE;
     priv->adhoc_aes_enabled  = MFALSE;
     priv->curr_pkt_filter    = HostCmd_ACT_MAC_RX_ON | HostCmd_ACT_MAC_TX_ON | HostCmd_ACT_MAC_ETHERNETII_ENABLE;
 
-    memset(pmadapter, &priv->curr_bss_params, 0, sizeof(priv->curr_bss_params));
+    (void)__memset(pmadapter, &priv->curr_bss_params, 0, sizeof(priv->curr_bss_params));
     priv->listen_interval = MLAN_DEFAULT_LISTEN_INTERVAL;
     wlan_11d_priv_init(priv);
     wlan_11h_priv_init(priv);
 
     priv->uap_bss_started = MFALSE;
-    memset(pmadapter, &priv->uap_state_chan_cb, 0, sizeof(priv->uap_state_chan_cb));
+    (void)__memset(pmadapter, &priv->uap_state_chan_cb, 0, sizeof(priv->uap_state_chan_cb));
     priv->num_drop_pkts = 0;
 
     priv->tx_bf_cap    = 0;
@@ -178,7 +171,8 @@ t_void wlan_init_adapter(pmlan_adapter pmadapter)
 #if defined(SD8801)
     pmadapter->curr_rd_port = 1;
     pmadapter->curr_wr_port = 1;
-#elif defined(SD8977) || defined(SD8978) || defined(SD8987) || defined(SD8997) || defined(SD9097) || defined(SD9098)
+#elif defined(SD8977) || defined(SD8978) || defined(SD8987) || defined(SD8997) || defined(SD9097) || \
+    defined(SD9098) || defined(IW61x)
     pmadapter->curr_rd_port = 0;
     pmadapter->curr_wr_port = 0;
 #endif
@@ -198,6 +192,9 @@ t_void wlan_init_adapter(pmlan_adapter pmadapter)
     pmadapter->ecsa_enable = MFALSE;
 
     /* fixme: enable this later when required */
+#ifdef CONFIG_EXT_SCAN_SUPPORT
+    pmadapter->ext_scan = 1;
+#endif
     pmadapter->scan_probes = DEFAULT_PROBES;
 
     /* fixme: enable this later when required */
@@ -220,22 +217,24 @@ t_void wlan_init_adapter(pmlan_adapter pmadapter)
     pmadapter->hw_dot_11ac_mcs_support   = 0;
     pmadapter->usr_dot_11ac_opermode_bw  = 0;
     pmadapter->usr_dot_11ac_opermode_nss = 0;
-
+#ifdef CONFIG_11AX
+    pmadapter->enable_11ax = MFALSE;
+#endif
     /* Initialize 802.11d */
     wlan_11d_init(pmadapter);
     wlan_11h_init(pmadapter);
 
     wlan_wmm_init(pmadapter);
     pmadapter->null_pkt_interval = 0;
-    pmadapter->fw_bands          = 0;
-    pmadapter->config_bands      = 0;
-    pmadapter->adhoc_start_band  = 0;
+    pmadapter->fw_bands          = BAND_0;
+    pmadapter->config_bands      = BAND_0;
+    pmadapter->adhoc_start_band  = BAND_0;
     /* pmadapter->pscan_channels = MNULL; */
     pmadapter->fw_release_number = 0;
     pmadapter->fw_cap_info       = 0;
-    memset(pmadapter, &pmadapter->region_channel, 0, sizeof(pmadapter->region_channel));
+    (void)__memset(pmadapter, &pmadapter->region_channel, 0, sizeof(pmadapter->region_channel));
     pmadapter->region_code = MRVDRV_DEFAULT_REGION_CODE;
-    memcpy(pmadapter, pmadapter->country_code, MRVDRV_DEFAULT_COUNTRY_CODE, COUNTRY_CODE_LEN);
+    (void)__memcpy(pmadapter, pmadapter->country_code, MRVDRV_DEFAULT_COUNTRY_CODE, COUNTRY_CODE_LEN);
     pmadapter->bcn_miss_time_out  = DEFAULT_BCN_MISS_TIMEOUT;
     pmadapter->adhoc_awake_period = 0;
     return;
@@ -256,13 +255,13 @@ mlan_status wlan_init_lock_list(IN pmlan_adapter pmadapter)
     mlan_status ret    = MLAN_STATUS_SUCCESS;
     pmlan_private priv = MNULL;
     /* pmlan_callbacks pcb = &pmadapter->callbacks; */
-    t_s32 i = 0;
-    t_u32 j = 0;
+    t_u8 i = 0;
+    t_u8 j = 0;
 
     ENTER();
     for (i = 0; i < pmadapter->priv_num; i++)
     {
-        if (pmadapter->priv[i])
+        if (pmadapter->priv[i] != NULL)
         {
             priv = pmadapter->priv[i];
             for (j = 0; j < MAX_NUM_TID; ++j)
@@ -306,12 +305,12 @@ mlan_status wlan_init_fw(IN pmlan_adapter pmadapter)
 
     for (i = 0; i < pmadapter->priv_num; i++)
     {
-        if (pmadapter->priv[i])
+        if (pmadapter->priv[i] != NULL)
         {
             priv = pmadapter->priv[i];
 
             /* Initialize private structure */
-            if ((ret = wlan_init_priv(priv)))
+            if ((ret = wlan_init_priv(priv)) != MLAN_STATUS_SUCCESS)
             {
                 ret = MLAN_STATUS_FAILURE;
                 goto done;

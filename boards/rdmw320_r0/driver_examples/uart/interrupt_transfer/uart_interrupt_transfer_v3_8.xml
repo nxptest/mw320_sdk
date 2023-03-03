@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
-  <!--Timestamp (UTC): 2021-03-01 08:18:16.523437-->
+  <!--Timestamp (UTC): 2023-01-16 01:36:17.649632-->
   <externalDefinitions>
     <definition extID="platform.drivers.mw_uart.88MW320"/>
     <definition extID="platform.drivers.power.88MW320"/>
@@ -38,12 +38,16 @@
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
     <memory>
-      <memoryBlock id="QSPI_FLASH_88MW320" name="QSPI_FLASH" addr="1F000000" size="00400000" type="ExtFlash" access="RO"/>
-      <memoryBlock id="SRAM_CODE_88MW320" name="SRAM_CODE" addr="00100000" size="00060000" type="RAM" access="RW"/>
+      <memoryBlock id="QSPI_FLASH_88MW320" name="QSPI_FLASH" addr="1F000000" size="00090000" type="ExtFlash" access="RO"/>
+      <memoryBlock id="SRAM_CODE_88MW320" name="SRAM_CODE" addr="00100000" size="0005EFC0" type="RAM" access="RW"/>
       <memoryBlock id="SRAM_SYS_88MW320" name="SRAM_SYS" addr="20000000" size="00020000" type="RAM" access="RW"/>
+      <memoryBlock id="NVRAM_88MW320" name="NVRAM" addr="480C0044" size="00000FBC" type="RAM" access="RW"/>
     </memory>
     <toolchainSettings>
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <buildSteps>
+          <postBuildStep>cd ../tools/mw_img_conv/mw320 ; ./make_load_image.sh ${ProjDirPath}/${ConfigName}/${BuildArtifactFileName} ${ProjDirPath}/${ConfigName}/loadimage.o 0x1f010000 ;</postBuildStep>
+        </buildSteps>
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_88MW320_A0_NAPC</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
@@ -154,6 +158,22 @@
     </source>
     <source path="boards/rdmw320_r0/driver_examples/uart/interrupt_transfer" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
+    </source>
+    <source path="boards/rdmw320_r0/linkscripts" project_relative_path="linkscripts" type="src" toolchain="mcuxpresso">
+      <files mask="main_data.ldt"/>
+      <files mask="main_rodata.ldt"/>
+      <files mask="main_text.ldt"/>
+      <files mask="RELOCATED_TO_RAM.ldt"/>
+    </source>
+    <source path="tools/boot2" project_relative_path="tools/boot2" type="src" toolchain="mcuxpresso">
+      <files mask="boot2.bin"/>
+      <files mask="layout.bin"/>
+      <files mask="layout.txt"/>
+    </source>
+    <source path="tools/mw_img_conv/mw320" project_relative_path="tools/mw_img_conv/mw320" type="src" toolchain="mcuxpresso">
+      <files mask="mkimg.sh"/>
+      <files mask="make_load_image.sh"/>
+      <files mask="mw_img_conv.py"/>
     </source>
     <source path="boards/rdmw320_r0/driver_examples/uart/interrupt_transfer/iar" project_relative_path="88MW320/iar" type="linker" toolchain="iar">
       <files mask="88MW320_xx_xxxx_ram.icf"/>

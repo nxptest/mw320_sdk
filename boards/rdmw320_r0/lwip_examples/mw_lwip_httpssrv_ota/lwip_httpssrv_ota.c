@@ -157,6 +157,10 @@ static int ssi_disabled_input(HTTPSRV_SSI_PARAM_STRUCT *param)
     {
         disabled = (ota_status != OTA_STATUS_TESTING);
     }
+    else if (strcmp(param->com_param, "upload") == 0)
+    {
+        disabled = (ota_status == OTA_STATUS_TESTING);
+    }
 
     if (disabled)
     {
@@ -867,7 +871,7 @@ int main(void)
     if ((part_entry[0]->gen_level & OTA_TEST_MODE_FLAG) != 0U)
     {
         /* Device is executiing in test mode */
-        ota_status = OTA_STATUS_TESTING;
+        ota_status               = OTA_STATUS_TESTING;
         part_entry[0]->gen_level = 0U;
         result                   = part_write_layout();
         PRINTF("Running in test mode: reset image gen_level to [0], result %d\r\n", result);

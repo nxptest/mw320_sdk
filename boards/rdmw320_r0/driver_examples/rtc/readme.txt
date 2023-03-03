@@ -38,16 +38,17 @@ Running the demo
 ================
 When the example runs successfully, you can see the similar information from the terminal as below.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-RTC example: reset counter and set up an alarm
-Please input the number of second to wait for alarm
-The second must be positive value
+RTC example: set up time to wake up an alarm
+Please input the number of seconds to wait for alarm
+The second must be positive integer value and less than 2097152
 3
-Current counter:      e28
-Alarm will occur at:     1a28
+Current datetime: 2021-03-10 19:05:03
+Alarm will occur at: 2021-03-10 19:05:06
 
  Alarm occurs !!!!
-Please input the number of second to wait for alarm
-The second must be positive value
+Please input the number of seconds to wait for alarm
+The second must be positive integer value and less than 2097152
+
 ...............................................
 ...............................................
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

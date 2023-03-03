@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -111,9 +111,6 @@ void FLASHC_GetDefaultConfig(flashc_config_t *config)
     config->timingConfig.clockPolarity = kFLASHC_ClockPolarityLow;
     config->timingConfig.preScaler     = kFLASHC_ClockDiv1;
     config->timingConfig.captEdge      = kFLASHC_CaptureEdgeFirst;
-    config->timingConfig.clkOutDly     = 0x00U;
-    config->timingConfig.clkInDly      = 0x00U;
-    config->timingConfig.dinDly        = 0x00U;
 
     config->dataPinMode = kFLASHC_DataPinSingle;
     config->addrPinMode = kFLASHC_AddrPinSingle;
@@ -150,15 +147,6 @@ void FLASHC_SetTimingConfig(FLASHC_Type *base, flashc_timing_config_t *config)
 
     /* Set FLASHC capture clock edge */
     temp = ((temp & ~FLASHC_FCTR_CLK_CAPT_EDGE_MASK) | FLASHC_FCTR_CLK_CAPT_EDGE(config->captEdge));
-
-    /* set clock out delay */
-    temp = ((temp & ~FLASHC_FCTR_CLK_OUT_DLY_MASK) | FLASHC_FCTR_CLK_OUT_DLY(config->clkOutDly));
-
-    /* set clock in delay */
-    temp = ((temp & ~FLASHC_FCTR_CLK_IN_DLY_MASK) | FLASHC_FCTR_CLK_IN_DLY(config->clkInDly));
-
-    /* set data in delay */
-    temp = ((temp & ~FLASHC_FCTR_DIN_DLY_MASK) | FLASHC_FCTR_DIN_DLY(config->dinDly));
 
     FLASHC->FCTR = temp;
 }
@@ -509,6 +497,17 @@ void FLASHC_EnableFLASHCPad(FLASHC_Type *base, flashc_hw_cmd_t mode, uint32_t je
  */
 void FLASH_SetQuadModeReadCmd(FLASHC_Type *base, uint32_t jedecID)
 {
+    FLASH_SetReadModeCmd(base, jedecID);
+}
+
+/*!
+ * brief Set read mode command.
+ *
+ * param base FLASHC base pointer.
+ * param jedecID JEDEC ID.
+ */
+void FLASH_SetReadModeCmd(FLASHC_Type *base, uint32_t jedecID)
+{
     uint32_t temp = 0x00U;
 
     temp = base->FCCR;
@@ -553,6 +552,10 @@ void FLASH_SetQuadModeReadCmd(FLASHC_Type *base, uint32_t jedecID)
         case 0xc22314:
         case 0xc22315:
             base->FCCR = (temp & ~FLASHC_FCCR_CMD_TYPE_MASK) | FLASHC_FCCR_CMD_TYPE(kFLASHC_HardwareCmdFastReadQuadIO);
+            break;
+        case 0xc22015:
+            base->FCCR =
+                (temp & ~FLASHC_FCCR_CMD_TYPE_MASK) | FLASHC_FCCR_CMD_TYPE(kFLASHC_HardwareCmdFastReadDualOutput);
             break;
         default:
             assert(NULL);

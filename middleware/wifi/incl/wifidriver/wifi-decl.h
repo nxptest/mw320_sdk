@@ -1,23 +1,7 @@
 /*
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -33,9 +17,10 @@
 #include <wm_utils.h>
 #include <mlan_decl.h>
 #include <mlan_ioctl.h>
+#include <wifi_events.h>
 
 /* fixme: remove these after complete integration with mlan */
-#define MLAN_MAC_ADDR_LENGTH (6)
+#define MLAN_MAC_ADDR_LENGTH (6U)
 /** Version string buffer length */
 #define MLAN_MAX_VER_STR_LEN 128
 
@@ -44,10 +29,6 @@
 
 #define MOD_GROUPS 7
 
-/** The open AP in OWE transmition Mode */
-#define OWE_TRANS_MODE_OPEN 1
-/** The security AP in OWE trsnsition Mode */
-#define OWE_TRANS_MODE_OWE 2
 
 #if 0
 /** channel_field.flags */
@@ -139,7 +120,7 @@ typedef PACK_START struct _wifi_scan_chan_list_t
     /** Number of channels */
     uint8_t num_of_chan;
     /** Channel number */
-    uint8_t chan_number[MLAN_WWSM_MAX_CHANNEL];
+    uint8_t chan_number[MLAN_MAX_CHANNEL];
 } PACK_END wifi_scan_chan_list_t;
 
 /**
@@ -159,9 +140,9 @@ typedef struct
 } wifi_sta_list_t;
 
 /** BSS type : STA */
-#define BSS_TYPE_STA 0
+#define BSS_TYPE_STA 0U
 /** BSS type : UAP */
-#define BSS_TYPE_UAP 1
+#define BSS_TYPE_UAP 1U
 
 #define UAP_DEFAULT_CHANNEL 0
 
@@ -183,7 +164,7 @@ enum wifi_bss_features
 struct wifi_message
 {
     uint16_t event;
-    uint16_t reason;
+    enum wifi_event_reason reason;
     void *data;
 };
 
@@ -229,7 +210,7 @@ typedef struct
  * remove ifdefs, consolidate security info */
 
 /** MLAN Maximum SSID Length */
-#define MLAN_MAX_SSID_LENGTH (32)
+#define MLAN_MAX_SSID_LENGTH (32U)
 /** MLAN Maximum PASSPHRASE Length */
 #define MLAN_MAX_PASS_LENGTH (64)
 
@@ -303,12 +284,6 @@ enum wlan_type
     WLAN_TYPE_FCC_CERTIFICATION,
 };
 
-enum wlan_fw_storage_type
-{
-    WLAN_FW_IN_FLASH = 0,
-    WLAN_FW_IN_RAM,
-};
-
 /** Tx power levels */
 typedef struct
 {
@@ -349,11 +324,15 @@ typedef struct
 typedef PACK_START struct _wifi_rate_cfg_t
 {
     /** LG rate: 0, HT rate: 1, VHT rate: 2 */
-    t_u32 rate_format;
+    mlan_rate_format rate_format;
     /** Rate/MCS index (0xFF: auto) */
     t_u32 rate_index;
     /** Rate rate */
     t_u32 rate;
+#ifdef CONFIG_11AC
+    /** NSS */
+    t_u32 nss;
+#endif
 } PACK_END wifi_rate_cfg_t;
 
 /** Data structure for cmd get data rate */
@@ -378,10 +357,16 @@ typedef PACK_START struct _wifi_data_rate_t
     t_u32 tx_mcs_index;
     /** MCS index */
     t_u32 rx_mcs_index;
+#ifdef CONFIG_11AC
+    /** NSS */
+    t_u32 tx_nss;
+    /** NSS */
+    t_u32 rx_nss;
+#endif
     /** LG rate: 0, HT rate: 1, VHT rate: 2 */
-    t_u32 tx_rate_format;
+    mlan_rate_format tx_rate_format;
     /** LG rate: 0, HT rate: 1, VHT rate: 2 */
-    t_u32 rx_rate_format;
+    mlan_rate_format rx_rate_format;
 #endif
 } PACK_END wifi_data_rate_t;
 
@@ -425,10 +410,51 @@ typedef PACK_START struct _wifi_ed_mac_ctrl_t
 typedef PACK_START struct _wifi_bandcfg_t
 {
     /** Infra band */
-    t_u32 config_bands;
+    mlan_band_def config_bands;
     /** fw supported band */
-    t_u32 fw_bands;
+    mlan_band_def fw_bands;
 } PACK_END wifi_bandcfg_t;
+
+#ifdef SD8801
+/** Type definition of wifi_ext_coex_config_t */
+typedef PACK_START struct _wifi_ext_coex_config_t
+{
+    /** Enable or disable external coexistence */
+    t_u8 Enabled;
+    /** Ignore the priority of the external radio request */
+    t_u8 IgnorePriority;
+    /** Default priority when the priority of the external radio
+request is ignored */
+    t_u8 DefaultPriority;
+    /** Input request GPIO pin for EXT_RADIO_REQ signal */
+    t_u8 EXT_RADIO_REQ_ip_gpio_num;
+    /** Input request GPIO polarity for EXT_RADIO_REQ signal */
+    t_u8 EXT_RADIO_REQ_ip_gpio_polarity;
+    /** Input priority GPIO pin for EXT_RADIO_PRI signal */
+    t_u8 EXT_RADIO_PRI_ip_gpio_num;
+    /** Input priority GPIO polarity for EXT_RADIO_PRI signal */
+    t_u8 EXT_RADIO_PRI_ip_gpio_polarity;
+    /** Output grant GPIO pin for WLAN_GRANT signal */
+    t_u8 WLAN_GRANT_op_gpio_num;
+    /** Output grant GPIO polarity of WLAN_GRANT */
+    t_u8 WLAN_GRANT_op_gpio_polarity;
+    /** Reserved Bytes */
+    t_u16 reserved_1;
+    /** Reserved Bytes */
+    t_u16 reserved_2;
+} PACK_END wifi_ext_coex_config_t;
+
+/** Type definition of wifi_ext_coex_stats_t */
+typedef PACK_START struct _wifi_ext_coex_stats_t
+{
+    /** External Radio Request count */
+    t_u16 ext_radio_req_count;
+    /** External Radio Priority count */
+    t_u16 ext_radio_pri_count;
+    /** WLAN GRANT count */
+    t_u16 wlan_grant_count;
+} PACK_END wifi_ext_coex_stats_t;
+#endif
 
 /** Type definition of wifi_antcfg_t */
 typedef PACK_START struct _wifi_antcfg_t
@@ -468,6 +494,7 @@ typedef struct
     t_u32 avg_tbtt_offset;
 } wifi_tbtt_offset_t;
 
+#define BIT(n)                           (1 << n)
 #define WOWLAN_MAX_PATTERN_LEN           20
 #define WOWLAN_MAX_OFFSET_LEN            50
 #define MAX_NUM_FILTERS                  10
@@ -575,6 +602,30 @@ typedef struct _wifi_flt_cfg
 typedef struct
 {
     /** Enable keep alive */
+    t_u8 pkt_offset;
+    /** pattern length */
+    t_u8 pattern_len;
+    /** wowlan pattern */
+    t_u8 pattern[WOWLAN_MAX_PATTERN_LEN];
+    /** mask */
+    t_u8 mask[6];
+} wifi_wowlan_pattern_t;
+
+/* Wowlan Pattern config struct */
+typedef struct
+{
+    /** Enable user defined pattern*/
+    t_u8 enable;
+    /** number of patterns******/
+    t_u8 n_patterns;
+    /** user define pattern*/
+    wifi_wowlan_pattern_t patterns[MAX_NUM_FILTERS];
+} wifi_wowlan_ptn_cfg_t;
+
+/** TCP keep alive information */
+typedef struct
+{
+    /** Enable keep alive */
     t_u8 enable;
     /** Reset */
     t_u8 reset;
@@ -654,8 +705,6 @@ typedef struct
 
 } wifi_sub_band_set_t;
 
-#define COUNTRY_CODE_LEN 3
-
 /**
  * Data structure for domain parameters
  *
@@ -667,7 +716,7 @@ typedef struct
     /** Country code */
     t_u8 country_code[COUNTRY_CODE_LEN];
     /** subbands count */
-    int no_of_sub_band;
+    t_u8 no_of_sub_band;
     /** Set of subbands of no_of_sub_band number of elements */
     wifi_sub_band_set_t sub_band[1];
 } wifi_domain_param_t;
@@ -777,7 +826,11 @@ typedef PACK_START struct
     /** Chnannel descriptor */
     wifi_channel_desc_t chan_desc;
     /** Channel Modulation groups */
+#ifndef CONFIG_11AC
     wifi_txpwrlimit_entry_t txpwrlimit_entry[10];
+#else
+    wifi_txpwrlimit_entry_t txpwrlimit_entry[16];
+#endif /* CONFIG_11AC */
 } PACK_END wifi_txpwrlimit_config_t;
 
 /**
@@ -816,7 +869,7 @@ typedef struct
 typedef struct
 {
     /** number of channels */
-    int no_of_channels;
+    t_u8 no_of_channels;
     /** channel scan array */
     wifi_chan_scan_param_set_t chan_scan_param[1];
 } wifi_chan_list_param_set_t;
@@ -847,7 +900,7 @@ typedef PACK_START struct _wifi_scan_channel_list_t
     /** Channel numder */
     t_u8 chan_number;
     /** Scan type Active = 1, Passive = 2 */
-    t_u8 scan_type;
+    mlan_scan_type scan_type;
     /** Scan time */
     t_u16 scan_time;
 } PACK_END wifi_scan_channel_list_t;

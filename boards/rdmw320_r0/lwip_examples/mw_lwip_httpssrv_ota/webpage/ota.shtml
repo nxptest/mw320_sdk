@@ -23,7 +23,7 @@
 
     <div style="text-align: left;">
         <form name="ex_form" action="upload.cgi" method="POST" enctype="multipart/form-data">
-            <input type="submit" value="Upload">
+            <input type="submit" value="Upload" <%disabled_input:upload%>>
             <input id="update_file" type="file" name="update_file">
         </form>
         <form name="ex_form" action="reboot.cgi" method="get">

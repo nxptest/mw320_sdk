@@ -7,7 +7,7 @@
 **         Chip specific module features.
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2020 NXP
+**     Copyright 2016-2022 NXP
 **     All rights reserved.
 **
 **     SPDX-License-Identifier: BSD-3-Clause
@@ -65,12 +65,12 @@
 #define FSL_FEATURE_SOC_MW_SYS_CTL_COUNT (1)
 /* @brief MW_UART availability on the SoC. */
 #define FSL_FEATURE_SOC_MW_UART_COUNT (3)
-/* @brief MW_USBC availability on the SoC. */
-#define FSL_FEATURE_SOC_MW_USBC_COUNT (1)
 /* @brief MW_WDT availability on the SoC. */
 #define FSL_FEATURE_SOC_MW_WDT_COUNT (1)
 /* @brief SDIOC availability on the SoC. */
 #define FSL_FEATURE_SOC_SDIOC_COUNT (1)
+/* @brief USB availability on the SoC. */
+#define FSL_FEATURE_SOC_USB_COUNT (1)
 
 /* MW_ACOMP module features */
 

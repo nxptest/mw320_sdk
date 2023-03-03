@@ -2,25 +2,9 @@
  *
  *  @brief BOOTP Header
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -40,7 +24,7 @@
 #define BOOTP_OPTION_NAMESERVER     6
 #define BOOTP_OPTION_REQUESTED_IP   50
 #define BOOTP_OPTION_ADDRESS_TIME   51
-#define BOOTP_OPTION_DHCP_MESSAGE   53
+#define BOOTP_OPTION_DHCP_MESSAGE   53U
 #define BOOTP_OPTION_DHCP_SERVER_ID 54
 #define BOOTP_END_OPTION            0xFF
 

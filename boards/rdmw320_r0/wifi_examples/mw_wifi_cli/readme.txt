@@ -31,13 +31,13 @@ Use following steps to get the flash contents ready:
       TIF>s
       Speed>
     J-Link>loadbin <sdk_path>\tools\boot2\layout.bin 0x1F004000
-    J-Link>loadbin <sdk_path>\boards\rdmw320_r0\wifi_examples\common\mw30x_uapsta_W14.88.36.p144.fw.bin 0x1F150000
+    J-Link>loadbin <sdk_path>\boards\rdmw320_r0\wifi_examples\common\mw32x_uapsta_W14.88.36.p173.fw.bin 0x1F150000
 
     To create your own layout.bin and wifi firmware bin for flash partition, please use the tool located at
-    <sdk_path>\tools\mw_img_conv to convert the layout configuration file and WIFI firmware to the images suitable
-    for flash partition. For example,
-    # mw_img_conv layout layout.txt layout.bin
-    # mw_img_conv wififw mw30x_uapsta_W14.88.36.p144.bin mw30x_uapsta_W14.88.36.p144.fw.bin
+    <sdk_path>\tools\mw_img_conv\mw320 to convert the layout configuration file and WIFI firmware to the images
+    suitable for flash partition. For example,
+    # python mw_img_conv.py layout layout.txt layout.bin
+    # python mw_img_conv.py wififw mw32x_uapsta_W14.88.36.p173.bin mw32x_uapsta_W14.88.36.p173.fw.bin
     Please note the wifi firmware binary should not be compressed.
 
 Now use the general way to debug the example
@@ -51,7 +51,7 @@ Now use the general way to debug the example
 3.  Download the program to the target board.
 4.  Launch the debugger in your IDE to begin running the demo.
 
-To make the demo bootable on board power on, additional steps are needed as follows:
+To make the demo bootable on board power on, additional steps are needed as follows (for IAR and armgcc only):
 1.  Because the debugger downloads the application without considering XIP flash offset setting in FLASHC, we creates
     a special linker file with manual offset to make the wifi example debuggable (without conflicting the partition
     table area in flash). To make it bootable, we need to change the linker file to the one in devices, e.g.
@@ -70,8 +70,9 @@ To make the demo bootable on board power on, additional steps are needed as foll
     J-Link>loadbin <sdk_path>\tools\boot2\boot2.bin 0x1F000000
     J-Link>loadbin <sdk_path>\tools\boot2\layout.bin 0x1F004000
     J-Link>loadbin mw_wifi_cli.fw.bin 0x1F010000
-    J-Link>loadbin <sdk_path>\boards\rdmw320_r0\wifi_examples\common\mw30x_uapsta_W14.88.36.p144.fw.bin 0x1F150000
+    J-Link>loadbin <sdk_path>\boards\rdmw320_r0\wifi_examples\common\mw32x_uapsta_W14.88.36.p173.fw.bin 0x1F150000
 4.  Reset your board and then the application is running.
+
 Running the demo
 ================
 When the demo starts, a welcome message would appear on the terminal, press enter for command prompt.
@@ -88,10 +89,10 @@ keys to move on. So the error message doesn't have impact on the application flo
     ----------------------------------------
     Initialize WLAN Driver
     ----------------------------------------
+    Wireless UART Example
     MAC Address: 00:50:43:24:37:E0
-    [net] Initialized TCP/IP networking stack
     ----------------------------------------
-    app_cb: WLAN: received event 10
+    app_cb: WLAN: received event 13
     ----------------------------------------
     app_cb: WLAN initialized
     ----------------------------------------
@@ -117,6 +118,15 @@ keys to move on. So the error message doesn't have impact on the application flo
     wlan-address
     wlan-get-uap-channel
     wlan-get-uap-sta-list
+    wlan-ieee-ps <0/1>
+    wlan-deep-sleep-ps <0/1>
+    wlan-host-sleep <0/1> wowlan_test <0/1>
+    wlan-send-hostcmd
+    wlan-set-uap-bandwidth <1/2> 1:20 MHz 2:40MHz
+    wlan-enable-ext-coex
+    wlan-generate-wps-pin
+    wlan-start-wps-pbc
+    wlan-start-wps-pin <8 digit pin>
     ping [-s <packet_size>] [-c <packet_count>] [-W <timeout in sec>] <ip_address>
     iperf [-s|-c <host>|-a|-h] [options]
     dhcp-stat
@@ -147,6 +157,15 @@ keys to move on. So the error message doesn't have impact on the application flo
     wlan-address
     wlan-get-uap-channel
     wlan-get-uap-sta-list
+    wlan-ieee-ps <0/1>
+    wlan-deep-sleep-ps <0/1>
+    wlan-host-sleep <0/1> wowlan_test <0/1>
+    wlan-send-hostcmd
+    wlan-set-uap-bandwidth <1/2> 1:20 MHz 2:40MHz
+    wlan-enable-ext-coex
+    wlan-generate-wps-pin
+    wlan-start-wps-pbc
+    wlan-start-wps-pin <8 digit pin>
     ping [-s <packet_size>] [-c <packet_count>] [-W <timeout in sec>] <ip_address>
     iperf [-s|-c <host>|-a|-h] [options]
     dhcp-stat
@@ -158,8 +177,8 @@ keys to move on. So the error message doesn't have impact on the application flo
     mcu-power-mode <pm0/pm1/pm2/pm4> [<pm2_io_exclude_mask>]
 
     # wlan-version
-    WLAN Driver Version   : v1.3.r21.p1
-    WLAN Firmware Version : w8845-R0, RF878X, FP88, 14.88.36.p144, WPA2_CVE_FIX 1, PVE_FIX 1
+    WLAN Driver Version   : v1.3.r41.p2
+    WLAN Firmware Version : w8845-R0, RF878X, FP88, 14.88.36.p178, WPA2_CVE_FIX 1, PVE_FIX 1
 
     # wlan-mac
     MAC address
@@ -455,3 +474,74 @@ keys to move on. So the error message doesn't have impact on the application flo
 
     #
 
+Customization options
+=====================
+
+WPS Provisioning
+________________
+
+Wi-Fi Protected Setup 2.0 (WPS) based provisioning is enabled in mw_wifi_cli example.
+It supports both push-button and PIN based methods.
+
+To enable this feature, make sure CONFIG_WPS2 is defined in wifi_config.h
+
+WPS PBC Provisioning :-
+    There are two ways to perform push-button WPS provisioning.
+
+    1. Using SW1 on MW320's RD board.
+       When the demo starts, press SW1 on MW320 RD board, and also press WPS button on the external AP.
+
+    2. Using CLI:
+       When the demo starts, execute below CLI command, and also press WPS button on the external AP.
+
+       # wlan-start-wps-pbc
+
+WPS PIN Provisioning :-
+
+WPS PIN based provisioning can be done using mw_wifi_cli CLI commands:
+    There are two ways to perform PIN based WPS provisioning.
+
+    1. PIN generated from mw_wifi_cli.
+
+       # wlan-generate-wps-pin
+       WPS PIN is: 74280070
+
+       # wlan-start-wps-pin 74280070
+       Start WPS PIN session with 74280070 pin
+
+       Use the same PIN to start the WPS session from external AP.
+       NOTE: It is not mandatory to generate the PIN from CLI, and use the same one. User can select a different pin as well.
+
+    2. PIN generated from external AP.
+       External AP with WPS support have interface to generate a pin as well.
+       Generate PIN from external AP, and use the same from MW320 cli
+
+       # wlan-start-wps-pin 12345670
+       Start WPS PIN session with 12345670 pin
+
+Once Provisioning is completed, following message on CLI will confirm that DUT is successfully connected to external AP.
+     ----------------------------------------
+     app_cb: WLAN: received event 1
+     ----------------------------------------
+     app_cb: WLAN: authenticated to network
+     ----------------------------------------
+     app_cb: WLAN: received event 0
+     ----------------------------------------
+     app_cb: WLAN: connected to network
+
+
+External BLE Coex
+_________________
+
+mw_wifi_cli example is enabled with wlan-enable-ext-coex command.
+This does not take any arguments. Hence when this command is executed, it sends the host command to firmware.
+
+MW320 act as a host to control BLE activities on external radio.
+Current solution is tested with QN9090.
+
+To enable this feature, make sure CONFIG_EXT_COEX is define in wifi_config.h
+
+After flashing and booting mw_wifi_cli example, "Wireless UART Example" can be seen on console, along with
+other CLI logs.
+
+BLE advertising and scanning can be started from MW320 by pressing SW2 and SW4 respectively.

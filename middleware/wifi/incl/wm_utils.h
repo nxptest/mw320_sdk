@@ -1,23 +1,7 @@
 /*
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -104,33 +88,37 @@ static inline unsigned int hex2bin(const uint8_t *ibuf, uint8_t *obuf, unsigned 
     /* process the list of characters */
     for (i = 0; i < len; i++)
     {
-        if (i == (2 * max_olen))
+        if (i == (2U * max_olen))
         {
-            PRINTF("hexbin",
-                   "Destination full. "
-                   "Truncating to avoid overflow.\r\n");
-            return j + 1;
+            (void)PRINTF("hexbin",
+                         "Destination full. "
+                         "Truncating to avoid overflow.\r\n");
+            return j + 1U;
         }
-        ch = toupper(*ibuf++); /* get next uppercase character */
+        ch = (unsigned char)toupper(*ibuf++); /* get next uppercase character */
 
         /* do the conversion */
         if (ch >= '0' && ch <= '9')
+        {
             by = (by << 4) + ch - '0';
+        }
         else if (ch >= 'A' && ch <= 'F')
-            by = (by << 4) + ch - 'A' + 10;
+        {
+            by = (by << 4) + ch - 'A' + 10U;
+        }
         else
         { /* error if not hexadecimal */
             return 0;
         }
 
         /* store a byte for each pair of hexadecimal digits */
-        if (i & 1)
+        if ((i & 1) == 1U)
         {
-            j       = ((i + 1) / 2) - 1;
-            obuf[j] = by & 0xff;
+            j       = ((i + 1U) / 2U) - 1U;
+            obuf[j] = (uint8_t)(by & 0xffU);
         }
     }
-    return j + 1;
+    return j + 1U;
 }
 
 /**
@@ -220,7 +208,7 @@ int random_unregister_seed_handler(random_hdlr_t func);
  * the seed, this API can be used. The seed will then not be re-initialized
  * in get_random_sequence().
  */
-void random_initialize_seed();
+void random_initialize_seed(void);
 
 /** Sample random seed generator
  *
@@ -234,7 +222,7 @@ void random_initialize_seed();
  *
  * \return Random seed
  */
-uint32_t sample_initialise_random_seed();
+uint32_t sample_initialise_random_seed(void);
 
 /** Generate random sequence of bytes
  *
@@ -246,7 +234,8 @@ uint32_t sample_initialise_random_seed();
  */
 void get_random_sequence(void *buf, unsigned int size);
 
-#define DUMP_WRAPAROUND 16
+#if SDK_DEBUGCONSOLE != DEBUGCONSOLE_DISABLE
+#define DUMP_WRAPAROUND 16U
 
 /** Dump buffer in hex format on console
  *
@@ -257,18 +246,20 @@ void get_random_sequence(void *buf, unsigned int size);
  */
 static inline void dump_hex(const void *data, unsigned len)
 {
-    PRINTF("**** Dump @ %p Len: %d ****\n\r", data, len);
+    (void)PRINTF("**** Dump @ %p Len: %d ****\n\r", data, len);
 
     unsigned int i;
     const char *data8 = (const char *)data;
     for (i = 0; i < len;)
     {
-        PRINTF("%02x ", data8[i++]);
+        (void)PRINTF("%02x ", data8[i++]);
         if (!(i % DUMP_WRAPAROUND))
-            PRINTF("\n\r");
+        {
+            (void)PRINTF("\n\r");
+        }
     }
 
-    PRINTF("\n\r******** End Dump *******\n\r");
+    (void)PRINTF("\n\r******** End Dump *******\n\r");
 }
 /** Dump buffer in hex and ascii format on console
  *
@@ -282,6 +273,28 @@ void dump_hex_ascii(const void *data, unsigned len);
 void dump_ascii(const void *data, unsigned len);
 void print_ascii(const void *data, unsigned len);
 void dump_json(const void *buffer, unsigned len);
+#else
+#define dump_hex(...) \
+    do                \
+    {                 \
+    } while (0)
+#define dump_hex_ascii(...) \
+    do                      \
+    {                       \
+    } while (0)
+#define dump_ascii(...) \
+    do                  \
+    {                   \
+    } while (0)
+#define print_ascii(...) \
+    do                   \
+    {                    \
+    } while (0)
+#define dump_json(...) \
+    do                 \
+    {                  \
+    } while (0)
+#endif
 
 /* Helper functions to print a float value. Some compilers have a problem
  * interpreting %f
@@ -292,8 +305,10 @@ static inline int wm_frac_part_of(float x, short precision)
 {
     int scale = 1;
 
-    while (precision--)
+    while ((precision--) != (short)0U)
+    {
         scale *= 10;
+    }
 
     return (x < 0 ? (int)(((int)x - x) * scale) : (int)((x - (int)x) * scale));
 }

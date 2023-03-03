@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
-  <!--Timestamp (UTC): 2021-03-01 08:18:15.190283-->
+  <!--Timestamp (UTC): 2023-01-16 01:36:16.198547-->
   <externalDefinitions>
     <definition extID="component.mflash.mw320.88MW320"/>
     <definition extID="boot2_partition.88MW320"/>
@@ -38,6 +38,7 @@
     <definition extID="platform.Include_dsp.88MW320"/>
     <definition extID="middleware.freertos-kernel.88MW320"/>
     <definition extID="middleware.freertos-kernel.extension.88MW320"/>
+    <definition extID="middleware.wifi.wifidriver.88MW320"/>
     <definition extID="middleware.sdmmc.osa.freertos.88MW320"/>
     <definition extID="component.osa_free_rtos.88MW320"/>
     <definition extID="platform.drivers.mw_sdioc.88MW320"/>
@@ -53,17 +54,21 @@
     <definition extID="com.crt.advproject.config.exe.release"/>
     <definition extID="mdk"/>
   </externalDefinitions>
-  <example id="rdmw320_r0_mw_lwip_httpssrv_ota" name="mw_lwip_httpssrv_ota" dependency="component.mflash.mw320.88MW320 boot2_partition.88MW320 middleware.lwip.apps.httpsrv.88MW320 middleware.lwip.88MW320 utility.debug_console.88MW320 middleware.wifi.88MW320 middleware.mbedtls.88MW320 middleware.mbedtls.port.mw.88MW320 platform.drivers.mw_crc.88MW320 platform.drivers.mw_aes.88MW320 middleware.freertos-kernel.heap_4.88MW320 middleware.sdmmc.sdio.88MW320 middleware.sdmmc.common.88MW320 middleware.sdmmc.host.sdioc.88MW320 middleware.sdmmc.host.sdioc.freertos.88MW320 platform.drivers.power.88MW320 platform.drivers.clock.88MW320 platform.drivers.common.88MW320 device.88MW320_CMSIS.88MW320 platform.utilities.assert.88MW320 component.mw_uart_adapter.88MW320 platform.drivers.mw_qspi.88MW320 platform.drivers.mw_flashc.88MW320 component.serial_manager.88MW320 component.lists.88MW320 component.serial_manager_uart.88MW320 platform.drivers.mw_uart.88MW320 device.88MW320_startup.88MW320 platform.drivers.mw_pinmux.88MW320 platform.drivers.mw_gpio.88MW320 component.mflash.common.88MW320 platform.Include_core_cm4.88MW320 platform.Include_common.88MW320 platform.Include_dsp.88MW320 middleware.freertos-kernel.88MW320 middleware.freertos-kernel.extension.88MW320 middleware.sdmmc.osa.freertos.88MW320 component.osa_free_rtos.88MW320 platform.drivers.mw_sdioc.88MW320 platform.utilities.misc_utilities.88MW320 device.88MW320_system.88MW320" category="lwip_examples">
+  <example id="rdmw320_r0_mw_lwip_httpssrv_ota" name="mw_lwip_httpssrv_ota" dependency="component.mflash.mw320.88MW320 boot2_partition.88MW320 middleware.lwip.apps.httpsrv.88MW320 middleware.lwip.88MW320 utility.debug_console.88MW320 middleware.wifi.88MW320 middleware.mbedtls.88MW320 middleware.mbedtls.port.mw.88MW320 platform.drivers.mw_crc.88MW320 platform.drivers.mw_aes.88MW320 middleware.freertos-kernel.heap_4.88MW320 middleware.sdmmc.sdio.88MW320 middleware.sdmmc.common.88MW320 middleware.sdmmc.host.sdioc.88MW320 middleware.sdmmc.host.sdioc.freertos.88MW320 platform.drivers.power.88MW320 platform.drivers.clock.88MW320 platform.drivers.common.88MW320 device.88MW320_CMSIS.88MW320 platform.utilities.assert.88MW320 component.mw_uart_adapter.88MW320 platform.drivers.mw_qspi.88MW320 platform.drivers.mw_flashc.88MW320 component.serial_manager.88MW320 component.lists.88MW320 component.serial_manager_uart.88MW320 platform.drivers.mw_uart.88MW320 device.88MW320_startup.88MW320 platform.drivers.mw_pinmux.88MW320 platform.drivers.mw_gpio.88MW320 component.mflash.common.88MW320 platform.Include_core_cm4.88MW320 platform.Include_common.88MW320 platform.Include_dsp.88MW320 middleware.freertos-kernel.88MW320 middleware.freertos-kernel.extension.88MW320 middleware.wifi.wifidriver.88MW320 middleware.sdmmc.osa.freertos.88MW320 component.osa_free_rtos.88MW320 platform.drivers.mw_sdioc.88MW320 platform.utilities.misc_utilities.88MW320 device.88MW320_system.88MW320" category="lwip_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
     <memory>
-      <memoryBlock id="QSPI_FLASH_88MW320" name="QSPI_FLASH" addr="1F000000" size="00400000" type="ExtFlash" access="RO"/>
-      <memoryBlock id="SRAM_CODE_88MW320" name="SRAM_CODE" addr="00100000" size="00060000" type="RAM" access="RW"/>
+      <memoryBlock id="QSPI_FLASH_88MW320" name="QSPI_FLASH" addr="1F000000" size="00090000" type="ExtFlash" access="RO"/>
+      <memoryBlock id="SRAM_CODE_88MW320" name="SRAM_CODE" addr="00100000" size="0005EFC0" type="RAM" access="RW"/>
       <memoryBlock id="SRAM_SYS_88MW320" name="SRAM_SYS" addr="20000000" size="00020000" type="RAM" access="RW"/>
+      <memoryBlock id="NVRAM_88MW320" name="NVRAM" addr="480C0044" size="00000FBC" type="RAM" access="RW"/>
     </memory>
     <toolchainSettings>
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <buildSteps>
+          <postBuildStep>cd ../tools/mw_img_conv/mw320 ; ./make_load_image.sh ${ProjDirPath}/${ConfigName}/${BuildArtifactFileName} ${ProjDirPath}/${ConfigName}/loadimage.o 0x1f010000 ;</postBuildStep>
+        </buildSteps>
         <option id="com.crt.advproject.gcc.exe.debug.option.debugging.level" type="enum">
           <value>gnu.c.debugging.level.minimal</value>
         </option>
@@ -94,14 +99,29 @@
           <value>SERIAL_PORT_TYPE_UART=1</value>
           <value>FSL_RTOS_FREE_RTOS</value>
         </option>
-        <option id="com.crt.advproject.gas.fpu" type="enum">
-          <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.link.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.link.hdrlib.newlibnano.nohost</value>
         </option>
         <option id="com.crt.advproject.link.fpu" type="enum">
           <value>com.crt.advproject.link.fpu.fpv4.hard</value>
         </option>
         <option id="gnu.c.link.option.nostdlibs" type="boolean">
           <value>true</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
         </option>
       </toolchainSetting>
     </toolchainSettings>
@@ -169,6 +189,12 @@
       <files mask="hkdf-sha.h"/>
       <files mask="sha-private.h"/>
     </source>
+    <source path="boards/rdmw320_r0" project_relative_path="source" type="src">
+      <files mask="wlan_reset.c"/>
+    </source>
+    <source path="boards/rdmw320_r0" project_relative_path="source" type="c_include">
+      <files mask="wlan_reset.h"/>
+    </source>
     <source path="boards/rdmw320_r0/lwip_examples/mw_lwip_httpssrv_ota/iar" project_relative_path="rdmw320_r0/wifi_examples/common/linker" type="linker" toolchain="iar">
       <files mask="88MW320_xx_xxxx_flash.icf"/>
     </source>
@@ -199,7 +225,13 @@
     <source path="boards/rdmw320_r0/lwip_examples/mw_lwip_httpssrv_ota" project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
     </source>
-    <source path="boards/rdmw320_r0/lwip_examples/mw_lwip_httpssrv_ota/webpage" project_relative_path="src/lwip_examples/lwip_httpssrv_ota/webpage" type="other" exclude="true">
+    <source path="boards/rdmw320_r0/linkscripts" project_relative_path="linkscripts" type="src" toolchain="mcuxpresso">
+      <files mask="main_data.ldt"/>
+      <files mask="main_rodata.ldt"/>
+      <files mask="main_text.ldt"/>
+      <files mask="RELOCATED_TO_RAM.ldt"/>
+    </source>
+    <source path="boards/rdmw320_r0/lwip_examples/mw_lwip_httpssrv_ota/webpage" project_relative_path="src/lwip_examples/mw_lwip_httpssrv_ota/webpage" type="other" exclude="true">
       <files mask="httpsrv.css" hidden="true"/>
       <files mask="index.html" hidden="true"/>
       <files mask="ota_reboot.html" hidden="true"/>
@@ -231,6 +263,16 @@
     </source>
     <source path="boards/rdmw320_r0/lwip_examples/mw_lwip_httpssrv_ota" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
+    </source>
+    <source path="tools/boot2" project_relative_path="tools/boot2" type="src" toolchain="mcuxpresso">
+      <files mask="boot2.bin"/>
+      <files mask="layout.bin"/>
+      <files mask="layout.txt"/>
+    </source>
+    <source path="tools/mw_img_conv/mw320" project_relative_path="tools/mw_img_conv/mw320" type="src" toolchain="mcuxpresso">
+      <files mask="mkimg.sh"/>
+      <files mask="make_load_image.sh"/>
+      <files mask="mw_img_conv.py"/>
     </source>
   </example>
 </ksdk:examples>

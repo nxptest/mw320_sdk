@@ -68,7 +68,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Memory allocation related definitions. */
 #define configSUPPORT_STATIC_ALLOCATION  0
 #define configSUPPORT_DYNAMIC_ALLOCATION 1
-#define configTOTAL_HEAP_SIZE            ((size_t)(60 * 1024))
+#define configTOTAL_HEAP_SIZE            ((size_t)(84 * 1024))
 #define configAPPLICATION_ALLOCATED_HEAP 0
 
 /* Hook function related definitions. */
@@ -91,7 +91,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define configUSE_TIMERS             1
 #define configTIMER_TASK_PRIORITY    4
 #define configTIMER_QUEUE_LENGTH     5
-#define configTIMER_TASK_STACK_DEPTH (configMINIMAL_STACK_SIZE)
+#define configTIMER_TASK_STACK_DEPTH (2 * configMINIMAL_STACK_SIZE)
 
 /* Define to trap errors during development. */
 #define configASSERT(x)           \

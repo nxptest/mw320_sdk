@@ -45,6 +45,8 @@ void RTC_Init(RTC_Type *base, const rtc_config_t *config)
     if (running && (!config->ignoreInRunning))
     {
         RTC_StopTimer(base);
+        /* Mask all interrupts */
+        base->INT_MSK_REG = RTC_INT_MSK_REG_CNT_ALARM_MSK_MASK | RTC_INT_MSK_REG_CNT_UPP_MSK_MASK;
     }
 
     /* Reconfigure the RTC if it's not running. */
@@ -138,21 +140,9 @@ uint32_t RTC_GetCounter(RTC_Type *base)
  */
 status_t RTC_SetAlarm(RTC_Type *base, uint32_t alarmCnt)
 {
-    status_t status;
+    base->CNT_ALARM_VAL_REG = alarmCnt;
 
-    /* If we can get the counter value, validate the alarm value. */
-    if (((base->CNT_CNTL_REG & RTC_CNT_CNTL_REG_CNT_UPDT_MOD_MASK) == RTC_CNT_CNTL_REG_CNT_UPDT_MOD(2U)) &&
-        alarmCnt <= base->CNT_VAL_REG)
-    {
-        status = kStatus_Fail;
-    }
-    else
-    {
-        base->CNT_ALARM_VAL_REG = alarmCnt;
-        status                  = kStatus_Success;
-    }
-
-    return status;
+    return kStatus_Success;
 }
 
 /*!

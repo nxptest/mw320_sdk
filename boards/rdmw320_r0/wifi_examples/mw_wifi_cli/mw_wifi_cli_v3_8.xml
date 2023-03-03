@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
-  <!--Timestamp (UTC): 2021-03-01 08:18:16.949844-->
+  <!--Timestamp (UTC): 2023-01-16 01:36:18.094990-->
   <externalDefinitions>
     <definition extID="component.mflash_file.88MW320"/>
     <definition extID="component.mflash.mw320.88MW320"/>
@@ -15,10 +15,26 @@
     <definition extID="platform.drivers.mw_rtc.88MW320"/>
     <definition extID="platform.drivers.mw_crc.88MW320"/>
     <definition extID="platform.drivers.mw_sdioc.88MW320"/>
+    <definition extID="middleware.mbedtls.88MW320"/>
+    <definition extID="middleware.mbedtls.port.mw.88MW320"/>
     <definition extID="middleware.sdmmc.sdio.88MW320"/>
     <definition extID="middleware.sdmmc.common.88MW320"/>
     <definition extID="middleware.sdmmc.host.sdioc.88MW320"/>
     <definition extID="middleware.sdmmc.host.sdioc.freertos.88MW320"/>
+    <definition extID="middleware.wireless.framework_FSCI.88MW320"/>
+    <definition extID="middleware.wireless.UART_Adapter.88MW320"/>
+    <definition extID="middleware.wireless.framework_Common.88MW320"/>
+    <definition extID="middleware.wireless.framework_MemManager.88MW320"/>
+    <definition extID="middleware.wireless.framework_Messaging.88MW320"/>
+    <definition extID="middleware.wireless.framework_OSAbstraction_freertos.88MW320"/>
+    <definition extID="middleware.wireless.framework_Panic.88MW320"/>
+    <definition extID="middleware.wireless.framework_SerialManager.88MW320"/>
+    <definition extID="middleware.wireless.framework_TimersManager.88MW320"/>
+    <definition extID="middleware.wireless.framework_lists.88MW320"/>
+    <definition extID="middleware.wireless.framework_function_lib.88MW320"/>
+    <definition extID="middleware.wireless.framework_module_info.88MW320"/>
+    <definition extID="middleware.wireless.framework_sec_lib.88MW320"/>
+    <definition extID="middleware.wireless.bluetooth_host.88MW320"/>
     <definition extID="platform.drivers.mw_aes.88MW320"/>
     <definition extID="platform.drivers.power.88MW320"/>
     <definition extID="platform.drivers.clock.88MW320"/>
@@ -41,6 +57,7 @@
     <definition extID="platform.Include_dsp.88MW320"/>
     <definition extID="boot2_partition.88MW320"/>
     <definition extID="middleware.freertos-kernel.extension.88MW320"/>
+    <definition extID="middleware.wifi.wifidriver.88MW320"/>
     <definition extID="middleware.sdmmc.osa.freertos.88MW320"/>
     <definition extID="component.osa_free_rtos.88MW320"/>
     <definition extID="platform.utilities.misc_utilities.88MW320"/>
@@ -55,23 +72,31 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="rdmw320_r0_mw_wifi_cli" name="mw_wifi_cli" dependency="component.mflash_file.88MW320 component.mflash.mw320.88MW320 boot2_psm.88MW320 middleware.freertos-kernel.88MW320 middleware.freertos-kernel.heap_4.88MW320 middleware.lwip.88MW320 utility.debug_console.88MW320 middleware.wifi.88MW320 middleware.lwip.apps.lwiperf.88MW320 middleware.wifi.cli.88MW320 platform.drivers.mw_rtc.88MW320 platform.drivers.mw_crc.88MW320 platform.drivers.mw_sdioc.88MW320 middleware.sdmmc.sdio.88MW320 middleware.sdmmc.common.88MW320 middleware.sdmmc.host.sdioc.88MW320 middleware.sdmmc.host.sdioc.freertos.88MW320 platform.drivers.mw_aes.88MW320 platform.drivers.power.88MW320 platform.drivers.clock.88MW320 platform.drivers.common.88MW320 device.88MW320_CMSIS.88MW320 platform.utilities.assert.88MW320 component.mw_uart_adapter.88MW320 platform.drivers.mw_qspi.88MW320 platform.drivers.mw_flashc.88MW320 component.serial_manager.88MW320 component.lists.88MW320 component.serial_manager_uart.88MW320 platform.drivers.mw_uart.88MW320 device.88MW320_startup.88MW320 platform.drivers.mw_pinmux.88MW320 platform.drivers.mw_gpio.88MW320 component.mflash.common.88MW320 platform.Include_core_cm4.88MW320 platform.Include_common.88MW320 platform.Include_dsp.88MW320 boot2_partition.88MW320 middleware.freertos-kernel.extension.88MW320 middleware.sdmmc.osa.freertos.88MW320 component.osa_free_rtos.88MW320 platform.utilities.misc_utilities.88MW320 device.88MW320_system.88MW320" category="wifi_examples">
+  <example id="rdmw320_r0_mw_wifi_cli" name="mw_wifi_cli" dependency="component.mflash_file.88MW320 component.mflash.mw320.88MW320 boot2_psm.88MW320 middleware.freertos-kernel.88MW320 middleware.freertos-kernel.heap_4.88MW320 middleware.lwip.88MW320 utility.debug_console.88MW320 middleware.wifi.88MW320 middleware.lwip.apps.lwiperf.88MW320 middleware.wifi.cli.88MW320 platform.drivers.mw_rtc.88MW320 platform.drivers.mw_crc.88MW320 platform.drivers.mw_sdioc.88MW320 middleware.mbedtls.88MW320 middleware.mbedtls.port.mw.88MW320 middleware.sdmmc.sdio.88MW320 middleware.sdmmc.common.88MW320 middleware.sdmmc.host.sdioc.88MW320 middleware.sdmmc.host.sdioc.freertos.88MW320 middleware.wireless.framework_FSCI.88MW320 middleware.wireless.UART_Adapter.88MW320 middleware.wireless.framework_Common.88MW320 middleware.wireless.framework_MemManager.88MW320 middleware.wireless.framework_Messaging.88MW320 middleware.wireless.framework_OSAbstraction_freertos.88MW320 middleware.wireless.framework_Panic.88MW320 middleware.wireless.framework_SerialManager.88MW320 middleware.wireless.framework_TimersManager.88MW320 middleware.wireless.framework_lists.88MW320 middleware.wireless.framework_function_lib.88MW320 middleware.wireless.framework_module_info.88MW320 middleware.wireless.framework_sec_lib.88MW320 middleware.wireless.bluetooth_host.88MW320 platform.drivers.mw_aes.88MW320 platform.drivers.power.88MW320 platform.drivers.clock.88MW320 platform.drivers.common.88MW320 device.88MW320_CMSIS.88MW320 platform.utilities.assert.88MW320 component.mw_uart_adapter.88MW320 platform.drivers.mw_qspi.88MW320 platform.drivers.mw_flashc.88MW320 component.serial_manager.88MW320 component.lists.88MW320 component.serial_manager_uart.88MW320 platform.drivers.mw_uart.88MW320 device.88MW320_startup.88MW320 platform.drivers.mw_pinmux.88MW320 platform.drivers.mw_gpio.88MW320 component.mflash.common.88MW320 platform.Include_core_cm4.88MW320 platform.Include_common.88MW320 platform.Include_dsp.88MW320 boot2_partition.88MW320 middleware.freertos-kernel.extension.88MW320 middleware.wifi.wifidriver.88MW320 middleware.sdmmc.osa.freertos.88MW320 component.osa_free_rtos.88MW320 platform.utilities.misc_utilities.88MW320 device.88MW320_system.88MW320" category="wifi_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
     <memory>
-      <memoryBlock id="QSPI_FLASH_88MW320" name="QSPI_FLASH" addr="1F000000" size="00400000" type="ExtFlash" access="RO"/>
-      <memoryBlock id="SRAM_CODE_88MW320" name="SRAM_CODE" addr="00100000" size="00060000" type="RAM" access="RW"/>
+      <memoryBlock id="QSPI_FLASH_88MW320" name="QSPI_FLASH" addr="1F000000" size="00090000" type="ExtFlash" access="RO"/>
+      <memoryBlock id="SRAM_CODE_88MW320" name="SRAM_CODE" addr="00100000" size="0005EFC0" type="RAM" access="RW"/>
       <memoryBlock id="SRAM_SYS_88MW320" name="SRAM_SYS" addr="20000000" size="00020000" type="RAM" access="RW"/>
+      <memoryBlock id="NVRAM_88MW320" name="NVRAM" addr="480C0044" size="00000FBC" type="RAM" access="RW"/>
     </memory>
     <toolchainSettings>
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <buildSteps>
+          <postBuildStep>cd ../tools/mw_img_conv/mw320 ; ./make_load_image.sh ${ProjDirPath}/${ConfigName}/${BuildArtifactFileName} ${ProjDirPath}/${ConfigName}/loadimage.o 0x1f010000 ;</postBuildStep>
+        </buildSteps>
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_88MW320_A0_NAPC</value>
+          <value>USE_SDK_OSA=1</value>
+          <value>ENABLE_RAM_VECTOR_TABLE=1</value>
+          <value>FSL_FRM_OSA_MAIN_FUNC_DISABLE=1</value>
           <value>USE_RTOS=1</value>
           <value>CONFIG_USE_PSM=1</value>
           <value>CONFIG_SECURE_PSM=1</value>
           <value>PRINTF_ADVANCED_ENABLE=1</value>
+          <value>MBEDTLS_CONFIG_FILE='"mbedtls_config.h"'</value>
           <value>FSL_RTOS_FREE_RTOS</value>
           <value>SDIO_ENABLED</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
@@ -100,9 +125,6 @@
         <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
           <value>&amp;Heap:Default;Default;0x400&amp;Stack:Default;Default;0x400</value>
         </option>
-        <option id="com.crt.advproject.gas.fpu" type="enum">
-          <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
-        </option>
         <option id="com.crt.advproject.gcc.fpu" type="enum">
           <value>com.crt.advproject.gcc.fpu.fpv4.hard</value>
         </option>
@@ -113,10 +135,13 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin -imacros "wifi_config.h"</value>
+          <value>-fomit-frame-pointer -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin -imacros "wifi_config.h"</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
         </option>
       </toolchainSetting>
     </toolchainSettings>
@@ -150,12 +175,14 @@
       </debug_configuration>
     </debug_configurations>
     <include_paths>
+      <include_path path="boards/rdmw320_r0/wifi_examples/common/ext_ble_coex" project_relative_path="source" type="c_include"/>
       <include_path path="boards/rdmw320_r0/wifi_examples/mw_wifi_cli" project_relative_path="source" type="c_include"/>
       <include_path path="boards/rdmw320_r0/wifi_examples/mw_wifi_cli" project_relative_path="board" type="c_include"/>
       <include_path path="boards/rdmw320_r0/wifi_examples/mw_wifi_cli" project_relative_path="." type="c_include"/>
       <include_path path="boards/rdmw320_r0/wifi_examples/common" project_relative_path="." type="c_include"/>
       <include_path path="boards/rdmw320_r0/wifi_examples/common" project_relative_path="board" type="c_include"/>
       <include_path path="boards/rdmw320_r0" project_relative_path="board" type="c_include"/>
+      <include_path path="boards/rdmw320_r0/wifi_examples/common/ext_ble_coex" project_relative_path="." type="asm_include"/>
       <include_path path="boards/rdmw320_r0/wifi_examples/mw_wifi_cli" project_relative_path="source" type="asm_include"/>
       <include_path path="boards/rdmw320_r0/wifi_examples/mw_wifi_cli" project_relative_path="." type="asm_include"/>
       <include_path path="boards/rdmw320_r0" project_relative_path="." type="asm_include"/>
@@ -185,6 +212,28 @@
       <files mask="build_flash_release.bat"/>
       <files mask="build_flash_release.sh"/>
     </source>
+    <source path="boards/rdmw320_r0/wifi_examples/common/ext_ble_coex" project_relative_path="source" type="src">
+      <files mask="cmd_ble.c"/>
+      <files mask="evt_ble.c"/>
+      <files mask="hsdk_main.c"/>
+      <files mask="app_config.c"/>
+      <files mask="ble_stubs.c"/>
+      <files mask="host_w_uart.c"/>
+      <files mask="w_uart_app.c"/>
+    </source>
+    <source path="boards/rdmw320_r0/wifi_examples/common/ext_ble_coex" project_relative_path="source" type="c_include">
+      <files mask="cmd_ble.h"/>
+      <files mask="hsdk_interface.h"/>
+      <files mask="ble_stubs.h"/>
+      <files mask="host_w_uart.h"/>
+      <files mask="w_uart_app.h"/>
+    </source>
+    <source path="boards/rdmw320_r0" project_relative_path="source" type="src">
+      <files mask="wlan_reset.c"/>
+    </source>
+    <source path="boards/rdmw320_r0" project_relative_path="source" type="c_include">
+      <files mask="wlan_reset.h"/>
+    </source>
     <source path="boards/rdmw320_r0/wifi_examples/mw_wifi_cli/iar" project_relative_path="rdmw320_r0/wifi_examples/common/linker" type="linker" toolchain="iar">
       <files mask="88MW320_xx_xxxx_flash.icf"/>
     </source>
@@ -196,12 +245,16 @@
     </source>
     <source path="boards/rdmw320_r0/wifi_examples/mw_wifi_cli" project_relative_path="source" type="src">
       <files mask="main.c"/>
+      <files mask="gpio.c"/>
       <files mask="network_flash_storage.c"/>
     </source>
     <source path="boards/rdmw320_r0/wifi_examples/mw_wifi_cli" project_relative_path="source" type="c_include">
+      <files mask="ext_ble_coex.h"/>
       <files mask="lwipopts.h"/>
       <files mask="lwippools.h"/>
+      <files mask="mbedtls_config.h"/>
       <files mask="FreeRTOSConfig.h"/>
+      <files mask="gpio.h"/>
       <files mask="network_flash_storage.h"/>
       <files mask="wifi_config.h"/>
     </source>
@@ -218,7 +271,13 @@
       <files mask="lpm.h"/>
     </source>
     <source path="boards/rdmw320_r0/wifi_examples/common" project_relative_path="firmware" type="binary">
-      <files mask="mw30x_uapsta_W14.88.36.p144.fw.bin"/>
+      <files mask="mw32x_uapsta_W14.88.36.p179.fw.bin"/>
+    </source>
+    <source path="boards/rdmw320_r0/linkscripts" project_relative_path="linkscripts" type="src" toolchain="mcuxpresso">
+      <files mask="main_data.ldt"/>
+      <files mask="main_rodata.ldt"/>
+      <files mask="main_text.ldt"/>
+      <files mask="RELOCATED_TO_RAM.ldt"/>
     </source>
     <source path="boards/rdmw320_r0" project_relative_path="board" type="src">
       <files mask="sdmmc_config.c"/>
@@ -236,6 +295,16 @@
     </source>
     <source path="boards/rdmw320_r0/wifi_examples/mw_wifi_cli" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
+    </source>
+    <source path="tools/boot2" project_relative_path="tools/boot2" type="src" toolchain="mcuxpresso">
+      <files mask="boot2.bin"/>
+      <files mask="layout.bin"/>
+      <files mask="layout.txt"/>
+    </source>
+    <source path="tools/mw_img_conv/mw320" project_relative_path="tools/mw_img_conv/mw320" type="src" toolchain="mcuxpresso">
+      <files mask="mkimg.sh"/>
+      <files mask="make_load_image.sh"/>
+      <files mask="mw_img_conv.py"/>
     </source>
   </example>
 </ksdk:examples>

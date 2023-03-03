@@ -502,7 +502,11 @@ int DbgConsole_SendDataReliable(uint8_t *ch, size_t size)
 #endif /* DEBUG_CONSOLE_TRANSFER_NON_BLOCKING */
 
     assert(NULL != ch);
-    assert(0U != size);
+
+    if (0U == size)
+    {
+        return 0;
+    }
 
     if (NULL == g_serialHandle)
     {

@@ -117,6 +117,8 @@ void BOARD_BootClockRUN(void)
     /* Switch system clock source to SFLL before RC32M calibration */
     CLOCK_SetSysClkSource(kCLOCK_SysClkSrcSFll);
 
+    CLOCK_SetClkDiv(kCLOCK_DivQspi, 4U);
+
     /* Calibrate RC32M */
     CLOCK_CalibrateRC32M(true, 0U);
     /* RC32M enabled, controller clock can be gated. */

@@ -2,25 +2,9 @@
  *
  *  @brief  This file provides the handling of command
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -37,8 +21,6 @@ Change log:
 
 /* Always keep this include at the end of all include files */
 #include <mlan_remap_mem_operations.h>
-
-void dump_rf_channel_info(HostCmd_DS_802_11_RF_CHANNEL *prf_channel);
 
 /********************************************************
                 Local Variables
@@ -121,23 +103,30 @@ static mlan_status wlan_ret_802_11_snmp_mib(IN pmlan_private pmpriv,
     if (query_type == HostCmd_ACT_GEN_GET)
     {
         /* wmsdk: GET is not used. Disable */
+        switch (oid)
+        {
+            default:
+                break;
+        }
     }
     else
     { /* (query_type == HostCmd_ACT_GEN_SET) */
         /* Update state for 11d */
         if (oid == Dot11D_i)
         {
-            ul_temp = wlan_le16_to_cpu(*((t_u16 *)(psmib->value)));
+            ul_temp = wlan_le16_to_cpu(*((t_u16 *)(void *)(psmib->value)));
             /* Set 11d state to private */
             pmpriv->state_11d.enable_11d = (state_11d_t)ul_temp;
             /* Set user enable flag if called from ioctl */
-            if (pioctl_buf)
+            if (pioctl_buf != NULL)
+            {
                 pmpriv->state_11d.user_enable_11d = (state_11d_t)ul_temp;
+            }
         }
         /* Update state for 11h */
         if (oid == Dot11H_i)
         {
-            ul_temp = wlan_le16_to_cpu(*((t_u16 *)(psmib->value)));
+            ul_temp = wlan_le16_to_cpu(*((t_u16 *)(void *)(psmib->value)));
             /* Set 11h state to priv */
             pmpriv->intf_state_11h.is_11h_active = (ul_temp & ENABLE_11H_MASK);
             /* Set radar_det state to adapter */
@@ -146,7 +135,7 @@ static mlan_status wlan_ret_802_11_snmp_mib(IN pmlan_private pmpriv,
         }
     }
 
-    if (pioctl_buf)
+    if (pioctl_buf != NULL)
     {
         /* Indicate ioctl complete */
         pioctl_buf->data_read_written = sizeof(mlan_ds_snmp_mib);
@@ -171,9 +160,9 @@ static mlan_status wlan_ret_get_log(IN pmlan_private pmpriv, IN HostCmd_DS_COMMA
     mlan_ds_get_info *pget_info         = MNULL;
 
     ENTER();
-    if (pioctl_buf)
+    if (pioctl_buf != NULL)
     {
-        pget_info                               = (mlan_ds_get_info *)pioctl_buf->pbuf;
+        pget_info                               = (mlan_ds_get_info *)(void *)pioctl_buf->pbuf;
         pget_info->param.stats.mcast_tx_frame   = wlan_le32_to_cpu(pget_log->mcast_tx_frame);
         pget_info->param.stats.failed           = wlan_le32_to_cpu(pget_log->failed);
         pget_info->param.stats.retry            = wlan_le32_to_cpu(pget_log->retry);
@@ -213,18 +202,18 @@ static mlan_status wlan_get_power_level(pmlan_private pmpriv, void *pdata_buf)
 
     ENTER();
 
-    if (pdata_buf)
+    if (pdata_buf != NULL)
     {
-        ppg_tlv = (MrvlTypes_Power_Group_t *)((t_u8 *)pdata_buf + sizeof(HostCmd_DS_TXPWR_CFG));
-        pg      = (Power_Group_t *)((t_u8 *)ppg_tlv + sizeof(MrvlTypes_Power_Group_t));
+        ppg_tlv = (MrvlTypes_Power_Group_t *)(void *)((t_u8 *)pdata_buf + sizeof(HostCmd_DS_TXPWR_CFG));
+        pg      = (Power_Group_t *)(void *)((t_u8 *)ppg_tlv + sizeof(MrvlTypes_Power_Group_t));
         length  = ppg_tlv->length;
         if (length > 0)
         {
             max_power = pg->power_max;
             min_power = pg->power_min;
-            length -= sizeof(Power_Group_t);
+            length -= (int)sizeof(Power_Group_t);
         }
-        while (length)
+        while (length > 0)
         {
             pg++;
             if (max_power < pg->power_max)
@@ -235,9 +224,9 @@ static mlan_status wlan_get_power_level(pmlan_private pmpriv, void *pdata_buf)
             {
                 min_power = pg->power_min;
             }
-            length -= sizeof(Power_Group_t);
+            length -= (int)sizeof(Power_Group_t);
         }
-        if (ppg_tlv->length > 0)
+        if (ppg_tlv->length > 0U)
         {
             pmpriv->min_tx_power_level = (t_u8)min_power;
             pmpriv->max_tx_power_level = (t_u8)max_power;
@@ -274,24 +263,28 @@ static mlan_status wlan_ret_tx_power_cfg(IN pmlan_private pmpriv,
 
     ENTER();
 
-    ppg_tlv = (MrvlTypes_Power_Group_t *)((t_u8 *)ptxp_cfg + sizeof(HostCmd_DS_TXPWR_CFG));
-    pg      = (Power_Group_t *)((t_u8 *)ppg_tlv + sizeof(MrvlTypes_Power_Group_t));
+    ppg_tlv = (MrvlTypes_Power_Group_t *)(void *)((t_u8 *)&resp->params + sizeof(HostCmd_DS_TXPWR_CFG));
+    pg      = (Power_Group_t *)(void *)((t_u8 *)ppg_tlv + sizeof(MrvlTypes_Power_Group_t));
 
     switch (action)
     {
         case HostCmd_ACT_GEN_GET:
             ppg_tlv->length = wlan_le16_to_cpu(ppg_tlv->length);
             if (pmpriv->adapter->hw_status == WlanHardwareStatusInitializing)
-                wlan_get_power_level(pmpriv, ptxp_cfg);
+            {
+                (void)wlan_get_power_level(pmpriv, ptxp_cfg);
+            }
             pmpriv->tx_power_level = (t_u16)pg->power_min;
             PRINTM(MMSG, "The Sta tx power level: %d\r\n", pmpriv->tx_power_level);
             break;
 
         case HostCmd_ACT_GEN_SET:
-            if (wlan_le32_to_cpu(ptxp_cfg->mode))
+            if (wlan_le32_to_cpu(ptxp_cfg->mode) != 0U)
             {
                 if (pg->power_max == pg->power_min)
+                {
                     pmpriv->tx_power_level = (t_u16)pg->power_min;
+                }
             }
             break;
         default:
@@ -303,24 +296,28 @@ static mlan_status wlan_ret_tx_power_cfg(IN pmlan_private pmpriv,
     PRINTM(MINFO, "Current TxPower Level = %d,Max Power=%d, Min Power=%d\n", pmpriv->tx_power_level,
            pmpriv->max_tx_power_level, pmpriv->min_tx_power_level);
 
-    if (pioctl_buf)
+    if (pioctl_buf != MNULL)
     {
-        power = (mlan_ds_power_cfg *)pioctl_buf->pbuf;
+        power = (mlan_ds_power_cfg *)(void *)pioctl_buf->pbuf;
         if (action == HostCmd_ACT_GEN_GET)
         {
             if (power->sub_command == MLAN_OID_POWER_CFG)
             {
                 pioctl_buf->data_read_written      = sizeof(mlan_power_cfg_t) + MLAN_SUB_COMMAND_SIZE;
                 power->param.power_cfg.power_level = pmpriv->tx_power_level;
-                if (wlan_le32_to_cpu(ptxp_cfg->mode))
+                if (wlan_le32_to_cpu(ptxp_cfg->mode) != 0U)
+                {
                     power->param.power_cfg.is_power_auto = 0;
+                }
                 else
+                {
                     power->param.power_cfg.is_power_auto = 1;
+                }
             }
             else
             {
                 power->param.power_ext.len = 0;
-                while (ppg_tlv->length)
+                while (ppg_tlv->length != 0U)
                 {
                     data[0] = pg->first_rate_code;
                     data[1] = pg->last_rate_code;
@@ -339,12 +336,17 @@ static mlan_status wlan_ret_tx_power_cfg(IN pmlan_private pmpriv,
                             data[1] |= TX_RATE_HT_BW40_BIT;
                         }
                     }
+                    else
+                    {
+                        /* Do Nothing */
+                    }
                     data[2] = pg->power_min;
                     data[3] = pg->power_max;
                     data[4] = pg->power_step;
-                    memcpy(pmpriv->adapter, (t_u8 *)(&power->param.power_ext.power_data[power->param.power_ext.len]),
-                           (t_u8 *)data, sizeof(data));
-                    power->param.power_ext.len += 5;
+                    (void)__memcpy(pmpriv->adapter,
+                                   (t_u8 *)(&power->param.power_ext.power_data[power->param.power_ext.len]),
+                                   (t_u8 *)data, sizeof(data));
+                    power->param.power_ext.len += 5U;
                     pg++;
                     ppg_tlv->length -= sizeof(Power_Group_t);
                 }
@@ -433,11 +435,18 @@ mlan_status wlan_ops_sta_process_cmdresp(IN t_void *priv, IN t_u16 cmdresp_no, I
         case HostCmd_CMD_TX_RATE_CFG:
             ret = wlan_ret_tx_rate_cfg(pmpriv, resp, pioctl);
             break;
+#ifndef CONFIG_EXT_SCAN_SUPPORT
         case HostCmd_CMD_802_11_SCAN:
             ret        = wlan_ret_802_11_scan(pmpriv, resp, pioctl_buf);
             pioctl_buf = MNULL;
             /* pmadapter->curr_cmd->pioctl_buf = MNULL; */
             break;
+#else
+        case HostCmd_CMD_802_11_SCAN_EXT:
+            ret        = wlan_ret_802_11_scan_ext(pmpriv, resp, pioctl_buf);
+            pioctl_buf = MNULL;
+            break;
+#endif /* CONFIG_EXT_SCAN_SUPPORT */
         case HostCmd_CMD_802_11_ASSOCIATE:
             ret = wlan_ret_802_11_associate(pmpriv, resp, pioctl_buf);
             break;
@@ -461,6 +470,11 @@ mlan_status wlan_ops_sta_process_cmdresp(IN t_void *priv, IN t_u16 cmdresp_no, I
 #ifdef OTP_CHANINFO
         case HostCmd_CMD_CHAN_REGION_CFG:
             ret = wlan_ret_chan_region_cfg(pmpriv, resp, pioctl_buf);
+            break;
+#endif
+#ifdef CONFIG_11AX
+        case HostCmd_CMD_11AX_CMD:
+            ret = wlan_ret_11ax_cmd(pmpriv, resp, pioctl_buf);
             break;
 #endif
         default:

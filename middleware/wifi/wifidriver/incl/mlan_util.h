@@ -3,25 +3,9 @@
  *  @brief This file contains wrappers for linked-list,
  *  spinlock and timer defines.
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -32,6 +16,10 @@ Change log:
 
 #ifndef _MLAN_UTIL_H_
 #define _MLAN_UTIL_H_
+
+#ifndef MNULL
+#define MNULL ((void *)0)
+#endif
 
 /** Circular doubly linked list */
 typedef struct _mlan_linked_list
@@ -81,11 +69,15 @@ static INLINE t_void util_init_list_head(t_void *pmoal_handle,
                                          mlan_status (*moal_init_lock)(t_void *handle, t_void **pplock))
 {
     /* Both next and prev point to self */
-    util_init_list((pmlan_linked_list)phead);
-    if (lock_required)
-        moal_init_lock(pmoal_handle, &phead->plock);
+    util_init_list((pmlan_linked_list)(void *)phead);
+    if (lock_required != 0U)
+    {
+        (void)moal_init_lock(pmoal_handle, &phead->plock);
+    }
     else
-        phead->plock = 0;
+    {
+        phead->plock = MNULL;
+    }
 }
 
 /**
@@ -100,9 +92,11 @@ static INLINE t_void util_free_list_head(t_void *pmoal_handle,
                                          pmlan_list_head phead,
                                          mlan_status (*moal_free_lock)(t_void *handle, t_void *plock))
 {
-    phead->pprev = phead->pnext = 0;
-    if (phead->plock)
-        moal_free_lock(pmoal_handle, phead->plock);
+    phead->pprev = phead->pnext = MNULL;
+    if (phead->plock != MNULL)
+    {
+        (void)moal_free_lock(pmoal_handle, phead->plock);
+    }
 }
 
 /**
@@ -119,16 +113,20 @@ static INLINE pmlan_linked_list util_peek_list(t_void *pmoal_handle,
                                                mlan_status (*moal_spin_lock)(t_void *handle, t_void *plock),
                                                mlan_status (*moal_spin_unlock)(t_void *handle, t_void *plock))
 {
-    pmlan_linked_list pnode = 0;
+    pmlan_linked_list pnode = MNULL;
 
-    if (moal_spin_lock)
-        moal_spin_lock(pmoal_handle, phead->plock);
-    if (phead->pnext != (pmlan_linked_list)phead)
+    if (moal_spin_lock != MNULL)
+    {
+        (void)moal_spin_lock(pmoal_handle, phead->plock);
+    }
+    if (phead->pnext != (pmlan_linked_list)(void *)phead)
     {
         pnode = phead->pnext;
     }
-    if (moal_spin_unlock)
-        moal_spin_unlock(pmoal_handle, phead->plock);
+    if (moal_spin_unlock != MNULL)
+    {
+        (void)moal_spin_unlock(pmoal_handle, phead->plock);
+    }
     return pnode;
 }
 
@@ -150,15 +148,19 @@ static INLINE t_void util_enqueue_list_tail(t_void *pmoal_handle,
 {
     pmlan_linked_list pold_last;
 
-    if (moal_spin_lock)
-        moal_spin_lock(pmoal_handle, phead->plock);
+    if (moal_spin_lock != MNULL)
+    {
+        (void)moal_spin_lock(pmoal_handle, phead->plock);
+    }
     pold_last    = phead->pprev;
     pnode->pprev = pold_last;
-    pnode->pnext = (pmlan_linked_list)phead;
+    pnode->pnext = (pmlan_linked_list)(void *)phead;
 
     phead->pprev = pold_last->pnext = pnode;
-    if (moal_spin_unlock)
-        moal_spin_unlock(pmoal_handle, phead->plock);
+    if (moal_spin_unlock != MNULL)
+    {
+        (void)moal_spin_unlock(pmoal_handle, phead->plock);
+    }
 }
 
 /**
@@ -179,15 +181,19 @@ static INLINE t_void util_enqueue_list_head(t_void *pmoal_handle,
 {
     pmlan_linked_list pold_first;
 
-    if (moal_spin_lock)
-        moal_spin_lock(pmoal_handle, phead->plock);
+    if (moal_spin_lock != MNULL)
+    {
+        (void)moal_spin_lock(pmoal_handle, phead->plock);
+    }
     pold_first   = phead->pnext;
-    pnode->pprev = (pmlan_linked_list)phead;
+    pnode->pprev = (pmlan_linked_list)(void *)phead;
     pnode->pnext = pold_first;
 
     phead->pnext = pold_first->pprev = pnode;
-    if (moal_spin_unlock)
-        moal_spin_unlock(pmoal_handle, phead->plock);
+    if (moal_spin_unlock != MNULL)
+    {
+        (void)moal_spin_unlock(pmoal_handle, phead->plock);
+    }
 }
 
 /**
@@ -209,16 +215,20 @@ static INLINE t_void util_unlink_list(t_void *pmoal_handle,
     pmlan_linked_list pmy_prev;
     pmlan_linked_list pmy_next;
 
-    if (moal_spin_lock)
-        moal_spin_lock(pmoal_handle, phead->plock);
+    if (moal_spin_lock != MNULL)
+    {
+        (void)moal_spin_lock(pmoal_handle, phead->plock);
+    }
     pmy_prev        = pnode->pprev;
     pmy_next        = pnode->pnext;
     pmy_next->pprev = pmy_prev;
     pmy_prev->pnext = pmy_next;
 
-    pnode->pnext = pnode->pprev = 0;
-    if (moal_spin_unlock)
-        moal_spin_unlock(pmoal_handle, phead->plock);
+    pnode->pnext = pnode->pprev = MNULL;
+    if (moal_spin_unlock != MNULL)
+    {
+        (void)moal_spin_unlock(pmoal_handle, phead->plock);
+    }
 }
 
 /**
@@ -237,10 +247,12 @@ static INLINE pmlan_linked_list util_dequeue_list(t_void *pmoal_handle,
 {
     pmlan_linked_list pnode;
 
-    if (moal_spin_lock)
-        moal_spin_lock(pmoal_handle, phead->plock);
+    if (moal_spin_lock != MNULL)
+    {
+        (void)moal_spin_lock(pmoal_handle, phead->plock);
+    }
     pnode = phead->pnext;
-    if (pnode && (pnode != (pmlan_linked_list)phead))
+    if (pnode != MNULL && (pnode != (pmlan_linked_list)(void *)phead))
     {
         util_unlink_list(pmoal_handle, phead, pnode, 0, 0);
     }
@@ -248,8 +260,10 @@ static INLINE pmlan_linked_list util_dequeue_list(t_void *pmoal_handle,
     {
         pnode = 0;
     }
-    if (moal_spin_unlock)
-        moal_spin_unlock(pmoal_handle, phead->plock);
+    if (moal_spin_unlock != MNULL)
+    {
+        (void)moal_spin_unlock(pmoal_handle, phead->plock);
+    }
     return pnode;
 }
 
@@ -296,7 +310,7 @@ static INLINE t_void util_scalar_init(t_void *pmoal_handle,
 {
     pscalar->value = val;
     pscalar->flags = 0;
-    if (plock_to_use)
+    if (plock_to_use != MNULL)
     {
         pscalar->flags &= ~MLAN_SCALAR_FLAG_UNIQUE_LOCK;
         pscalar->plock = plock_to_use;
@@ -304,7 +318,7 @@ static INLINE t_void util_scalar_init(t_void *pmoal_handle,
     else
     {
         pscalar->flags |= MLAN_SCALAR_FLAG_UNIQUE_LOCK;
-        moal_init_lock(pmoal_handle, &pscalar->plock);
+        (void)moal_init_lock(pmoal_handle, &pscalar->plock);
     }
 }
 
@@ -320,8 +334,10 @@ static INLINE t_void util_scalar_free(t_void *pmoal_handle,
                                       pmlan_scalar pscalar,
                                       mlan_status (*moal_free_lock)(t_void *handle, t_void *plock))
 {
-    if (pscalar->flags & MLAN_SCALAR_FLAG_UNIQUE_LOCK)
-        moal_free_lock(pmoal_handle, &pscalar->plock);
+    if ((pscalar->flags & MLAN_SCALAR_FLAG_UNIQUE_LOCK) > 0U)
+    {
+        (void)moal_free_lock(pmoal_handle, &pscalar->plock);
+    }
 }
 
 /**
@@ -340,11 +356,15 @@ static INLINE t_s32 util_scalar_read(t_void *pmoal_handle,
 {
     t_s32 val;
 
-    if (moal_spin_lock)
-        moal_spin_lock(pmoal_handle, pscalar->plock);
+    if (moal_spin_lock != MNULL)
+    {
+        (void)moal_spin_lock(pmoal_handle, pscalar->plock);
+    }
     val = pscalar->value;
-    if (moal_spin_unlock)
-        moal_spin_unlock(pmoal_handle, pscalar->plock);
+    if (moal_spin_unlock != MNULL)
+    {
+        (void)moal_spin_unlock(pmoal_handle, pscalar->plock);
+    }
 
     return val;
 }
@@ -365,11 +385,15 @@ static INLINE t_void util_scalar_write(t_void *pmoal_handle,
                                        mlan_status (*moal_spin_lock)(t_void *handle, t_void *plock),
                                        mlan_status (*moal_spin_unlock)(t_void *handle, t_void *plock))
 {
-    if (moal_spin_lock)
-        moal_spin_lock(pmoal_handle, pscalar->plock);
+    if (moal_spin_lock != MNULL)
+    {
+        (void)moal_spin_lock(pmoal_handle, pscalar->plock);
+    }
     pscalar->value = val;
-    if (moal_spin_unlock)
-        moal_spin_unlock(pmoal_handle, pscalar->plock);
+    if (moal_spin_unlock != MNULL)
+    {
+        (void)moal_spin_unlock(pmoal_handle, pscalar->plock);
+    }
 }
 
 /**
@@ -386,11 +410,15 @@ static INLINE t_void util_scalar_increment(t_void *pmoal_handle,
                                            mlan_status (*moal_spin_lock)(t_void *handle, t_void *plock),
                                            mlan_status (*moal_spin_unlock)(t_void *handle, t_void *plock))
 {
-    if (moal_spin_lock)
-        moal_spin_lock(pmoal_handle, pscalar->plock);
+    if (moal_spin_lock != MNULL)
+    {
+        (void)moal_spin_lock(pmoal_handle, pscalar->plock);
+    }
     pscalar->value++;
-    if (moal_spin_unlock)
-        moal_spin_unlock(pmoal_handle, pscalar->plock);
+    if (moal_spin_unlock != MNULL)
+    {
+        (void)moal_spin_unlock(pmoal_handle, pscalar->plock);
+    }
 }
 
 /**
@@ -407,11 +435,15 @@ static INLINE t_void util_scalar_decrement(t_void *pmoal_handle,
                                            mlan_status (*moal_spin_lock)(t_void *handle, t_void *plock),
                                            mlan_status (*moal_spin_unlock)(t_void *handle, t_void *plock))
 {
-    if (moal_spin_lock)
-        moal_spin_lock(pmoal_handle, pscalar->plock);
+    if (moal_spin_lock != MNULL)
+    {
+        (void)moal_spin_lock(pmoal_handle, pscalar->plock);
+    }
     pscalar->value--;
-    if (moal_spin_unlock)
-        moal_spin_unlock(pmoal_handle, pscalar->plock);
+    if (moal_spin_unlock != MNULL)
+    {
+        (void)moal_spin_unlock(pmoal_handle, pscalar->plock);
+    }
 }
 
 /**
@@ -433,11 +465,15 @@ static INLINE t_s32 util_scalar_offset(t_void *pmoal_handle,
 {
     t_s32 newval;
 
-    if (moal_spin_lock)
-        moal_spin_lock(pmoal_handle, pscalar->plock);
+    if (moal_spin_lock != MNULL)
+    {
+        (void)moal_spin_lock(pmoal_handle, pscalar->plock);
+    }
     newval = (pscalar->value += offset);
-    if (moal_spin_unlock)
-        moal_spin_unlock(pmoal_handle, pscalar->plock);
+    if (moal_spin_unlock != MNULL)
+    {
+        (void)moal_spin_unlock(pmoal_handle, pscalar->plock);
+    }
 
     return newval;
 }
@@ -465,8 +501,10 @@ static INLINE t_u8 util_scalar_conditional_write(t_void *pmoal_handle,
                                                  mlan_status (*moal_spin_unlock)(t_void *handle, t_void *plock))
 {
     t_u8 update;
-    if (moal_spin_lock)
-        moal_spin_lock(pmoal_handle, pscalar->plock);
+    if (moal_spin_lock != MNULL)
+    {
+        (void)moal_spin_lock(pmoal_handle, pscalar->plock);
+    }
 
     switch (condition)
     {
@@ -493,10 +531,14 @@ static INLINE t_u8 util_scalar_conditional_write(t_void *pmoal_handle,
             break;
     }
     if (update)
+    {
         pscalar->value = val_to_set;
+    }
 
-    if (moal_spin_unlock)
-        moal_spin_unlock(pmoal_handle, pscalar->plock);
+    if (moal_spin_unlock != MNULL)
+    {
+        (void)moal_spin_unlock(pmoal_handle, pscalar->plock);
+    }
     return (update) ? MTRUE : MFALSE;
 }
 

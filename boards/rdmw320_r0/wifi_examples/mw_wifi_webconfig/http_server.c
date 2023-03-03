@@ -6,7 +6,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include "webconfig.h"
 #include "http_server.h"
 #include "httpsrv.h"
 #include "mbedtls/certs.h"

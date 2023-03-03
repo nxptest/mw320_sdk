@@ -52,7 +52,7 @@ typedef struct _power_clock_context
     uint32_t GPT2_CTRL;
     uint32_t GPT3_CTRL;
     uint32_t PERI_CLK_SRC;
-    uint32_t CAU_CLK_SEL;
+    uint32_t GAU_CLK_SEL;
     uint32_t UART_FAST_CLK_DIV;
     uint32_t UART_SLOW_CLK_DIV;
     uint32_t MCU_CORE_CLK_DIV;
@@ -82,13 +82,7 @@ static power_systick_context_t s_systickContext;
 static power_clock_context_t s_clockContext;
 static power_flash_context_t s_flashContext;
 static uint32_t s_ioPadPwrCfg;
-#if defined(__ICCARM__)
 uint32_t *pm3_entryaddr;
-#elif defined(__GNUC__)
-__attribute__((used)) uint32_t *pm3_entryaddr;
-#else
-#error unsupported compiler
-#endif
 
 /*******************************************************************************
  * Prototypes
@@ -457,7 +451,7 @@ static void POWER_SaveDeviceState(uint32_t mode)
         s_clockContext.GPT2_CTRL         = PMU->GPT2_CTRL;
         s_clockContext.GPT3_CTRL         = PMU->GPT3_CTRL;
         s_clockContext.PERI_CLK_SRC      = PMU->PERI_CLK_SRC;
-        s_clockContext.CAU_CLK_SEL       = PMU->CAU_CLK_SEL;
+        s_clockContext.GAU_CLK_SEL       = PMU->GAU_CLK_SEL;
         s_clockContext.UART_FAST_CLK_DIV = PMU->UART_FAST_CLK_DIV;
         s_clockContext.UART_SLOW_CLK_DIV = PMU->UART_SLOW_CLK_DIV;
         s_clockContext.MCU_CORE_CLK_DIV  = PMU->MCU_CORE_CLK_DIV;
@@ -481,7 +475,7 @@ static void POWER_RestoreDeviceState(uint32_t mode)
         PMU->GPT2_CTRL         = s_clockContext.GPT2_CTRL;
         PMU->GPT3_CTRL         = s_clockContext.GPT3_CTRL;
         PMU->PERI_CLK_SRC      = s_clockContext.PERI_CLK_SRC;
-        PMU->CAU_CLK_SEL       = s_clockContext.CAU_CLK_SEL;
+        PMU->GAU_CLK_SEL       = s_clockContext.GAU_CLK_SEL;
         PMU->UART_FAST_CLK_DIV = s_clockContext.UART_FAST_CLK_DIV;
         PMU->UART_SLOW_CLK_DIV = s_clockContext.UART_SLOW_CLK_DIV;
         PMU->MCU_CORE_CLK_DIV  = s_clockContext.MCU_CORE_CLK_DIV;
@@ -623,7 +617,7 @@ static void POWER_PostPowerMode(uint32_t mode)
 #if defined(__GNUC__)
 void asm_mcu_pm3()
 {
-    /* Address: 0x480C0008 is the address in NVRAM which holds address
+    /* Address: 0x480C0000 is the address in NVRAM which holds address
      * where control returns after exit from PM3*/
     /* All general purpose registers and special registers
      *  are saved by pushing them on current thread's stack
@@ -645,11 +639,11 @@ void asm_mcu_pm3()
         "push {lr}\n"
         "ldr r0 , =0x480C0040\n"
         "str sp , [r0]\n"
-        "ldr r0 , =pm3_entryaddr\n"
+        "mov r0 , %0\n"
         "mov r1 , pc\n"
         "add r1 , r1 , #20\n"
         "ldr r2 , [r0]\n"
-        "str r1 , [r2]\n");
+        "str r1 , [r2]\n" : : "r" (&pm3_entryaddr) : "r0", "r1", "r2");
     /*
      * Execute WFI to generate a state change
      * and system is in an unresponsive state
@@ -754,7 +748,7 @@ void asm_mcu_pm3()
 void asm_mcu_pm3()
 {
     __asm volatile("push {r0-r12}");
-    /* Address: 0x480C0008 is the address in NVRAM which holds address
+    /* Address: 0x480C0000 is the address in NVRAM which holds address
      * where control returns after exit from PM3*/
     /* All general purpose registers and special registers
      *  are saved by pushing them on current thread's stack

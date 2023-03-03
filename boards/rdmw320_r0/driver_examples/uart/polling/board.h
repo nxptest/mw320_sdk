@@ -93,6 +93,27 @@
 #define BOARD_SW2_IRQ_HANDLER GPIO_IRQHandler
 #define BOARD_SW2_NAME        "SW2"
 
+#ifndef BOARD_SW4_GPIO
+#define BOARD_SW4_GPIO GPIO
+#endif
+#ifndef BOARD_SW4_GPIO_PIN
+#define BOARD_SW4_GPIO_PIN 22U
+#endif
+#define BOARD_SW4_IRQ         GPIO_IRQn
+#define BOARD_SW4_IRQ_HANDLER GPIO_IRQHandler
+#define BOARD_SW4_NAME        "SW4"
+
+/* BOARD WLAN Radio Control Pins */
+#define BOARD_WLAN_RADIO_CTRL_1 44U
+#define BOARD_WLAN_RADIO_CTRL_0 45U
+#define LOGIC_RF_HIGH           1U
+#define LOGIC_RF_LOW            0U
+
+/* Select ANT = 1 for printed/PCB antenna.
+ * Select ANT = 2 for External antenna.
+ */
+#define ANT 1
+
 #if defined(__cplusplus)
 extern "C" {
 #endif /* __cplusplus */
@@ -102,6 +123,7 @@ extern "C" {
  ******************************************************************************/
 
 void BOARD_InitDebugConsole(void);
+void BOARD_InitRfCtrl(int ant);
 
 /* Only used for mbedtls entropy, implemented in board_hash.c */
 void BOARD_GetHash(uint8_t *buf, uint32_t *len);

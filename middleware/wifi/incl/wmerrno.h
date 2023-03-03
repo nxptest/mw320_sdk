@@ -1,23 +1,7 @@
 /*
  *  Copyright 2008-2020 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -36,9 +20,9 @@
 /* Get module notifier code (2nd and 1st byte from LSB)*/
 #define get_code(code) (code & 0xFF)
 
-#define MOD_ERROR_START(x) (x << 12 | 0)
-#define MOD_WARN_START(x)  (x << 12 | 1)
-#define MOD_INFO_START(x)  (x << 12 | 2)
+#define MOD_ERROR_START(x) ((x) << 12 | 0)
+#define MOD_WARN_START(x)  ((x) << 12 | 1)
+#define MOD_INFO_START(x)  ((x) << 12 | 2)
 
 /* Create Module index */
 #define MOD_GENERIC 0
@@ -144,6 +128,11 @@ enum wm_errno
     WM_E_CRC,     /* 36: Error in CRC check */
     WM_E_UNINIT,  /* 37: Module is not yet initialized */
     WM_E_TIMEOUT, /* 38: Timeout occurred during operation */
+
+    /* Defined for Hostcmd specific API*/
+    WM_E_INBIG,   /* 39: Input buffer too big */
+    WM_E_INSMALL, /* 40: A finer version for WM_E_INVAL, where it clearly specifies that input is much smaller than minimum requirement */
+    WM_E_OUTBIG,  /* 41: Data output exceeds the size provided */
 };
 
 #endif /* ! WM_ERRNO_H */

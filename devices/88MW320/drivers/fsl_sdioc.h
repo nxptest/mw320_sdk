@@ -20,8 +20,8 @@
  *****************************************************************************/
 /*! @name Driver version */
 /*@{*/
-/*! @brief Driver version 2.0.1. */
-#define FSL_SDIOC_DRIVER_VERSION (MAKE_VERSION(2U, 0U, 1U))
+/*! @brief Driver version 2.0.2. */
+#define FSL_SDIOC_DRIVER_VERSION (MAKE_VERSION(2U, 0U, 2U))
 
 /*! @brief SDIOC transfer status. */
 enum
@@ -76,16 +76,16 @@ enum
  */
 enum
 {
-    kSDIOC_CommandNoResponse = SDIOC_MM4_CMD_XFRMD_RES_TYPE(0x00), /*!< No response */
+    kSDIOC_CommandNoResponse = SDIOC_MMC4_CMD_XFRMD_RES_TYPE(0x00), /*!< No response */
     kSDIOC_CommandResponseLen136BitsCheckCrc =
-        SDIOC_MM4_CMD_XFRMD_RES_TYPE(1U) | SDIOC_MM4_CMD_XFRMD_CRCCHKEN_MASK,        /*!< Response length 136 bits */
-    kSDIOC_CommandResponseLen48Bits              = SDIOC_MM4_CMD_XFRMD_RES_TYPE(2U), /*!< Response length 48 bits*/
-    kSDIOC_CommandResponseLen48BitsCheckCrcIndex = SDIOC_MM4_CMD_XFRMD_RES_TYPE(2U) |
-                                                   SDIOC_MM4_CMD_XFRMD_CRCCHKEN_MASK |
-                                                   SDIOC_MM4_CMD_XFRMD_IDXCHKEN_MASK, /*!< Response length 48 bits*/
+        SDIOC_MMC4_CMD_XFRMD_RES_TYPE(1U) | SDIOC_MMC4_CMD_XFRMD_CRCCHKEN_MASK,        /*!< Response length 136 bits */
+    kSDIOC_CommandResponseLen48Bits              = SDIOC_MMC4_CMD_XFRMD_RES_TYPE(2U), /*!< Response length 48 bits*/
+    kSDIOC_CommandResponseLen48BitsCheckCrcIndex = SDIOC_MMC4_CMD_XFRMD_RES_TYPE(2U) |
+                                                   SDIOC_MMC4_CMD_XFRMD_CRCCHKEN_MASK |
+                                                   SDIOC_MMC4_CMD_XFRMD_IDXCHKEN_MASK, /*!< Response length 48 bits*/
     kSDIOC_CommandResponseLen48BitsWithCheckBusyCrcIndex =
-        SDIOC_MM4_CMD_XFRMD_RES_TYPE(3U) | SDIOC_MM4_CMD_XFRMD_CRCCHKEN_MASK |
-        SDIOC_MM4_CMD_XFRMD_IDXCHKEN_MASK, /*!< Response length 48 bits, check busy after response */
+        SDIOC_MMC4_CMD_XFRMD_RES_TYPE(3U) | SDIOC_MMC4_CMD_XFRMD_CRCCHKEN_MASK |
+        SDIOC_MMC4_CMD_XFRMD_IDXCHKEN_MASK, /*!< Response length 48 bits, check busy after response */
 };
 
 /*! @brief SDIOC response number definition */
@@ -135,27 +135,27 @@ typedef enum _sdioc_data_timeout_value
  */
 enum
 {
-    kSDIOC_InterruptCommandCompleteFlag  = SDIOC_MM4_I_STAT_CMDCOMP_MASK,  /*!< Command complete interrupt flag */
-    kSDIOC_InterruptXferCompleteFlag     = SDIOC_MM4_I_STAT_XFRCOMP_MASK,  /*!< Transfer complete interrupt flag */
-    kSDIOC_InterruptBlockGapEventFlag    = SDIOC_MM4_I_STAT_BGEVNT_MASK,   /*!< Block gap event flag */
-    kSDIOC_InterruptDMAInterruptFlag     = SDIOC_MM4_I_STAT_DMAINT_MASK,   /*!< DMA interrupt flag */
-    kSDIOC_InterruptBufferWriteReadyFlag = SDIOC_MM4_I_STAT_BUFWRRDY_MASK, /*!< Buffer write ready interrupt flag*/
-    kSDIOC_InterruptBufferReadReadyFlag  = SDIOC_MM4_I_STAT_BUFRDRDY_MASK, /*!< Buffer read ready interrupt flag */
-    kSDIOC_InterruptCardInsertedFlag     = SDIOC_MM4_I_STAT_CDINS_MASK,    /*!< Card insertion interrupt flag */
-    kSDIOC_InterruptCardRemovedFlag      = SDIOC_MM4_I_STAT_CDREM_MASK,    /*!< Card remove interrupt flag */
+    kSDIOC_InterruptCommandCompleteFlag  = SDIOC_MMC4_I_STAT_CMDCOMP_MASK,  /*!< Command complete interrupt flag */
+    kSDIOC_InterruptXferCompleteFlag     = SDIOC_MMC4_I_STAT_XFRCOMP_MASK,  /*!< Transfer complete interrupt flag */
+    kSDIOC_InterruptBlockGapEventFlag    = SDIOC_MMC4_I_STAT_BGEVNT_MASK,   /*!< Block gap event flag */
+    kSDIOC_InterruptDMAInterruptFlag     = SDIOC_MMC4_I_STAT_DMAINT_MASK,   /*!< DMA interrupt flag */
+    kSDIOC_InterruptBufferWriteReadyFlag = SDIOC_MMC4_I_STAT_BUFWRRDY_MASK, /*!< Buffer write ready interrupt flag*/
+    kSDIOC_InterruptBufferReadReadyFlag  = SDIOC_MMC4_I_STAT_BUFRDRDY_MASK, /*!< Buffer read ready interrupt flag */
+    kSDIOC_InterruptCardInsertedFlag     = SDIOC_MMC4_I_STAT_CDINS_MASK,    /*!< Card insertion interrupt flag */
+    kSDIOC_InterruptCardRemovedFlag      = SDIOC_MMC4_I_STAT_CDREM_MASK,    /*!< Card remove interrupt flag */
     kSDIOC_InterruptCardInterruptFlag =
-        SDIOC_MM4_I_STAT_CDINT_MASK, /*!< Card interrupt flag, interrupt detected by DAT[1] */
-    kSDIOC_InterruptERRInterrupt           = SDIOC_MM4_I_STAT_ERRINT_MASK,  /*!< Error interrupt flag */
-    kSDIOC_InterruptCommandTimeoutFlag     = SDIOC_MM4_I_STAT_CTOERR_MASK,  /*!< Command timeout error interrupt flag */
-    kSDIOC_InterruptCommandCrcErrorFlag    = SDIOC_MM4_I_STAT_CCRCERR_MASK, /*!< Command crc error interrupt flag */
-    kSDIOC_InterruptCommandEntBitErrorFlag = SDIOC_MM4_I_STAT_CENDERR_MASK, /*!< Command end bit error interrupt flag */
-    kSDIOC_InterruptCommandIndexErrorFlag  = SDIOC_MM4_I_STAT_CIDXERR_MASK, /*!< Command index error interrupt flag */
-    kSDIOC_InterruptDataTimeoutErrorFlag   = SDIOC_MM4_I_STAT_DTOERR_MASK,  /*!< Data timeout error interrupt flag */
-    kSDIOC_InterruptDataCrcErrorFlag       = SDIOC_MM4_I_STAT_DCRCERR_MASK, /*!< Data crc error interrupt flag */
-    kSDIOC_InterruptDataEndBitErrorFlag    = SDIOC_MM4_I_STAT_DENDERR_MASK, /*!< Data end bit error interrupt flag */
-    kSDIOC_InterruptCurrentLimitErrorFlag  = SDIOC_MM4_I_STAT_ILMTERR_MASK, /*!< Current limit error interrupt flag */
-    kSDIOC_InterruptAutoCommand12ErrorFlag = SDIOC_MM4_I_STAT_AC12ERR_MASK, /*!< Current limit error interrupt flag */
-    kSDIOC_InterruptAhbTargetErrorFlag     = SDIOC_MM4_I_STAT_AHBTERR_MASK, /*!< AHB Target error interrupt flag */
+        SDIOC_MMC4_I_STAT_CDINT_MASK, /*!< Card interrupt flag, interrupt detected by DAT[1] */
+    kSDIOC_InterruptERRInterrupt           = SDIOC_MMC4_I_STAT_ERRINT_MASK,  /*!< Error interrupt flag */
+    kSDIOC_InterruptCommandTimeoutFlag     = SDIOC_MMC4_I_STAT_CTOERR_MASK,  /*!< Command timeout error interrupt flag */
+    kSDIOC_InterruptCommandCrcErrorFlag    = SDIOC_MMC4_I_STAT_CCRCERR_MASK, /*!< Command crc error interrupt flag */
+    kSDIOC_InterruptCommandEntBitErrorFlag = SDIOC_MMC4_I_STAT_CENDERR_MASK, /*!< Command end bit error interrupt flag */
+    kSDIOC_InterruptCommandIndexErrorFlag  = SDIOC_MMC4_I_STAT_CIDXERR_MASK, /*!< Command index error interrupt flag */
+    kSDIOC_InterruptDataTimeoutErrorFlag   = SDIOC_MMC4_I_STAT_DTOERR_MASK,  /*!< Data timeout error interrupt flag */
+    kSDIOC_InterruptDataCrcErrorFlag       = SDIOC_MMC4_I_STAT_DCRCERR_MASK, /*!< Data crc error interrupt flag */
+    kSDIOC_InterruptDataEndBitErrorFlag    = SDIOC_MMC4_I_STAT_DENDERR_MASK, /*!< Data end bit error interrupt flag */
+    kSDIOC_InterruptCurrentLimitErrorFlag  = SDIOC_MMC4_I_STAT_ILMTERR_MASK, /*!< Current limit error interrupt flag */
+    kSDIOC_InterruptAutoCommand12ErrorFlag = SDIOC_MMC4_I_STAT_AC12ERR_MASK, /*!< Current limit error interrupt flag */
+    kSDIOC_InterruptAhbTargetErrorFlag     = SDIOC_MMC4_I_STAT_AHBTERR_MASK, /*!< AHB Target error interrupt flag */
 
     kSDIOC_InterruptCardDetectFlag =
         kSDIOC_InterruptCardInsertedFlag | kSDIOC_InterruptCardRemovedFlag, /*!< card insert flag summary */
@@ -180,23 +180,23 @@ enum
 /*! @brief SDIOC present status definition */
 enum
 {
-    kSDIOC_PresentStatusCommandInhibit      = SDIOC_MM4_STATE_CCMDINHBT_MASK,        /*!< Command inhibit(CMD) status */
-    kSDIOC_PresentStatusDataInhibit         = SDIOC_MM4_STATE_DCMDINHBT_MASK,        /*!< Command inhibit(DAT) status */
-    kSDIOC_PresentStatusDataLineActive      = SDIOC_MM4_STATE_DATACTV_MASK,          /*!< DAT line active  */
-    kSDIOC_PresentStatusWriteTransferActive = SDIOC_MM4_STATE_WRACTV_MASK,           /*!< Write transfer active */
-    kSDIOC_PresentStatusReadTransferActive  = SDIOC_MM4_STATE_RDACTV_MASK,           /*!< Read transfer active */
-    kSDIOC_PresentStatusBufferWriteReady    = SDIOC_MM4_STATE_BUFWREN_MASK,          /*!< Buffer write enable */
-    kSDIOC_PresentStatusBufferReadReady     = SDIOC_MM4_STATE_BUFRDEN_MASK,          /*!< Buffer read enable */
-    kSDIOC_PresentStatusCardInserted        = SDIOC_MM4_STATE_CDINSTD_MASK,          /*!< Card inserted */
-    kSDIOC_PresentStatusData0Level          = 1U << SDIOC_MM4_STATE_LWRDATLVL_SHIFT, /*!< Data[0] line signal level */
-    kSDIOC_PresentStatusData1Level   = 1U << (SDIOC_MM4_STATE_LWRDATLVL_SHIFT + 1U), /*!< Data[1] line signal level */
-    kSDIOC_PresentStatusData2Level   = 1U << (SDIOC_MM4_STATE_LWRDATLVL_SHIFT + 2U), /*!< Data[2] line signal level */
-    kSDIOC_PresentStatusData3Level   = 1U << (SDIOC_MM4_STATE_LWRDATLVL_SHIFT + 3U), /*!< Data[3] line signal level */
-    kSDIOC_PresentStatusCommandLevel = SDIOC_MM4_STATE_CMDLVL_MASK,                  /*!< CMD line signal level */
-    kSDIOC_PresentStatusData4Level   = 1U << SDIOC_MM4_STATE_UPRDATLVL_SHIFT,        /*!< DAT[4] line signal level */
-    kSDIOC_PresentStatusData5Level   = 1U << (SDIOC_MM4_STATE_UPRDATLVL_SHIFT + 1U), /*!< DAT[5] line signal level */
-    kSDIOC_PresentStatusData6Level   = 1U << (SDIOC_MM4_STATE_UPRDATLVL_SHIFT + 2U), /*!< DAT[6] line signal level */
-    kSDIOC_PresentStatusData7Level   = 1U << (SDIOC_MM4_STATE_UPRDATLVL_SHIFT + 3U), /*!< DAT[7] line signal level */
+    kSDIOC_PresentStatusCommandInhibit      = SDIOC_MMC4_STATE_CCMDINHBT_MASK,        /*!< Command inhibit(CMD) status */
+    kSDIOC_PresentStatusDataInhibit         = SDIOC_MMC4_STATE_DCMDINHBT_MASK,        /*!< Command inhibit(DAT) status */
+    kSDIOC_PresentStatusDataLineActive      = SDIOC_MMC4_STATE_DATACTV_MASK,          /*!< DAT line active  */
+    kSDIOC_PresentStatusWriteTransferActive = SDIOC_MMC4_STATE_WRACTV_MASK,           /*!< Write transfer active */
+    kSDIOC_PresentStatusReadTransferActive  = SDIOC_MMC4_STATE_RDACTV_MASK,           /*!< Read transfer active */
+    kSDIOC_PresentStatusBufferWriteReady    = SDIOC_MMC4_STATE_BUFWREN_MASK,          /*!< Buffer write enable */
+    kSDIOC_PresentStatusBufferReadReady     = SDIOC_MMC4_STATE_BUFRDEN_MASK,          /*!< Buffer read enable */
+    kSDIOC_PresentStatusCardInserted        = SDIOC_MMC4_STATE_CDINSTD_MASK,          /*!< Card inserted */
+    kSDIOC_PresentStatusData0Level          = 1U << SDIOC_MMC4_STATE_LWRDATLVL_SHIFT, /*!< Data[0] line signal level */
+    kSDIOC_PresentStatusData1Level   = 1U << (SDIOC_MMC4_STATE_LWRDATLVL_SHIFT + 1U), /*!< Data[1] line signal level */
+    kSDIOC_PresentStatusData2Level   = 1U << (SDIOC_MMC4_STATE_LWRDATLVL_SHIFT + 2U), /*!< Data[2] line signal level */
+    kSDIOC_PresentStatusData3Level   = 1U << (SDIOC_MMC4_STATE_LWRDATLVL_SHIFT + 3U), /*!< Data[3] line signal level */
+    kSDIOC_PresentStatusCommandLevel = SDIOC_MMC4_STATE_CMDLVL_MASK,                  /*!< CMD line signal level */
+    kSDIOC_PresentStatusData4Level   = 1U << SDIOC_MMC4_STATE_UPRDATLVL_SHIFT,        /*!< DAT[4] line signal level */
+    kSDIOC_PresentStatusData5Level   = 1U << (SDIOC_MMC4_STATE_UPRDATLVL_SHIFT + 1U), /*!< DAT[5] line signal level */
+    kSDIOC_PresentStatusData6Level   = 1U << (SDIOC_MMC4_STATE_UPRDATLVL_SHIFT + 2U), /*!< DAT[6] line signal level */
+    kSDIOC_PresentStatusData7Level   = 1U << (SDIOC_MMC4_STATE_UPRDATLVL_SHIFT + 3U), /*!< DAT[7] line signal level */
 };
 
 /*! @brief SDIOC Configuration Structure definition */
@@ -332,7 +332,7 @@ void SDIOC_Deinit(SDIOC_Type *base);
  */
 static inline void SDIOC_SetBusVoltage(SDIOC_Type *base, sdioc_bus_voltage_t busVoltage)
 {
-    base->MM4_CNTL1 = (base->MM4_CNTL1 & ~SDIOC_MM4_CNTL1_VLTGSEL_MASK) | SDIOC_MM4_CNTL1_VLTGSEL(busVoltage);
+    base->MMC4_CNTL1 = (base->MMC4_CNTL1 & ~SDIOC_MMC4_CNTL1_VLTGSEL_MASK) | SDIOC_MMC4_CNTL1_VLTGSEL(busVoltage);
 }
 
 /*!
@@ -343,7 +343,7 @@ static inline void SDIOC_SetBusVoltage(SDIOC_Type *base, sdioc_bus_voltage_t bus
  */
 static inline void SDIOC_SetDataBusWidth(SDIOC_Type *base, sdioc_bus_width_t busWidth)
 {
-    base->MM4_CNTL1 = (base->MM4_CNTL1 & ~SDIOC_MM4_CNTL1__4BITMD_MASK) | SDIOC_MM4_CNTL1__4BITMD(busWidth);
+    base->MMC4_CNTL1 = (base->MMC4_CNTL1 & ~SDIOC_MMC4_CNTL1__4BITMD_MASK) | SDIOC_MMC4_CNTL1__4BITMD(busWidth);
 }
 
 /*!
@@ -354,7 +354,7 @@ static inline void SDIOC_SetDataBusWidth(SDIOC_Type *base, sdioc_bus_width_t bus
  */
 static inline void SDIOC_SetBusSpeed(SDIOC_Type *base, sdioc_bus_speed_t busSpeed)
 {
-    base->MM4_CNTL1 = (base->MM4_CNTL1 & ~SDIOC_MM4_CNTL1_HISPEED_MASK) | SDIOC_MM4_CNTL1_HISPEED(busSpeed);
+    base->MMC4_CNTL1 = (base->MMC4_CNTL1 & ~SDIOC_MMC4_CNTL1_HISPEED_MASK) | SDIOC_MMC4_CNTL1_HISPEED(busSpeed);
 }
 
 /*!
@@ -367,11 +367,11 @@ static inline void SDIOC_EnableBusPower(SDIOC_Type *base, bool enable)
 {
     if (enable)
     {
-        base->MM4_CNTL1 |= SDIOC_MM4_CNTL1_BUSPWR_MASK;
+        base->MMC4_CNTL1 |= SDIOC_MMC4_CNTL1_BUSPWR_MASK;
     }
     else
     {
-        base->MM4_CNTL1 &= ~SDIOC_MM4_CNTL1_BUSPWR_MASK;
+        base->MMC4_CNTL1 &= ~SDIOC_MMC4_CNTL1_BUSPWR_MASK;
     }
 }
 
@@ -385,11 +385,11 @@ static inline void SDIOC_EnableInternalClock(SDIOC_Type *base, bool enable)
 {
     if (enable)
     {
-        base->MM4_CNTL2 |= SDIOC_MM4_CNTL2_INTCLKEN_MASK;
+        base->MMC4_CNTL2 |= SDIOC_MMC4_CNTL2_INTCLKEN_MASK;
     }
     else
     {
-        base->MM4_CNTL2 &= ~SDIOC_MM4_CNTL2_INTCLKEN_MASK;
+        base->MMC4_CNTL2 &= ~SDIOC_MMC4_CNTL2_INTCLKEN_MASK;
     }
 }
 
@@ -403,11 +403,11 @@ static inline void SDIOC_EnableCardClock(SDIOC_Type *base, bool enable)
 {
     if (enable)
     {
-        base->MM4_CNTL2 |= SDIOC_MM4_CNTL2_MM4CLKEN_MASK;
+        base->MMC4_CNTL2 |= SDIOC_MMC4_CNTL2_MM4CLKEN_MASK;
     }
     else
     {
-        base->MM4_CNTL2 &= ~SDIOC_MM4_CNTL2_MM4CLKEN_MASK;
+        base->MMC4_CNTL2 &= ~SDIOC_MMC4_CNTL2_MM4CLKEN_MASK;
     }
 }
 
@@ -418,7 +418,7 @@ static inline void SDIOC_EnableCardClock(SDIOC_Type *base, bool enable)
  */
 static inline void SDIOC_ResetAll(SDIOC_Type *base)
 {
-    base->MM4_CNTL2 |= SDIOC_MM4_CNTL2_MSWRST_MASK;
+    base->MMC4_CNTL2 |= SDIOC_MMC4_CNTL2_MSWRST_MASK;
 }
 
 /*!
@@ -428,7 +428,7 @@ static inline void SDIOC_ResetAll(SDIOC_Type *base)
  */
 static inline void SDIOC_ResetCommandLine(SDIOC_Type *base)
 {
-    base->MM4_CNTL2 |= SDIOC_MM4_CNTL2_CMDSWRST_MASK;
+    base->MMC4_CNTL2 |= SDIOC_MMC4_CNTL2_CMDSWRST_MASK;
 }
 
 /*!
@@ -438,7 +438,7 @@ static inline void SDIOC_ResetCommandLine(SDIOC_Type *base)
  */
 static inline void SDIOC_ResetDataLine(SDIOC_Type *base)
 {
-    base->MM4_CNTL2 |= SDIOC_MM4_CNTL2_DATSWRST_MASK;
+    base->MMC4_CNTL2 |= SDIOC_MMC4_CNTL2_DATSWRST_MASK;
 }
 
 /*!
@@ -449,7 +449,7 @@ static inline void SDIOC_ResetDataLine(SDIOC_Type *base)
  */
 static inline void SDIOC_SetDataTimeout(SDIOC_Type *base, sdioc_data_timeout_value_t timeout)
 {
-    base->MM4_CNTL2 = (base->MM4_CNTL2 & (~SDIOC_MM4_CNTL2_DTOCNTR_MASK)) | SDIOC_MM4_CNTL2_DTOCNTR(timeout);
+    base->MMC4_CNTL2 = (base->MMC4_CNTL2 & (~SDIOC_MMC4_CNTL2_DTOCNTR_MASK)) | SDIOC_MMC4_CNTL2_DTOCNTR(timeout);
 }
 
 /* @} */
@@ -468,11 +468,11 @@ static inline void SDIOC_EnableStopAtBlockGap(SDIOC_Type *base, bool enable)
 {
     if (enable)
     {
-        base->MM4_CNTL1 |= SDIOC_MM4_CNTL1_BGREQSTP_MASK;
+        base->MMC4_CNTL1 |= SDIOC_MMC4_CNTL1_BGREQSTP_MASK;
     }
     else
     {
-        base->MM4_CNTL1 &= ~SDIOC_MM4_CNTL1_BGREQSTP_MASK;
+        base->MMC4_CNTL1 &= ~SDIOC_MMC4_CNTL1_BGREQSTP_MASK;
     }
 }
 
@@ -486,11 +486,11 @@ static inline void SDIOC_EnableContinueRequest(SDIOC_Type *base, bool enable)
 {
     if (enable)
     {
-        base->MM4_CNTL1 |= SDIOC_MM4_CNTL1_CONTREQ_MASK;
+        base->MMC4_CNTL1 |= SDIOC_MMC4_CNTL1_CONTREQ_MASK;
     }
     else
     {
-        base->MM4_CNTL1 &= ~SDIOC_MM4_CNTL1_CONTREQ_MASK;
+        base->MMC4_CNTL1 &= ~SDIOC_MMC4_CNTL1_CONTREQ_MASK;
     }
 }
 
@@ -504,11 +504,11 @@ static inline void SDIOC_EnableReadWaitControl(SDIOC_Type *base, bool enable)
 {
     if (enable)
     {
-        base->MM4_CNTL1 |= SDIOC_MM4_CNTL1_RDWTCNTL_MASK;
+        base->MMC4_CNTL1 |= SDIOC_MMC4_CNTL1_RDWTCNTL_MASK;
     }
     else
     {
-        base->MM4_CNTL1 &= ~SDIOC_MM4_CNTL1_RDWTCNTL_MASK;
+        base->MMC4_CNTL1 &= ~SDIOC_MMC4_CNTL1_RDWTCNTL_MASK;
     }
 }
 
@@ -522,11 +522,11 @@ static inline void SDIOC_EnableStopAtBlockGapInterrupt(SDIOC_Type *base, bool en
 {
     if (enable)
     {
-        base->MM4_CNTL1 |= SDIOC_MM4_CNTL1_BGIRQEN_MASK;
+        base->MMC4_CNTL1 |= SDIOC_MMC4_CNTL1_BGIRQEN_MASK;
     }
     else
     {
-        base->MM4_CNTL1 &= ~SDIOC_MM4_CNTL1_BGIRQEN_MASK;
+        base->MMC4_CNTL1 &= ~SDIOC_MMC4_CNTL1_BGIRQEN_MASK;
     }
 }
 
@@ -539,7 +539,7 @@ static inline void SDIOC_EnableStopAtBlockGapInterrupt(SDIOC_Type *base, bool en
  */
 static inline uint32_t SDIOC_ReadCommandResponse(SDIOC_Type *base, sdioc_response_index_t responseIndex)
 {
-    return ((uint32_t *)&(base->MM4_RESP0))[responseIndex];
+    return ((uint32_t *)&(base->MMC4_RESP0))[responseIndex];
 }
 
 /*!
@@ -550,7 +550,7 @@ static inline uint32_t SDIOC_ReadCommandResponse(SDIOC_Type *base, sdioc_respons
  */
 static inline uint32_t SDIOC_ReadData(SDIOC_Type *base)
 {
-    return base->MM4_DP;
+    return base->MMC4_DP;
 }
 
 /*!
@@ -561,7 +561,7 @@ static inline uint32_t SDIOC_ReadData(SDIOC_Type *base)
  */
 static inline void SDIOC_WriteData(SDIOC_Type *base, uint32_t data)
 {
-    base->MM4_DP = data;
+    base->MMC4_DP = data;
 }
 
 /* @} */
@@ -587,8 +587,8 @@ static inline void SDIOC_WriteData(SDIOC_Type *base, uint32_t data)
  */
 static inline void SDIOC_SetDmaBufferBoundary(SDIOC_Type *base, sdioc_dma_buffer_boundary_t bufferBoundary)
 {
-    base->MM4_BLK_CNTL =
-        (base->MM4_BLK_CNTL & ~SDIOC_MM4_BLK_CNTL_DMA_BUFSZ_MASK) | SDIOC_MM4_BLK_CNTL_DMA_BUFSZ(bufferBoundary);
+    base->MMC4_BLK_CNTL =
+        (base->MMC4_BLK_CNTL & ~SDIOC_MMC4_BLK_CNTL_DMA_BUFSZ_MASK) | SDIOC_MMC4_BLK_CNTL_DMA_BUFSZ(bufferBoundary);
 }
 
 /*!
@@ -599,7 +599,7 @@ static inline void SDIOC_SetDmaBufferBoundary(SDIOC_Type *base, sdioc_dma_buffer
  */
 static inline void SDIOC_SetDmaBufferAddress(SDIOC_Type *base, void *bufferAddress)
 {
-    base->MM4_SYSADDR = (uint32_t)bufferAddress;
+    base->MMC4_SYSADDR = (uint32_t)bufferAddress;
 }
 
 /* @} */
@@ -620,11 +620,11 @@ static inline void SDIOC_EnableInterruptStatus(SDIOC_Type *base, uint32_t interr
 {
     if (enable)
     {
-        base->MM4_I_STAT_EN |= interruptFlags;
+        base->MMC4_I_STAT_EN |= interruptFlags;
     }
     else
     {
-        base->MM4_I_STAT_EN &= ~interruptFlags;
+        base->MMC4_I_STAT_EN &= ~interruptFlags;
     }
 }
 
@@ -639,11 +639,11 @@ static inline void SDIOC_EnableInterruptSignal(SDIOC_Type *base, uint32_t interr
 {
     if (enable)
     {
-        base->MM4_I_SIG_EN |= interruptFlags;
+        base->MMC4_I_SIG_EN |= interruptFlags;
     }
     else
     {
-        base->MM4_I_SIG_EN &= ~interruptFlags;
+        base->MMC4_I_SIG_EN &= ~interruptFlags;
     }
 }
 
@@ -655,7 +655,7 @@ static inline void SDIOC_EnableInterruptSignal(SDIOC_Type *base, uint32_t interr
  */
 static inline uint32_t SDIOC_GetInterruptStatus(SDIOC_Type *base)
 {
-    return base->MM4_I_STAT;
+    return base->MMC4_I_STAT;
 }
 
 /*!
@@ -666,9 +666,9 @@ static inline uint32_t SDIOC_GetInterruptStatus(SDIOC_Type *base)
  */
 static inline uint32_t SDIOC_GetEnabledInterruptStatus(SDIOC_Type *base)
 {
-    uint32_t intStatus = base->MM4_I_STAT;
+    uint32_t intStatus = base->MMC4_I_STAT;
 
-    return intStatus & base->MM4_I_SIG_EN;
+    return intStatus & base->MMC4_I_SIG_EN;
 }
 
 /*!
@@ -679,7 +679,7 @@ static inline uint32_t SDIOC_GetEnabledInterruptStatus(SDIOC_Type *base)
  */
 static inline void SDIOC_ClearInterruptStatus(SDIOC_Type *base, uint32_t interruptFlags)
 {
-    base->MM4_I_STAT = interruptFlags;
+    base->MMC4_I_STAT = interruptFlags;
 }
 
 /*!
@@ -690,7 +690,7 @@ static inline void SDIOC_ClearInterruptStatus(SDIOC_Type *base, uint32_t interru
  */
 static inline uint32_t SDIOC_GetPresentStatus(SDIOC_Type *base)
 {
-    return base->MM4_STATE;
+    return base->MMC4_STATE;
 }
 
 /*!

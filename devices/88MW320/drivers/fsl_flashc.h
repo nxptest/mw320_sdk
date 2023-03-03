@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -18,6 +18,12 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+/*! @name Driver version */
+/*@{*/
+/*! @brief FLASHC driver version 2.1.0. */
+#define FSL_FLASHC_DRIVER_VERSION (MAKE_VERSION(2, 1, 0))
+/*@}*/
+
 /*! @brief FLASHC configuration way selection */
 typedef enum
 {
@@ -156,9 +162,6 @@ typedef struct _flashc_timing_config
     flashc_clock_polarity_t clockPolarity; /*!< Serial Interface Clock Polarity. */
     flashc_clock_prescaler_t preScaler;    /*!< Configure FLASHC prescaler for serial interface */
     flashc_capture_edge_t captEdge;        /*!< Configure FLASHC capture clock edge */
-    uint8_t clkOutDly;                     /*!< Delay on the outgoing clock to flash */
-    uint8_t clkInDly;                      /*!< Delay on the clock that capture read data from flash */
-    uint8_t dinDly;                        /*!< Delay on the incoming data from flash */
 } flashc_timing_config_t;
 
 /*! @brief FLASHC configure structure*/
@@ -393,8 +396,17 @@ void FLASHC_EnableFLASHCPad(FLASHC_Type *base, flashc_hw_cmd_t mode, uint32_t je
  *
  * @param base FLASHC base pointer.
  * @param jedecID JEDEC ID.
+ * @deprecated Do not use this function.  It has been superceded by @ref FLASH_SetReadModeCmd.
  */
 void FLASH_SetQuadModeReadCmd(FLASHC_Type *base, uint32_t jedecID);
+
+/*!
+ * @brief Set read mode command.
+ *
+ * @param base FLASHC base pointer.
+ * @param jedecID JEDEC ID.
+ */
+void FLASH_SetReadModeCmd(FLASHC_Type *base, uint32_t jedecID);
 
 /*! @} */
 

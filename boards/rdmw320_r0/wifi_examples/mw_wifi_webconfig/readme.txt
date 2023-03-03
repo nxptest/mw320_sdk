@@ -4,7 +4,7 @@ This demo implements a simple web based Wi-Fi configuration utility for connecti
 
 Initially, the board doesn't have the credentials to join the local network, so it starts its own Access Point with SSID: "nxp_configuration_access_point" and password: "NXP0123456789".
 
-The user can connect their device to this SSID and access the HTML UI under https://192.168.1.1. The board will scan for the nearby Wi-Fi networks and display a list of them on this page. By clicking on the entries, the user can choose their network, enter the credentials and connect. The board will attempt to join this Wi-Fi network as a client and if it succeeds, it will disconnect its AP and save the credentials to its mflash memory.
+The user can connect their device to this SSID and access the HTML UI under http://192.168.1.1. The board will scan for the nearby Wi-Fi networks and display a list of them on this page. By clicking on the entries, the user can choose their network, enter the credentials and connect. The board will attempt to join this Wi-Fi network as a client and if it succeeds, it will disconnect its AP and save the credentials to its mflash memory.
 
 On successive restarts, it checks the mflash memory and uses the saved credentials to directly connect to the local Wi-Fi network without starting the AP. 
 
@@ -43,13 +43,13 @@ Use following steps to get the flash contents ready:
       TIF>s
       Speed>
     J-Link>loadbin <sdk_path>\tools\boot2\layout.bin 0x1F004000
-    J-Link>loadbin <sdk_path>\boards\rdmw320_r0\wifi_examples\common\mw30x_uapsta_W14.88.36.p144.fw.bin 0x1F150000
+    J-Link>loadbin <sdk_path>\boards\rdmw320_r0\wifi_examples\common\mw30x_uapsta_W14.88.36.p173.fw.bin 0x1F150000
 
     To create your own layout.bin and wifi firmware bin for flash partition, please use the tool located at
-    <sdk_path>\tools\mw_img_conv to convert the layout configuration file and WIFI firmware to the images suitable
-    for flash partition. For example,
-    # mw_img_conv layout layout.txt layout.bin
-    # mw_img_conv wififw mw30x_uapsta_W14.88.36.p144.bin mw30x_uapsta_W14.88.36.p144.fw.bin
+    <sdk_path>\tools\mw_img_conv\mw320 to convert the layout configuration file and WIFI firmware to the images
+    suitable for flash partition. For example,
+    # python mw_img_conv.py layout layout.txt layout.bin
+    # python mw_img_conv.py wififw mw30x_uapsta_W14.88.36.p173.bin mw30x_uapsta_W14.88.36.p173.fw.bin
     Please note the wifi firmware binary should not be compressed.
 
 Now use the general way to debug the example
@@ -63,7 +63,7 @@ Now use the general way to debug the example
 3.  Download the program to the target board.
 4.  Launch the debugger in your IDE to begin running the demo.
 
-To make the demo bootable on board power on, additional steps are needed as follows:
+To make the demo bootable on board power on, additional steps are needed as follows (for IAR and armgcc only):
 1.  Because the debugger downloads the application without considering XIP flash offset setting in FLASHC, we creates
     a special linker file with manual offset to make the wifi example debuggable (without conflicting the partition
     table area in flash). To make it bootable, we need to change the linker file to the one in devices, e.g.
@@ -82,7 +82,7 @@ To make the demo bootable on board power on, additional steps are needed as foll
     J-Link>loadbin <sdk_path>\tools\boot2\boot2.bin 0x1F000000
     J-Link>loadbin <sdk_path>\tools\boot2\layout.bin 0x1F004000
     J-Link>loadbin mw_wifi_webconfig.fw.bin 0x1F010000
-    J-Link>loadbin <sdk_path>\boards\rdmw320_r0\wifi_examples\common\mw30x_uapsta_W14.88.36.p144.fw.bin 0x1F150000
+    J-Link>loadbin <sdk_path>\boards\rdmw320_r0\wifi_examples\common\mw30x_uapsta_W14.88.36.p173.fw.bin 0x1F150000
 4.  Reset your board and then the application is running.
 Running the demo
 ================
@@ -101,7 +101,7 @@ Starting webconfig DEMO
 MAC Address: 00:50:43:24:37:E0
 [net] Initialized TCP/IP networking stack
 WLAN initialized
-WLAN FW Version: w8845-R0, RF878X, FP88, 14.88.36.p144, WPA2_CVE_FIX 1, PVE_FIX 1
+WLAN FW Version: w8845-R0, RF878X, FP88, 14.88.36.p178, WPA2_CVE_FIX 1, PVE_FIX 1
 [i] Successfully initialized WiFi module
 Starting Access Point: SSID: nxp_configuration_access_point, Chnl: 1
 [wlcm] Warn: NOTE: uAP will automatically switch to the channel that station is on.
@@ -110,7 +110,7 @@ This also starts DHCP Server with IP 192.168.1.1
  Now join that network on your device and connect to this IP: 192.168.1.1
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-4. Connect to the access point and in your web browser enter https://192.168.1.1
+4. Connect to the access point and in your web browser enter http://192.168.1.1
 5. Wait for the scan to finish and click on the desired network to join.
 6. Enter the network password and click on connect.
 6. After you send credentials, device will try connecting to the AP and if successful saves the credentials to the mflash.
@@ -136,4 +136,4 @@ Connected to following BSS:SSID = [nxp], IP = [192.168.0.63]
 Soft AP stopped successfully
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-7. Connect to the network "nxp" and browse "https://192.168.0.63" in the browser to see the device in client mode.
+7. Connect to the network "nxp" and browse "http://192.168.0.63" in the browser to see the device in client mode.

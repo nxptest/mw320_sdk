@@ -36,3 +36,7 @@ void AfterResetTarget(void) {
   JLINK_SYS_Report("---- Clear boot flags...");
   JLINK_MEM_WriteU32(0x480C0024, 0x00000000);
 }
+
+void SetupTarget(void) {
+  JLINK_ExecCommand("SetAllowFlashCache = 0");
+}

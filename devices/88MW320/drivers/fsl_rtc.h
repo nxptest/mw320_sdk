@@ -20,7 +20,7 @@
 
 /*! @name Driver version */
 /*@{*/
-#define FSL_RTC_DRIVER_VERSION (MAKE_VERSION(2, 0, 0)) /*!< Version 2.0.0 */
+#define FSL_RTC_DRIVER_VERSION (MAKE_VERSION(2, 0, 1)) /*!< Version 2.0.0 */
 /*@}*/
 
 /*! @brief List of RTC interrupts */

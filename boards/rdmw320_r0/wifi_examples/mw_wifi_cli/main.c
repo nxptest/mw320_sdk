@@ -41,7 +41,7 @@
 #include <wm_os.h>
 #include "dhcp-server.h"
 #include "cli.h"
-#include "ping.h"
+#include "wifi_ping.h"
 #include "iperf.h"
 #include "partition.h"
 #include "boot_flags.h"
@@ -50,8 +50,12 @@
 
 #include "fsl_sdmmc_host.h"
 #include "fsl_aes.h"
+#ifdef CONFIG_EXT_COEX
+#include "host_w_uart.h"
+#endif
 
 
+#include "gpio.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -93,7 +97,16 @@ static struct cli_command mcuPower[] = {
 };
 
 const int TASK_MAIN_PRIO       = OS_PRIO_3;
+#ifdef CONFIG_EXT_COEX
+const int BLE_TASK_PRIO        = OS_PRIO_3;
+const int ADV_TASK_PRIO        = OS_PRIO_3;
+#endif
+
 const int TASK_MAIN_STACK_SIZE = 800;
+#ifdef CONFIG_EXT_COEX
+const int BLE_TASK_STACK_SIZE = 2048;
+const int ADV_TASK_STACK_SIZE = 512;
+#endif
 
 portSTACK_TYPE *task_main_stack = NULL;
 TaskHandle_t task_main_task_handler;
@@ -356,7 +369,11 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
     int ret;
     struct wlan_ip_config addr;
     char ip[16];
-    static int auth_fail = 0;
+    static int auth_fail   = 0;
+    uint16_t evaluate_time = 0x1770;
+#ifdef CONFIG_WPS2
+    struct wlan_network *net;
+#endif
 
     printSeparator();
     PRINTF("app_cb: WLAN: received event %d\r\n", reason);
@@ -383,6 +400,13 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
             PRINTF("WLAN CLIs are initialized\r\n");
             printSeparator();
+
+            ret = wifi_set_antenna(ANT, evaluate_time);
+            if (ret != WM_SUCCESS)
+            {
+                PRINTF("Failed to set antenna configuration");
+                return 0;
+            }
 
             ret = ping_cli_init();
             if (ret != WM_SUCCESS)
@@ -428,6 +452,9 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
         case WLAN_REASON_INITIALIZATION_FAILED:
             PRINTF("app_cb: WLAN: initialization failed\r\n");
             break;
+        case WLAN_REASON_AUTH_SUCCESS:
+            PRINTF("app_cb: WLAN: authenticated to network\r\n");
+            break;
         case WLAN_REASON_SUCCESS:
             PRINTF("app_cb: WLAN: connected to network\r\n");
             ret = wlan_get_address(&addr);
@@ -447,7 +474,23 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
 
             PRINTF("Connected to following BSS:\r\n");
-            PRINTF("SSID = [%s], IP = [%s]\r\n", sta_network.ssid, ip);
+            PRINTF("SSID = [%s]\r\n", sta_network.ssid);
+            if (addr.ipv4.address != 0U)
+            {
+                PRINTF("IPv4 Address: [%s]\r\n", ip);
+            }
+#ifdef CONFIG_IPV6
+            int i;
+            for (i = 0; i < CONFIG_MAX_IPV6_ADDRESSES; i++)
+            {
+                if (ip6_addr_isvalid(addr.ipv6[i].addr_state))
+                {
+                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc(&addr.ipv6[i]),
+                                 inet6_ntoa(addr.ipv6[i].address), ipv6_addr_state_to_desc(addr.ipv6[i].addr_state));
+                }
+            }
+            (void)PRINTF("\r\n");
+#endif
             auth_fail = 0;
             break;
         case WLAN_REASON_CONNECT_FAILED:
@@ -534,6 +577,31 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
         case WLAN_REASON_PS_EXIT:
             PRINTF("app_cb: WLAN: PS EXIT\r\n");
             break;
+#ifdef CONFIG_WPS2
+        case WLAN_REASON_WPS_SUCCESSFUL:
+            net = (struct wlan_network *)data;
+            PRINTF("app_cb: WPS Session successful with %s network\r\n", net->ssid);
+            wlan_remove_network(net->name);
+            ret = wlan_add_network(net);
+            if (ret != WM_SUCCESS)
+            {
+                PRINTF("Adding network failed\r\n");
+                return 0;
+            }
+
+            ret = wlan_connect(net->name);
+            if (ret != WM_SUCCESS)
+            {
+                PRINTF("Connecting to network failed\r\n");
+                return 0;
+            }
+            break;
+        case WLAN_REASON_WPS_UNSUCCESSFUL:
+            PRINTF("app_cb: WPS Session unsuccessful\r\n");
+            break;
+        case WLAN_REASON_WPS_DISCONNECT:
+            break;
+#endif
         default:
             PRINTF("app_cb: WLAN: Unknown Event: %d\r\n", reason);
     }
@@ -652,9 +720,13 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+    BOARD_InitRfCtrl(ANT);
 
     CLOCK_EnableXtal32K(kCLOCK_Osc32k_External);
     CLOCK_AttachClk(kXTAL32K_to_RTC);
+
+    /* Init input switch GPIO. */
+    GPIO_Init();
 
     printSeparator();
     PRINTF("wifi cli demo\r\n");
@@ -669,6 +741,14 @@ int main(void)
     result =
         xTaskCreate(task_main, "main", TASK_MAIN_STACK_SIZE, task_main_stack, TASK_MAIN_PRIO, &task_main_task_handler);
     assert(pdPASS == result);
+
+#ifdef CONFIG_EXT_COEX
+    result = xTaskCreate(ble_task, "ble_task", BLE_TASK_STACK_SIZE, NULL, BLE_TASK_PRIO, NULL);
+    assert(pdPASS == result);
+
+    result = xTaskCreate(adv_task, "adv_task", ADV_TASK_STACK_SIZE, NULL, ADV_TASK_PRIO, NULL);
+    assert(pdPASS == result);
+#endif
 
     vTaskStartScheduler();
     for (;;)

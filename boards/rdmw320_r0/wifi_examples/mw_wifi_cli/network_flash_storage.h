@@ -20,7 +20,4 @@ uint32_t get_saved_wifi_network(char *filename, uint8_t *network, uint32_t *len)
 
 uint32_t reset_saved_wifi_network(char *filename);
 
-/* Added: */
-uint32_t erase_all_params(void);
-
 #endif

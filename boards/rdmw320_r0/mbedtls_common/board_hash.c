@@ -38,7 +38,10 @@
 static uint32_t BOARD_GetUninitRamBase(void)
 {
     uint32_t base;
-#if defined(__GNUC__)
+#if defined(__MCUXPRESSO)
+    extern uint32_t _image_end[];
+    base = (uint32_t)_image_end;
+#elif defined(__GNUC__)
     extern uint32_t __DATA_END[];
     base = (uint32_t)__DATA_END;
 #elif defined(__ICCARM__)
@@ -59,7 +62,10 @@ static uint32_t BOARD_GetUninitRamBase(void)
 static uint32_t BOARD_GetUninitNvramBase(void)
 {
     uint32_t base;
-#if defined(__GNUC__)
+#if defined(__MCUXPRESSO)
+    extern uint32_t __end_data_NVRAM[];
+    base = (uint32_t)__end_data_NVRAM;
+#elif defined(__GNUC__)
     extern uint32_t __nvram_end__[];
     base = (uint32_t)__nvram_end__;
 #elif defined(__ICCARM__)

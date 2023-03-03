@@ -20,8 +20,8 @@
  *****************************************************************************/
 /*! @name Driver version */
 /*@{*/
-/*! @brief Driver version 2.0.0. */
-#define FSL_SSP_DRIVER_VERSION (MAKE_VERSION(2U, 0U, 0U))
+/*! @brief Driver version 2.0.1. */
+#define FSL_SSP_DRIVER_VERSION (MAKE_VERSION(2U, 0U, 1U))
 #ifndef SSP_XFER_QUEUE_SIZE
 /*! @brief SSP xfer queue size definition */
 #define SSP_XFER_QUEUE_SIZE 4U

@@ -2,25 +2,9 @@
  *
  *  @brief  This file provides Miscellaneous functions for MLAN module
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -64,13 +48,14 @@ pmlan_buffer wlan_alloc_mlan_buffer(mlan_adapter *pmadapter, t_u32 data_len, t_u
     if (malloc_flag == MTRUE)
     {
         buf_size = sizeof(mlan_buffer) + data_len + DMA_ALIGNMENT;
-        ret      = pcb->moal_malloc(pmadapter->pmoal_handle, buf_size, MLAN_MEM_DEF | MLAN_MEM_DMA, (t_u8 **)&pmbuf);
-        if ((ret != MLAN_STATUS_SUCCESS) || !pmbuf)
+        ret =
+            pcb->moal_malloc(pmadapter->pmoal_handle, buf_size, MLAN_MEM_DEF | MLAN_MEM_DMA, (t_u8 **)(void **)&pmbuf);
+        if ((ret != MLAN_STATUS_SUCCESS) || (pmbuf == MNULL))
         {
             pmbuf = MNULL;
             goto exit;
         }
-        memset(pmadapter, pmbuf, 0, sizeof(mlan_buffer));
+        (void)__memset(pmadapter, pmbuf, 0, sizeof(mlan_buffer));
 
         pmbuf->pdesc = MNULL;
         /* Align address */
@@ -102,23 +87,31 @@ t_void wlan_free_mlan_buffer(mlan_adapter *pmadapter, pmlan_buffer pmbuf)
  *
  *  @param pmpriv             A pointer to mlan_private structure
  *  @param pptlv_out          A pointer to TLV to fill in
- *
+ *  @param BSSDescriptor      A poiter to bss descriptor
  *  @return                   N/A
  */
-void wlan_add_ext_capa_info_ie(IN mlan_private *pmpriv, OUT t_u8 **pptlv_out)
+void wlan_add_ext_capa_info_ie(IN mlan_private *pmpriv, IN BSSDescriptor_t *pbss_desc, OUT t_u8 **pptlv_out)
 {
     MrvlIETypes_ExtCap_t *pext_cap = MNULL;
 
     ENTER();
 
-    pext_cap = (MrvlIETypes_ExtCap_t *)*pptlv_out;
-    memset(pmpriv->adapter, pext_cap, 0, sizeof(MrvlIETypes_ExtCap_t));
+    pext_cap = (MrvlIETypes_ExtCap_t *)(void *)*pptlv_out;
+    (void)__memset(pmpriv->adapter, pext_cap, 0, sizeof(MrvlIETypes_ExtCap_t));
     pext_cap->header.type = wlan_cpu_to_le16(EXT_CAPABILITY);
     pext_cap->header.len  = wlan_cpu_to_le16(sizeof(ExtCap_t));
-    if (((t_u8)(pmpriv->hotspot_cfg >> 8)) & HOTSPOT_ENABLE_INTERWORKING_IND)
+    if ((((t_u8)(pmpriv->hotspot_cfg >> 8)) & HOTSPOT_ENABLE_INTERWORKING_IND) != 0U)
+    {
         pext_cap->ext_cap.Interworking = 1;
-    if (((t_u8)(pmpriv->hotspot_cfg >> 8)) & HOTSPOT_ENABLE_TDLS_IND)
+    }
+    if ((((t_u8)(pmpriv->hotspot_cfg >> 8)) & HOTSPOT_ENABLE_TDLS_IND) != 0U)
+    {
         pext_cap->ext_cap.TDLSSupport = 1;
+    }
+#ifdef CONFIG_11AX
+    if (wlan_check_11ax_twt_supported(pmpriv, pbss_desc))
+        SET_EXTCAP_TWT_REQ(pmpriv->ext_cap);
+#endif
     *pptlv_out += sizeof(MrvlIETypes_ExtCap_t);
 
     LEAVE();
@@ -140,9 +133,19 @@ static mlan_status wlan_rate_ioctl_get_rate_index(IN pmlan_adapter pmadapter, IN
     ENTER();
 
     /* Send request to firmware */
-    ret = wlan_prepare_cmd(pmpriv, HostCmd_CMD_TX_RATE_CFG, HostCmd_ACT_GEN_GET, 0, (t_void *)pioctl_req, MNULL);
+    if (is_sta_connected())
+    {
+        ret = wlan_prepare_cmd(pmpriv, HostCmd_CMD_TX_RATE_CFG, HostCmd_ACT_GEN_GET, 0, (t_void *)pioctl_req, MNULL);
+    }
+    else
+    {
+        ret = (mlan_status)wifi_uap_prepare_and_send_cmd(pmpriv, HostCmd_CMD_TX_RATE_CFG, HostCmd_ACT_GEN_GET, 0,
+                                                         (t_void *)pioctl_req, NULL, MLAN_BSS_TYPE_UAP, NULL);
+    }
     if (ret == MLAN_STATUS_SUCCESS)
+    {
         ret = MLAN_STATUS_PENDING;
+    }
 
     LEAVE();
     return ret;
@@ -159,7 +162,10 @@ static mlan_status wlan_rate_ioctl_get_rate_index(IN pmlan_adapter pmadapter, IN
 static mlan_status wlan_rate_ioctl_set_rate_index(IN pmlan_adapter pmadapter, IN pmlan_ioctl_req pioctl_req)
 {
     t_s32 rate_index;
-    t_u32 rate_format;
+    mlan_rate_format rate_format;
+#if defined(CONFIG_11AC) || defined(CONFIG_11AX)
+    t_u32 nss;
+#endif
     t_u32 i;
     mlan_ds_rate *ds_rate = MNULL;
     mlan_status ret       = MLAN_STATUS_FAILURE;
@@ -168,29 +174,53 @@ static mlan_status wlan_rate_ioctl_set_rate_index(IN pmlan_adapter pmadapter, IN
 
     ENTER();
 
-    ds_rate = (mlan_ds_rate *)pioctl_req->pbuf;
+    ds_rate = (mlan_ds_rate *)(void *)pioctl_req->pbuf;
 
     rate_format = ds_rate->param.rate_cfg.rate_format;
-    rate_index  = ds_rate->param.rate_cfg.rate;
+#if defined(CONFIG_11AC) || defined(CONFIG_11AX)
+    nss = ds_rate->param.rate_cfg.nss;
+#endif
+    rate_index = ds_rate->param.rate_cfg.rate;
 
-    if (ds_rate->param.rate_cfg.is_rate_auto)
+    if (ds_rate->param.rate_cfg.is_rate_auto == MTRUE)
     {
-        memset(pmadapter, bitmap_rates, 0, sizeof(bitmap_rates));
+        (void)__memset(pmadapter, bitmap_rates, 0, sizeof(bitmap_rates));
         /* Rates talbe [0]: HR/DSSS;[1]: OFDM; [2..9] HT; */
         /* Support all HR/DSSS rates */
         bitmap_rates[0] = 0x000F;
         /* Support all OFDM rates */
         bitmap_rates[1] = 0x00FF;
         /* Support all HT-MCSs rate */
-        for (i = 2; i < 9; i++)
+        for (i = 2; i < 9U; i++)
             bitmap_rates[i] = 0xFFFF;
         bitmap_rates[9] = 0x3FFF;
+#ifdef CONFIG_11AC
+        /* [10..17] VHT */
+        /* Support all VHT-MCSs rate for NSS 1 and 2 */
+        for (i = 10; i < 12; i++)
+        {
+            bitmap_rates[i] = 0x03FF; /* 10 Bits valid */
+        }
+        /* Set to 0 as default value for all other NSSs */
+        for (i = 12; i < NELEMENTS(bitmap_rates); i++)
+        {
+            bitmap_rates[i] = 0x0;
+        }
+#endif
+#ifdef CONFIG_11AX
+        /* [18..25] HE */
+        /* Support all HE-MCSs rate for NSS1 and 2 */
+        for (i = 18; i < 20; i++)
+            bitmap_rates[i] = 0x0FFF;
+        for (i = 20; i < NELEMENTS(bitmap_rates); i++)
+            bitmap_rates[i] = 0x0;
+#endif
     }
     else
     {
         PRINTM(MINFO, "Rate index is %d\n", rate_index);
 
-        memset(pmadapter, bitmap_rates, 0, sizeof(bitmap_rates));
+        (void)__memset(pmadapter, bitmap_rates, 0, sizeof(bitmap_rates));
         if (rate_format == MLAN_RATE_FORMAT_LG)
         {
             /* Bitmap of HR/DSSS rates */
@@ -218,6 +248,35 @@ static mlan_status wlan_rate_ioctl_set_rate_index(IN pmlan_adapter pmadapter, IN
             }
         }
 
+#ifdef CONFIG_11AC
+        if (rate_format == MLAN_RATE_FORMAT_VHT)
+        {
+            if ((rate_index <= MLAN_RATE_INDEX_MCS9) && (MLAN_RATE_NSS1 <= nss) && (nss <= MLAN_RATE_NSS2))
+            {
+                bitmap_rates[10 + nss - MLAN_RATE_NSS1] = (1 << rate_index);
+                ret                                     = MLAN_STATUS_SUCCESS;
+            }
+        }
+#endif
+#ifdef CONFIG_11AX
+        if (rate_format == MLAN_RATE_FORMAT_HE)
+        {
+            if (IS_FW_SUPPORT_11AX(pmadapter))
+            {
+                if ((rate_index <= MLAN_RATE_INDEX_MCS11) && (MLAN_RATE_NSS1 <= nss) && (nss <= MLAN_RATE_NSS2))
+                {
+                    bitmap_rates[18 + nss - MLAN_RATE_NSS1] = (1 << rate_index);
+                    ret                                     = MLAN_STATUS_SUCCESS;
+                }
+            }
+            else
+            {
+                PRINTM(MERROR, "Error! Fw doesn't support 11AX\n");
+                LEAVE();
+                return MLAN_STATUS_FAILURE;
+            }
+        }
+#endif
         if (ret == MLAN_STATUS_FAILURE)
         {
             PRINTM(MERROR, "Invalid MCS index=%d. \n", rate_index);
@@ -237,10 +296,21 @@ static mlan_status wlan_rate_ioctl_set_rate_index(IN pmlan_adapter pmadapter, IN
            pmpriv->is_data_rate_auto, pmpriv->data_rate);
 
     /* Send request to firmware */
-    ret = wlan_prepare_cmd(pmpriv, HostCmd_CMD_TX_RATE_CFG, HostCmd_ACT_GEN_SET, 0, (t_void *)pioctl_req,
-                           (t_void *)bitmap_rates);
+    if (is_sta_connected())
+    {
+        ret = wlan_prepare_cmd(pmpriv, HostCmd_CMD_TX_RATE_CFG, HostCmd_ACT_GEN_SET, 0, (t_void *)pioctl_req,
+                               (t_void *)bitmap_rates);
+    }
+    else
+    {
+        ret = (mlan_status)wifi_uap_prepare_and_send_cmd(pmpriv, HostCmd_CMD_TX_RATE_CFG, HostCmd_ACT_GEN_SET, 0,
+                                                         (t_void *)pioctl_req, (t_void *)bitmap_rates,
+                                                         MLAN_BSS_TYPE_UAP, NULL);
+    }
     if (ret == MLAN_STATUS_SUCCESS)
+    {
         ret = MLAN_STATUS_PENDING;
+    }
 
     LEAVE();
     return ret;
@@ -261,9 +331,13 @@ mlan_status wlan_rate_ioctl_cfg(IN pmlan_adapter pmadapter, IN pmlan_ioctl_req p
     ENTER();
 
     if (pioctl_req->action == MLAN_ACT_GET)
+    {
         status = wlan_rate_ioctl_get_rate_index(pmadapter, pioctl_req);
+    }
     else
+    {
         status = wlan_rate_ioctl_set_rate_index(pmadapter, pioctl_req);
+    }
 
     LEAVE();
     return status;

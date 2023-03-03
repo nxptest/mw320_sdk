@@ -2,25 +2,9 @@
  *
  *  @brief  This file provides  handling of RX in MLA  module.
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -134,7 +118,7 @@ mlan_status wlan_process_rx_packet(pmlan_adapter pmadapter, pmlan_buffer pmbuf)
     RxPD *prx_pd;
     ENTER();
 
-    prx_pd = (RxPD *)(pmbuf->pbuf + pmbuf->data_offset);
+    prx_pd = (RxPD *)(void *)(pmbuf->pbuf + pmbuf->data_offset);
     /* Note: Important. We do not have actual data @ prx_pd->rx_pkt_offset */
     /* prx_pkt = (RxPacketHdr_t *) ((t_u8 *) prx_pd + prx_pd->rx_pkt_offset); */
     /* prx_pkt = (RxPacketHdr_t *)pmbuf->pdesc; */
@@ -191,7 +175,7 @@ mlan_status wlan_ops_sta_process_rx_packet(IN t_void *adapter, IN pmlan_buffer p
     t_u16 rx_pkt_type = 0;
     ENTER();
 
-    prx_pd = (RxPD *)(pmbuf->pbuf + pmbuf->data_offset);
+    prx_pd = (RxPD *)(void *)(pmbuf->pbuf + pmbuf->data_offset);
     /* Endian conversion */
     endian_convert_RxPD(prx_pd);
     rx_pkt_type = prx_pd->rx_pkt_type;
@@ -223,8 +207,8 @@ mlan_status wlan_ops_sta_process_rx_packet(IN t_void *adapter, IN pmlan_buffer p
            event */
         /* fixme */
         PRINTM(MMSG, "Is a management packet expected here?\n\r");
-        os_enter_critical_section();
-        while (1)
+        (void)os_enter_critical_section();
+        while (true)
         {
         }
     }
@@ -239,21 +223,23 @@ mlan_status wlan_ops_sta_process_rx_packet(IN t_void *adapter, IN pmlan_buffer p
      * directly to os. Don't pass thru rx reordering
      */
     if (!IS_11N_ENABLED(priv) ||
-        memcmp(priv->adapter, priv->curr_addr, prx_pkt->eth803_hdr.dest_addr, MLAN_MAC_ADDR_LENGTH))
+        __memcmp(priv->adapter, priv->curr_addr, prx_pkt->eth803_hdr.dest_addr, MLAN_MAC_ADDR_LENGTH))
     {
-        wlan_process_rx_packet(pmadapter, pmbuf);
+        (void)wlan_process_rx_packet(pmadapter, pmbuf);
         goto done;
     }
 
-    if (queuing_ra_based(priv))
+    if (queuing_ra_based(priv) == MTRUE)
     {
-        memcpy(pmadapter, ta, prx_pkt->eth803_hdr.src_addr, MLAN_MAC_ADDR_LENGTH);
+        (void)__memcpy(pmadapter, ta, prx_pkt->eth803_hdr.src_addr, MLAN_MAC_ADDR_LENGTH);
     }
     else
     {
         if ((rx_pkt_type != PKT_TYPE_BAR) && (prx_pd->priority < MAX_NUM_TID))
+        {
             priv->rx_seq[prx_pd->priority] = prx_pd->seq_num;
-        memcpy(pmadapter, ta, priv->curr_bss_params.bss_descriptor.mac_address, MLAN_MAC_ADDR_LENGTH);
+        }
+        (void)__memcpy(pmadapter, ta, priv->curr_bss_params.bss_descriptor.mac_address, MLAN_MAC_ADDR_LENGTH);
     }
 
     /* Reorder and send to OS */

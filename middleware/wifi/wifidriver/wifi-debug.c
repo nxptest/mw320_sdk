@@ -2,25 +2,9 @@
  *
  *  @brief This file provides WIFI debug APIs.
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2021 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 #include <wm_os.h>
@@ -96,15 +80,15 @@ const char *get_status_str(uint16_t status)
 void wifi_show_assoc_fail_reason(int status)
 {
 #ifdef CONFIG_WIFI_EXTRA_DEBUG
-    PRINTF("[wifi] Assoc Status: %s\n\r", get_status_str(status));
+    (void)PRINTF("[wifi] Assoc Status: %s\n\r", get_status_str(status));
 
     switch (status)
     {
         case 13:
-            PRINTF("Assoc failed: Network not found.\n\r");
+            (void)PRINTF("Assoc failed: Network not found.\n\r");
             break;
         case 18:
-            PRINTF("(11n disabled ?)\n\r");
+            (void)PRINTF("(11n disabled ?)\n\r");
             break;
     }
 #endif /* CONFIG_WIFI_EXTRA_DEBUG */
@@ -114,18 +98,18 @@ void wifi_show_assoc_fail_reason(int status)
 void dump_mac_addr(const char *msg, unsigned char *addr)
 {
     if (msg)
-        PRINTF("%s: ", msg);
+        (void)PRINTF("%s: ", msg);
     else
-        PRINTF("mac: ", msg);
+        (void)PRINTF("mac: ", msg);
 
     int i;
     for (i = 0; i < MLAN_MAC_ADDR_LENGTH; i++)
     {
-        PRINTF("%x", addr[i]);
+        (void)PRINTF("%x", addr[i]);
         if (i != (MLAN_MAC_ADDR_LENGTH - 1))
-            PRINTF(":");
+            (void)PRINTF(":");
     }
 
-    PRINTF("\n\r");
+    (void)PRINTF("\n\r");
 }
 #endif /* DUMP_PACKET_MAC */

@@ -165,7 +165,7 @@ void SSP_Init(SSP_Type *base, const ssp_config_t *config)
 #endif
 
     /* clear bit error/tx underrun/rx overrun status */
-    base->SSP_SSSR |= SSP_SSP_SSSR_TUR_MASK | SSP_SSP_SSITR_TROR_MASK | SSP_SSP_SSSR_BCE_MASK;
+    base->SSP_SSSR |= SSP_SSP_SSSR_TUR_MASK | SSP_SSP_SSSR_ROR_MASK | SSP_SSP_SSSR_BCE_MASK;
     /* SSP configuration */
     base->SSP_SSCR0 = SSP_SSP_SSCR0_FRF(config->format) | SSP_SSP_SSCR0_MCRT(config->enableMasterClockReturn) |
                       SSP_SSP_SSCR0_RHCD(config->enableRXHalfCycleDelay) |

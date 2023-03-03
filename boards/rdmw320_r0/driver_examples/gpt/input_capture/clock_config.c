@@ -52,7 +52,7 @@ static void BOARD_DeinitFlashC(void)
     reg &= ~FLASHC_FCCR_CACHE_EN_MASK;
     FLASHC->FCCR = reg;
     /* Set CMD_TYPE to exit continuous read mode */
-    reg = (reg & ~FLASHC_FCCR_CMD_TYPE_MASK) | FLASHC_FCCR_CMD_TYPE(0xCU);
+    reg = (reg & ~FLASHC_FCCR_CMD_TYPE_MASK) | FLASHC_FCCR_CMD_TYPE(0xDU);
     FLASHC->FCCR = reg ;
     /* Wait exit done */
     while ((FLASHC->FCSR & FLASHC_FCSR_CONT_RD_MD_EXIT_DONE_MASK) == 0U)

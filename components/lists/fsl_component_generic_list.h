@@ -6,8 +6,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifndef _GENERIC_LIST_H_
-#define _GENERIC_LIST_H_
+#ifndef _FSL_COMPONENT_GENERIC_LIST_H_
+#define _FSL_COMPONENT_GENERIC_LIST_H_
 
 #include "fsl_common.h"
 /*!
@@ -207,4 +207,4 @@ uint32_t LIST_GetAvailableSize(list_handle_t list);
 }
 #endif
 /*! @}*/
-#endif /*_GENERIC_LIST_H_*/
+#endif /*_FSL_COMPONENT_GENERIC_LIST_H_*/

@@ -479,9 +479,7 @@ int psm_read_flash(psm_t *psm, void *buffer, uint32_t size, uint32_t offset)
     psm_ll("%s: %x, %d", __func__, offset, size);
 
     if (size == 0)
-    {
         psm_d("%s: Zero length read from 0x%x", __func__, (uint32_t)__builtin_return_address(0));
-    }
 
     if ((offset + size) > part_size(psm))
     {
@@ -589,9 +587,7 @@ static int psm_write_flash(psm_t *psm, const void *buffer, uint32_t size, uint32
         if (rv == -WM_E_FAULT)
             rv = psm_write_flash_same_device_rw(psm, buffer, size, address);
         if (rv != kStatus_Success)
-        {
             psm_d("(rw-flash) Unable to write to flash: %x: %d", address, size);
-        }
         return rv;
     }
 
@@ -737,8 +733,6 @@ int decrypt_buf(psm_t *psm, const void *cipher, void *plain, int len)
 
 static void psm_reset_index(psm_t *psm)
 {
-    unsigned int cnt;
-
     psm_entry_i();
     if (!psm->index)
     {
@@ -747,6 +741,7 @@ static void psm_reset_index(psm_t *psm)
         return;
     }
 
+    int cnt;
     for (cnt = 0; cnt < psm->index_elements; cnt++)
     {
         if (psm->index[cnt].cache)
@@ -1149,7 +1144,7 @@ static int psm_copy_object(
         uint32_t remaining = copy_size - index;
         read_size          = remaining > READ_BUFFER_SIZE ? READ_BUFFER_SIZE : remaining;
 
-        rv = psm_read_flash(psm, buf, read_size, source_offset);
+        int rv = psm_read_flash(psm, buf, read_size, source_offset);
         if (rv != WM_SUCCESS)
         {
             psm_d("%s: read failed", __func__);
@@ -1301,7 +1296,7 @@ static int psm_upgrade_object(
         uint32_t remaining = copy_size - index;
         read_size          = remaining > READ_BUFFER_SIZE ? READ_BUFFER_SIZE : remaining;
 
-        rv = psm_read_flash(psm, buf, read_size, source_offset);
+        int rv = psm_read_flash(psm, buf, read_size, source_offset);
         if (rv != WM_SUCCESS)
         {
             psm_d("%s: read failed", __func__);
@@ -1789,7 +1784,7 @@ static psm_index_t *psm_search_index(psm_t *psm, const char *name, uint32_t name
     psm_entry_i("name: %s", name);
     psm_index_t *index = NULL;
     uint32_t name_hash = soft_crc32(name, name_len, 0);
-    unsigned int cnt;
+    int cnt;
     for (cnt = 0; cnt < psm->index_elements; cnt++)
     {
         index = &psm->index[cnt];
@@ -2716,7 +2711,7 @@ static int deduce_checkpoint_at_init(psm_t *psm, psm_swap_desc_t *swap_desc, che
     }
 
     /* Check if all are 0xFF */
-    unsigned int index    = 0;
+    int index    = 0;
     uint8_t *ptr = (uint8_t *)swap_desc;
     for (index = 0; index < sizeof(psm_swap_desc_t); index++)
         if (ptr[index] != 0xFF)
@@ -2738,8 +2733,7 @@ static int deduce_checkpoint_at_init(psm_t *psm, psm_swap_desc_t *swap_desc, che
      * time it started. Set checkpoint such that only swap cleanup will
      * be performed.
      */
-    uint16_t checkpoint_marker_inv = ~swap_desc->checkpoint_marker_inv;
-    if (swap_desc->checkpoint_marker == checkpoint_marker_inv)
+    if (swap_desc->checkpoint_marker == (uint16_t)~swap_desc->checkpoint_marker_inv)
     {
         if (swap_desc->swap_start_offset == ~swap_desc->swap_start_offset_inv)
         {

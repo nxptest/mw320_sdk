@@ -2,25 +2,9 @@
  *
  *  @brief  This file provides handling of AP mode ioctls
  *
- *  Copyright 2008-2020 NXP
+ *  Copyright 2008-2022 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -50,12 +34,12 @@ mlan_status wlan_uap_snmp_mib_ctrl_deauth(IN pmlan_adapter pmadapter, IN pmlan_i
 {
     mlan_private *pmpriv  = pmadapter->priv[pioctl_req->bss_index];
     mlan_status ret       = MLAN_STATUS_SUCCESS;
-    mlan_ds_snmp_mib *mib = (mlan_ds_snmp_mib *)pioctl_req->pbuf;
+    mlan_ds_snmp_mib *mib = (mlan_ds_snmp_mib *)(void *)pioctl_req->pbuf;
     t_u16 cmd_action      = 0;
 
     ENTER();
 
-    mib = (mlan_ds_snmp_mib *)pioctl_req->pbuf;
+    mib = (mlan_ds_snmp_mib *)(void *)pioctl_req->pbuf;
     if (pioctl_req->action == MLAN_ACT_SET)
     {
         cmd_action = HostCmd_ACT_GEN_SET;
@@ -70,7 +54,9 @@ mlan_status wlan_uap_snmp_mib_ctrl_deauth(IN pmlan_adapter pmadapter, IN pmlan_i
                            &mib->param.deauthctrl);
 
     if (ret == MLAN_STATUS_SUCCESS)
+    {
         ret = MLAN_STATUS_PENDING;
+    }
 
     LEAVE();
     return ret;
@@ -86,12 +72,21 @@ mlan_status wlan_uap_snmp_mib_ctrl_deauth(IN pmlan_adapter pmadapter, IN pmlan_i
  */
 mlan_status wlan_ops_uap_ioctl(t_void *adapter, pmlan_ioctl_req pioctl_req)
 {
-    mlan_status status = MLAN_STATUS_SUCCESS;
+    pmlan_adapter pmadapter = (pmlan_adapter)adapter;
+    mlan_status status      = MLAN_STATUS_SUCCESS;
+    mlan_ds_rate *rate      = MNULL;
 
     ENTER();
 
     switch (pioctl_req->req_id)
     {
+        case MLAN_IOCTL_RATE:
+            rate = (mlan_ds_rate *)(void *)pioctl_req->pbuf;
+            if (rate->sub_command == MLAN_OID_RATE_CFG)
+            {
+                status = wlan_rate_ioctl_cfg(pmadapter, pioctl_req);
+            }
+            break;
         default:
             pioctl_req->status_code = MLAN_ERROR_IOCTL_INVALID;
             break;

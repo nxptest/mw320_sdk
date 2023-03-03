@@ -303,14 +303,6 @@
 
 #ifdef CONFIG_IPV6
 #define LWIP_IPV6 1
-
-/**
- * LWIP_NETIF_IPV6_STATUS_CALLBACK==1: Support a callback function
- * whenever IPv6 address state is changed - Invalid, valid, preferred,
- * tentative, deprecated
- */
-
-#define LWIP_NETIF_IPV6_STATUS_CALLBACK LWIP_IPV6
 #endif
 
 /* Enable IPv4 Auto IP	*/
@@ -381,8 +373,8 @@
 /**
  * LWIP_DHCP==1: Enable DHCP module.
  */
-#define LWIP_DHCP                  1
-#define LWIP_NETIF_STATUS_CALLBACK 1
+#define LWIP_DHCP                      1
+#define LWIP_NETIF_EXT_STATUS_CALLBACK 1
 
 /**
  * DNS related options, revisit later to fine tune.

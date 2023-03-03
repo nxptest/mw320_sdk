@@ -76,43 +76,43 @@ status_t SDIOC_SetTransferConfig(SDIOC_Type *base,
     else
     {
         /* command index/type/response type configuration */
-        xferReg |= command->commandResponseType | SDIOC_MM4_CMD_XFRMD_CMD_TYPE(command->commandType) |
-                   SDIOC_MM4_CMD_XFRMD_CMD_IDX(command->commandIndex);
+        xferReg |= command->commandResponseType | SDIOC_MMC4_CMD_XFRMD_CMD_TYPE(command->commandType) |
+                   SDIOC_MMC4_CMD_XFRMD_CMD_IDX(command->commandIndex);
 
         /* data configuration */
         if (data != NULL)
         {
-            blockCountReg = base->MM4_BLK_CNTL & ~(SDIOC_MM4_BLK_CNTL_XFR_BLKSZ_MASK |
-                                                   SDIOC_MM4_BLK_CNTL_DMA_BUFSZ_MASK | SDIOC_MM4_BLK_CNTL_BLK_CNT_MASK);
-            xferReg |= SDIOC_MM4_CMD_XFRMD_DXFRDIR(data->dataTxAddr != NULL ? 0U : 1U);
+            blockCountReg = base->MMC4_BLK_CNTL & ~(SDIOC_MMC4_BLK_CNTL_XFR_BLKSZ_MASK |
+                                                   SDIOC_MMC4_BLK_CNTL_DMA_BUFSZ_MASK | SDIOC_MMC4_BLK_CNTL_BLK_CNT_MASK);
+            xferReg |= SDIOC_MMC4_CMD_XFRMD_DXFRDIR(data->dataTxAddr != NULL ? 0U : 1U);
 
-            xferReg |= SDIOC_MM4_CMD_XFRMD_DPSEL_MASK;
+            xferReg |= SDIOC_MMC4_CMD_XFRMD_DPSEL_MASK;
 
             if (data->dataEnableAutoCommand12)
             {
-                xferReg |= SDIOC_MM4_CMD_XFRMD_AUTOCMD12_MASK;
+                xferReg |= SDIOC_MMC4_CMD_XFRMD_AUTOCMD12_MASK;
             }
 
             if (dmaConfig != NULL)
             {
-                xferReg |= SDIOC_MM4_CMD_XFRMD_DMA_EN_MASK;
-                blockCountReg |= SDIOC_MM4_BLK_CNTL_DMA_BUFSZ(dmaConfig->dmaBufferBoundary);
+                xferReg |= SDIOC_MMC4_CMD_XFRMD_DMA_EN_MASK;
+                blockCountReg |= SDIOC_MMC4_BLK_CNTL_DMA_BUFSZ(dmaConfig->dmaBufferBoundary);
             }
 
             if (data->dataBlockCount > 1U)
             {
-                xferReg |= SDIOC_MM4_CMD_XFRMD_MS_BLKSEL_MASK | SDIOC_MM4_CMD_XFRMD_BLKCNTEN_MASK;
+                xferReg |= SDIOC_MMC4_CMD_XFRMD_MS_BLKSEL_MASK | SDIOC_MMC4_CMD_XFRMD_BLKCNTEN_MASK;
             }
 
             blockCountReg |=
-                SDIOC_MM4_BLK_CNTL_BLK_CNT(data->dataBlockCount) | SDIOC_MM4_BLK_CNTL_XFR_BLKSZ(data->dataBlockSize);
+                SDIOC_MMC4_BLK_CNTL_BLK_CNT(data->dataBlockCount) | SDIOC_MMC4_BLK_CNTL_XFR_BLKSZ(data->dataBlockSize);
 
-            base->MM4_SYSADDR = data->dataTxAddr != NULL ? (uint32_t)data->dataTxAddr : (uint32_t)data->dataRxAddr;
+            base->MMC4_SYSADDR = data->dataTxAddr != NULL ? (uint32_t)data->dataTxAddr : (uint32_t)data->dataRxAddr;
         }
 
-        base->MM4_BLK_CNTL  = blockCountReg;
-        base->MM4_ARG       = command->commandArgument;
-        base->MM4_CMD_XFRMD = xferReg;
+        base->MMC4_BLK_CNTL  = blockCountReg;
+        base->MMC4_ARG       = command->commandArgument;
+        base->MMC4_CMD_XFRMD = xferReg;
     }
 
     return error;

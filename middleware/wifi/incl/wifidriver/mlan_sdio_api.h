@@ -1,23 +1,7 @@
 /*
  *  Copyright 2008-2020 NXP
  *
- *  NXP CONFIDENTIAL
- *  The source code contained or described herein and all documents related to
- *  the source code ("Materials") are owned by NXP, its
- *  suppliers and/or its licensors. Title to the Materials remains with NXP,
- *  its suppliers and/or its licensors. The Materials contain
- *  trade secrets and proprietary and confidential information of NXP, its
- *  suppliers and/or its licensors. The Materials are protected by worldwide copyright
- *  and trade secret laws and treaty provisions. No part of the Materials may be
- *  used, copied, reproduced, modified, published, uploaded, posted,
- *  transmitted, distributed, or disclosed in any way without NXP's prior
- *  express written permission.
- *
- *  No license under any patent, copyright, trade secret or other intellectual
- *  property right is granted to or conferred upon you by disclosure or delivery
- *  of the Materials, either expressly, by implication, inducement, estoppel or
- *  otherwise. Any license under such intellectual property rights must be
- *  express and approved by NXP in writing.
+ *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
  *
  */
 
@@ -123,7 +107,7 @@ int sdio_drv_read(uint32_t addr, uint32_t fn, uint32_t bcnt, uint32_t bsize, uin
  *  \param resp Response of CMD53
  *  \return true on success, false otherwise
  */
-int sdio_drv_write(uint32_t addr, uint32_t fn, uint32_t bcnt, uint32_t bsize, uint8_t *buf, uint32_t *resp);
+bool sdio_drv_write(uint32_t addr, uint32_t fn, uint32_t bcnt, uint32_t bsize, uint8_t *buf, uint32_t *resp);
 
 /** Initialize the SDIO Driver
  *
@@ -135,33 +119,10 @@ int sdio_drv_write(uint32_t addr, uint32_t fn, uint32_t bcnt, uint32_t bsize, ui
  */
 int sdio_drv_init(void (*cd_int)(int));
 
-/*
- * Re-initializes SDIO driver
+/** Deinitialize the SDIO Driver
  *
- * This function is called on exit from MCU low power modes
- * PM3 and PM4. Since SDIO controller register configuration is not retained
- * in on exit from PM3 and PM4 controller needs to be reconfigured.
- *  \return WM_SUCCESS or -WM_FAIL
- *  This function assumes that sdio_drv_init has been called earlier
- */
-int sdio_drv_reinit(void (*cd_int)(int));
-
-/** De-initialize the SDIO Driver
- *
- * SDIO will not be usable after this call.
- * All resources are released and driver is
- * deregistered.
- *
+ *  \return void
  */
 void sdio_drv_deinit(void);
-
-/** Register additional callback
- *
- * Additional callback for Card Interrupt (other than the one
- * set during sdio_drv_init() ) can be registered using this call.
- *
- *  \param cd_int Callback for Card Detect Interrupt
- */
-void sdio_drv_set_cb1(void (*cd_int)(int));
 
 #endif /* !_MDEV_SDIO_API_H_ */

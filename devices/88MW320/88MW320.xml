@@ -5,7 +5,7 @@
   <version>1.0</version>
   <description>88MW320_A0_NAPC</description>
   <licenseText>
-Copyright 2016-2020 NXP
+Copyright 2016-2021 NXP
 All rights reserved.
 
 SPDX-License-Identifier: BSD-3-Clause
@@ -30,7 +30,7 @@ SPDX-License-Identifier: BSD-3-Clause
       <baseAddress>0x44000000</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0xFFF</size>
+        <size>0x1000</size>
         <usage>registers</usage>
       </addressBlock>
       <interrupt>
@@ -21196,7 +21196,7 @@ SPDX-License-Identifier: BSD-3-Clause
       </interrupt>
       <registers>
         <register>
-          <name>MM4_SYSADDR</name>
+          <name>MMC4_SYSADDR</name>
           <description>MMC4 System Address Register</description>
           <addressOffset>0</addressOffset>
           <size>32</size>
@@ -21214,7 +21214,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_BLK_CNTL</name>
+          <name>MMC4_BLK_CNTL</name>
           <description>MMC4 Block Control Register</description>
           <addressOffset>0x4</addressOffset>
           <size>32</size>
@@ -21246,7 +21246,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_ARG</name>
+          <name>MMC4_ARG</name>
           <description>MMC4 Command Argument Register</description>
           <addressOffset>0x8</addressOffset>
           <size>32</size>
@@ -21264,7 +21264,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_CMD_XFRMD</name>
+          <name>MMC4_CMD_XFRMD</name>
           <description>MMC4 Command and Transfer Mode Register</description>
           <addressOffset>0xC</addressOffset>
           <size>32</size>
@@ -21359,7 +21359,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_RESP0</name>
+          <name>MMC4_RESP0</name>
           <description>MMC4 Command Response Register0</description>
           <addressOffset>0x10</addressOffset>
           <size>32</size>
@@ -21377,7 +21377,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_RESP1</name>
+          <name>MMC4_RESP1</name>
           <description>MMC4 Command Response Register1</description>
           <addressOffset>0x14</addressOffset>
           <size>32</size>
@@ -21395,7 +21395,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_RESP2</name>
+          <name>MMC4_RESP2</name>
           <description>MMC4 Command Response Register2</description>
           <addressOffset>0x18</addressOffset>
           <size>32</size>
@@ -21413,7 +21413,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_RESP3</name>
+          <name>MMC4_RESP3</name>
           <description>MMC4 Command Response Register3</description>
           <addressOffset>0x1C</addressOffset>
           <size>32</size>
@@ -21431,7 +21431,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_DP</name>
+          <name>MMC4_DP</name>
           <description>MMC4 Buffer Data Port Register</description>
           <addressOffset>0x20</addressOffset>
           <size>32</size>
@@ -21449,7 +21449,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_STATE</name>
+          <name>MMC4_STATE</name>
           <description>MMC4 Present State Register</description>
           <addressOffset>0x24</addressOffset>
           <size>32</size>
@@ -21558,7 +21558,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_CNTL1</name>
+          <name>MMC4_CNTL1</name>
           <description>MMC4 Host Control Register 1</description>
           <addressOffset>0x28</addressOffset>
           <size>32</size>
@@ -21639,7 +21639,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_CNTL2</name>
+          <name>MMC4_CNTL2</name>
           <description>MMC4 Host Control Register 2</description>
           <addressOffset>0x2C</addressOffset>
           <size>32</size>
@@ -21699,8 +21699,8 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_I_STAT</name>
-          <description>Align Detection Timeout Value Register</description>
+          <name>MMC4_I_STAT</name>
+          <description>MMC4 Align Detection Timeout Value Register</description>
           <addressOffset>0x30</addressOffset>
           <size>32</size>
           <access>read-write</access>
@@ -21850,7 +21850,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_I_STAT_EN</name>
+          <name>MMC4_I_STAT_EN</name>
           <description>MMC4 Interrupt Status Enable Register</description>
           <addressOffset>0x34</addressOffset>
           <size>32</size>
@@ -21994,7 +21994,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_I_SIG_EN</name>
+          <name>MMC4_I_SIG_EN</name>
           <description>MMC4 Interrupt Signal Enable Register</description>
           <addressOffset>0x38</addressOffset>
           <size>32</size>
@@ -22138,7 +22138,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_ACMD12_ER</name>
+          <name>MMC4_ACMD12_ER</name>
           <description>MMC4 Auto CMD12 Error Status Register</description>
           <addressOffset>0x3C</addressOffset>
           <size>32</size>
@@ -22191,7 +22191,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_CAP0</name>
+          <name>MMC4_CAP0</name>
           <description>MMC4 Capabilities Register 0</description>
           <addressOffset>0x40</addressOffset>
           <size>32</size>
@@ -22279,7 +22279,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_CUR_CAP0</name>
+          <name>MMC4_CUR_CAP0</name>
           <description>MMC4 Maximum Current Capabilities Register 0</description>
           <addressOffset>0x48</addressOffset>
           <size>32</size>
@@ -22311,7 +22311,7 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MM4_VER</name>
+          <name>MMC4_VER</name>
           <description>MMC4 Controller Version Status</description>
           <addressOffset>0xFC</addressOffset>
           <size>32</size>
@@ -22461,31 +22461,10 @@ SPDX-License-Identifier: BSD-3-Clause
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>DIN_DLY</name>
-              <description>Data Input Delay</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CLK_IN_DLY</name>
-              <description>Clock Input Delay</description>
-              <bitOffset>2</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
               <name>CLK_CAPT_EDGE</name>
               <description>Serial Interface data capture clock edge</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CLK_OUT_DLY</name>
-              <description>Add delay on the outgoing Clock to the flash.</description>
-              <bitOffset>5</bitOffset>
-              <bitWidth>2</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
@@ -24220,7 +24199,7 @@ SPDX-License-Identifier: BSD-3-Clause
           <description>Interrupt Clear Register</description>
           <addressOffset>0x8</addressOffset>
           <size>32</size>
-          <access>read-write</access>
+          <access>write-only</access>
           <resetValue>0</resetValue>
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
@@ -26989,59 +26968,6 @@ SPDX-License-Identifier: BSD-3-Clause
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>DATA_IN_DLY</name>
-              <description>Serial Interface Data Input Delay</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V00</name>
-                  <description>No delay.</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V01</name>
-                  <description>1 serial interface clock delay.</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V10</name>
-                  <description>2 serial interface clock delay.</description>
-                  <value>0x2</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>CLK_IN_DLY</name>
-              <description>Serial Interface Clock In Delay.</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V00</name>
-                  <description>No delay.</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V01</name>
-                  <description>Add 0.2 ns delay.</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V10</name>
-                  <description>Add 0.4 ns delay</description>
-                  <value>0x2</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V11</name>
-                  <description>Add 0.6 ns delay</description>
-                  <value>0x3</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
               <name>CLK_CAPT_EDGE</name>
               <description>Serial Interface Capture Clock Edge.</description>
               <bitOffset>6</bitOffset>
@@ -27929,7 +27855,7 @@ SPDX-License-Identifier: BSD-3-Clause
           <description>Serial Interface Interrupt Clear Register</description>
           <addressOffset>0x38</addressOffset>
           <size>32</size>
-          <access>read-write</access>
+          <access>write-only</access>
           <resetValue>0</resetValue>
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
@@ -27964,7 +27890,7 @@ SPDX-License-Identifier: BSD-3-Clause
       <baseAddress>0x46020000</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0xFFFFFFFF</size>
+        <size>0x1000</size>
         <usage>registers</usage>
       </addressBlock>
       <interrupt>
@@ -28018,25 +27944,6 @@ SPDX-License-Identifier: BSD-3-Clause
               </enumeratedValues>
             </field>
             <field>
-              <name>ECS</name>
-              <description>External Clock Select</description>
-              <bitOffset>6</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>On-chip SSPx Clock is used in the serial clock rate formula (above) to produce the SSPx port's SSPSCLKx</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>SSPEXTCLKx (GPIO pin) is used in the serial clock rate formula to produce the SSPx port's SSPSCLKx</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
               <name>SSE</name>
               <description>Synchronous Serial Port Enable</description>
               <bitOffset>7</bitOffset>
@@ -28056,13 +27963,6 @@ SPDX-License-Identifier: BSD-3-Clause
               </enumeratedValues>
             </field>
             <field>
-              <name>SCR</name>
-              <description>Serial Clock Rate</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>12</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
               <name>EDSS</name>
               <description>Extended Data Size Select</description>
               <bitOffset>20</bitOffset>
@@ -28077,25 +27977,6 @@ SPDX-License-Identifier: BSD-3-Clause
                 <enumeratedValue>
                   <name>V1</name>
                   <description>A 1 is pre-appended to the DSS value to set the DSS range from 18 to 32 bits.</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>NCS</name>
-              <description>Network Clock Select</description>
-              <bitOffset>21</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>Clock selection is determined by the &lt;External Clock Select&gt; field</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Network clock is used to create the SSP's serial clock (SSPSCLKx)</description>
                   <value>0x1</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -28413,63 +28294,6 @@ SPDX-License-Identifier: BSD-3-Clause
                 <enumeratedValue>
                   <name>V1</name>
                   <description>SSPSFRMx is inverted from normal-SSPSFRMx (as defined by the PSP polarity bits). (Works in all frame formats: SPI, SSP, and PSP)</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PDM</name>
-              <description>Pulse Desity Modulation Enable</description>
-              <bitOffset>17</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>PDM function is disabled.</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>PDM function is enabled ,ignore all the ssp module configration but sse bit .</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PINTE</name>
-              <description>Peripheral Trailing Byte Interrupt Enable</description>
-              <bitOffset>18</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>Peripheral trailing byte interrupt is disabled.</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Peripheral trailing byte interrupt is enabled.</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>TINTE</name>
-              <description>Receiver Time-out Interrupt Enable</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>Receiver time-out interrupt is disabled.</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Receiver time-out interrupt is enabled.</description>
                   <value>0x1</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -28842,63 +28666,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <access>read-only</access>
             </field>
             <field>
-              <name>PINT</name>
-              <description>Peripheral Trailing Byte Interrupt</description>
-              <bitOffset>18</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>No peripheral trailing byte interrupt is pending.</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Peripheral trailing byte interrupt is pending.</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>TINT</name>
-              <description>Receiver Time-out Interrupt</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>No receiver time-out is pending.</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Receiver time-out pending, causes an interrupt request.</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>EOC</name>
-              <description>End Of Chain</description>
-              <bitOffset>20</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>DMA has not signaled an end of chain condition.</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>DMA has signaled an end of chain condition.</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
               <name>TUR</name>
               <description>Transmit FIFO Underrun</description>
               <bitOffset>21</bitOffset>
@@ -29077,24 +28844,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <description>DATA</description>
               <bitOffset>0</bitOffset>
               <bitWidth>32</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>SSP_SSTO</name>
-          <description>SSP Time Out Register</description>
-          <addressOffset>0x28</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>TIMEOUT</name>
-              <description>Timeout Value</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>24</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
@@ -29330,94 +29079,6 @@ SPDX-License-Identifier: BSD-3-Clause
             </field>
           </fields>
         </register>
-        <register>
-          <name>SSP_SSACD</name>
-          <description>SSP Audio Clock Divider Register</description>
-          <addressOffset>0x3C</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>ACDS</name>
-              <description>Audio Clock Divider Select</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SCDB</name>
-              <description>SYSCLK Divider Bypass</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>SYSCLK is divided by 4 (if SCDX8=0) or 8 (if SCDX8=1) to generate internal audio clock.</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>SYSCLK is not divided.</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>ACPS</name>
-              <description>Audio Clock PLL Select</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SCDX8</name>
-              <description>SYSCLK Divided By 8</description>
-              <bitOffset>7</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>SYSCLK is divided by 4 to generate internal audio clock.</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>SYSCLK is divided by 8 to generate internal audio clock.</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>SSP_SSACDD</name>
-          <description>SSP Audio Clock Dither Divider Register</description>
-          <addressOffset>0x40</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>DEN</name>
-              <description>Denominator</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>12</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>NUM</name>
-              <description>Numerator</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>15</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
       </registers>
     </peripheral>
     <peripheral derivedFrom="SSP0">
@@ -29427,7 +29088,7 @@ SPDX-License-Identifier: BSD-3-Clause
       <baseAddress>0x460D0000</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0xFFFFFFFF</size>
+        <size>0x1000</size>
         <usage>registers</usage>
       </addressBlock>
       <interrupt>
@@ -29442,7 +29103,7 @@ SPDX-License-Identifier: BSD-3-Clause
       <baseAddress>0x48000000</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0xFFFFFFFF</size>
+        <size>0x1000</size>
         <usage>registers</usage>
       </addressBlock>
       <interrupt>
@@ -29761,7 +29422,7 @@ SPDX-License-Identifier: BSD-3-Clause
           <alternateGroup>IIR_FCR</alternateGroup>
           <addressOffset>0x8</addressOffset>
           <size>32</size>
-          <access>read-write</access>
+          <access>write-only</access>
           <resetValue>0</resetValue>
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
@@ -30191,25 +29852,6 @@ SPDX-License-Identifier: BSD-3-Clause
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>DTR</name>
-              <description>Data Terminal Ready</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>nDTR pin is 1</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>nDTR pin is 0</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
               <name>RTS</name>
               <description>Request to Send</description>
               <bitOffset>1</bitOffset>
@@ -30224,25 +29866,6 @@ SPDX-License-Identifier: BSD-3-Clause
                 <enumeratedValue>
                   <name>V1</name>
                   <description>auto-flow mode</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>OUT1</name>
-              <description>Test Bit</description>
-              <bitOffset>2</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>Force MSR[RI] forced to 0</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Force MSR[RI] forced to 1</description>
                   <value>0x1</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -30498,63 +30121,6 @@ SPDX-License-Identifier: BSD-3-Clause
               </enumeratedValues>
             </field>
             <field>
-              <name>DDSR</name>
-              <description>Delta Data Set Ready</description>
-              <bitOffset>1</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>No change in nDSR pin since last read of MSR</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>nDSR pin has changed state</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>TERI</name>
-              <description>Trailing Edge Ring Indicator</description>
-              <bitOffset>2</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>nRI pin has not changed from 0 to 1 since last read of MSR</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>nRI has changed state</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>DDCD</name>
-              <description>Delta Data Carrier Detect</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>No change in nDCD pin since last read of MSR</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>nDCD pin has changed state</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
               <name>CTS</name>
               <description>Clear to Send</description>
               <bitOffset>4</bitOffset>
@@ -30569,63 +30135,6 @@ SPDX-License-Identifier: BSD-3-Clause
                 <enumeratedValue>
                   <name>V1</name>
                   <description>nCTS pin is 0</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>DSR</name>
-              <description>Data Set Ready</description>
-              <bitOffset>5</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>nDSR pin is 1</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>nDSR pin is 0</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>RI</name>
-              <description>Ring Indicator</description>
-              <bitOffset>6</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>nRI pin is 1</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>nRI pin is 0</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>DCD</name>
-              <description>Data Carrier Detect</description>
-              <bitOffset>7</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>nDCD pin is 1</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>nDCD pin is 0</description>
                   <value>0x1</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -30969,37 +30478,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GPLR_REG1</name>
               <description>GPLR Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>Port State Low</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Port State High</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GPLR_REG2</name>
-          <description>GPIO Pin Level Register2</description>
-          <addressOffset>0x8</addressOffset>
-          <size>32</size>
-          <access>read-only</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GPLR_REG2</name>
-              <description>GPLR Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>read-only</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -31059,37 +30538,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GPDR_REG1</name>
               <description>GPDR Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>Input port</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Output Port</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GPDR_REG2</name>
-          <description>GPIO Pin Direction Register2</description>
-          <addressOffset>0x14</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GPDR_REG2</name>
-              <description>GPDR Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>read-write</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -31149,37 +30598,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GPSR_REG1</name>
               <description>GPSR Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>write-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>unaffected</name>
-                  <description>no description available</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Port set if GPIO is configured as output</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GPSR_REG2</name>
-          <description>GPIO Pin Output Set Register 2</description>
-          <addressOffset>0x20</addressOffset>
-          <size>32</size>
-          <access>write-only</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GPSR_REG2</name>
-              <description>GPSR Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>write-only</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -31239,37 +30658,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GPCR_REG1</name>
               <description>GPCR Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>write-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>unaffected</name>
-                  <description>no description available</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Port Clear if GPIO is configured as output</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GPCR_REG2</name>
-          <description>GPIO Pin Output Clear Register 2</description>
-          <addressOffset>0x2C</addressOffset>
-          <size>32</size>
-          <access>write-only</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GPCR_REG2</name>
-              <description>GPCR Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>write-only</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -31329,37 +30718,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GRER_REG1</name>
               <description>GRER Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>Disable Rising Edge detection</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Set corresponding GEDR Status bit when Rising edge is detected on GPIO input</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GRER_REG2</name>
-          <description>GPIO Rising Edge detect Enable Register 2</description>
-          <addressOffset>0x38</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GRER_REG2</name>
-              <description>GRER Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>read-write</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -31419,37 +30778,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GFER_REG1</name>
               <description>GFER Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>Disable Falling Edge detection</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Set corresponding GEDR Status bit when Falling edge is detected on GPIO input</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GFER_REG2</name>
-          <description>GPIO Falling Edge detect Enable Register 2</description>
-          <addressOffset>0x44</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GFER_REG2</name>
-              <description>GFER Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>read-write</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -31509,37 +30838,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GEDR_REG1</name>
               <description>GEDR Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>No edge detected on a port as specified by GRERx or GFERx</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Edge detected on a port as specified by GRERx or GFERx</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GEDR_REG2</name>
-          <description>GPIO Edge detect Status Register 2</description>
-          <addressOffset>0x50</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GEDR_REG2</name>
-              <description>GEDR Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>read-write</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -31599,37 +30898,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GSDR_REG1</name>
               <description>GSDR Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>write-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>GPDR bit unaffected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>GPDR Bit set and GPIO Pin is set as output</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GSDR_REG2</name>
-          <description>GPIO Pin Bitwise Set Direction Register 2</description>
-          <addressOffset>0x5C</addressOffset>
-          <size>32</size>
-          <access>write-only</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GSDR_REG2</name>
-              <description>GSDR Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>write-only</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -31689,37 +30958,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GCDR_REG1</name>
               <description>GCDR Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>write-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>GPDR bit unaffected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>GPDR Bit clear and GPIO Pin is set as input</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GCDR_REG2</name>
-          <description>GPIO Pin Bitwise Clear Direction Register 2</description>
-          <addressOffset>0x68</addressOffset>
-          <size>32</size>
-          <access>write-only</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GCDR_REG2</name>
-              <description>GCDR Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>write-only</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -31779,37 +31018,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GSRER_REG1</name>
               <description>GSRER Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>write-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>GRER bit Unaffected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>GRER Bit set</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GSRER_REG2</name>
-          <description>GPIO Bitwise set Rising Edge detect Enable Register 2</description>
-          <addressOffset>0x74</addressOffset>
-          <size>32</size>
-          <access>write-only</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GSRER_REG2</name>
-              <description>GSRER Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>write-only</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -31869,37 +31078,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GCRER_REG1</name>
               <description>GCRER Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>write-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>GRER bit Unaffected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>GRER Bit Clear</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GCRER_REG2</name>
-          <description>GPIO Bitwise Clear Rising Edge detect Enable Register 2</description>
-          <addressOffset>0x80</addressOffset>
-          <size>32</size>
-          <access>write-only</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GCRER_REG2</name>
-              <description>GCRER Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>write-only</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -31959,37 +31138,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GSFER_REG1</name>
               <description>GSFER Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>write-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>GFER bit Unaffected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>GFER Bit set</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GSFER_REG2</name>
-          <description>GPIO Bitwise set Falling Edge detect Enable Register 2</description>
-          <addressOffset>0x8C</addressOffset>
-          <size>32</size>
-          <access>write-only</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GSFER_REG2</name>
-              <description>GSFER Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>write-only</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -32049,37 +31198,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GCFER_REG1</name>
               <description>GCFER Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>write-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>GFER bit Unaffected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>GFER Bit Clear</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>GPIO_GCFER_REG2</name>
-          <description>GPIO Bitwise Clear Falling Edge detect Enable Register 2</description>
-          <addressOffset>0x98</addressOffset>
-          <size>32</size>
-          <access>write-only</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>GCFER_REG2</name>
-              <description>GCFER Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>write-only</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -32139,37 +31258,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>APMASK_REG1</name>
               <description>APMASK Reg1</description>
               <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>GPIO Edge detects are masked</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>GPIO Edge detects are not masked</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>APMASK_REG2</name>
-          <description>GPIO Bitwise mask of Edge detect Status Register 2</description>
-          <addressOffset>0xA4</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>APMASK_REG2</name>
-              <description>APMASK Reg2</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
+              <bitWidth>18</bitWidth>
               <access>read-write</access>
               <enumeratedValues>
                 <enumeratedValue>
@@ -33143,7 +32232,7 @@ SPDX-License-Identifier: BSD-3-Clause
           <description>User Request Register</description>
           <addressOffset>0xF0</addressOffset>
           <size>32</size>
-          <access>read-write</access>
+          <access>write-only</access>
           <resetValue>0</resetValue>
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
@@ -34613,49 +33702,11 @@ SPDX-License-Identifier: BSD-3-Clause
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>gpadc_master</name>
-              <description>play as master or slave in dual mode, master is the only controller of when slave start</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>ADC is slave</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>ADC is master</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
               <name>global_en</name>
               <description>ADC enable/disable</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
-            </field>
-            <field>
-              <name>force_clk_on</name>
-              <description>override the gpadc_mclk_en from outside</description>
-              <bitOffset>2</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>clock disable</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>clock enable</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
             </field>
             <field>
               <name>clk_ana64M_inv</name>
@@ -34718,44 +33769,6 @@ SPDX-License-Identifier: BSD-3-Clause
                 <enumeratedValue>
                   <name>V1</name>
                   <description>conversion start further controlled by external level signal</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>dual_mode</name>
-              <description>dual mode select</description>
-              <bitOffset>5</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>simultaneous mode</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>interleave mode</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>single_dual</name>
-              <description>work mode select</description>
-              <bitOffset>6</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>independent mode</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>dual mode</description>
                   <value>0x1</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -35970,7 +34983,7 @@ SPDX-License-Identifier: BSD-3-Clause
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>unused_Reserved_ADC_control_bits</name>
+              <name>unused_ADC</name>
               <description>no description available</description>
               <bitOffset>0</bitOffset>
               <bitWidth>16</bitWidth>
@@ -38397,6 +37410,54 @@ SPDX-License-Identifier: BSD-3-Clause
               </enumeratedValues>
             </field>
             <field>
+              <name>sel_clk_chop</name>
+              <description>Select Chopping Clock</description>
+              <bitOffset>1</bitOffset>
+              <bitWidth>2</bitWidth>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>V0</name>
+                  <description>250 kHz</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>V1</name>
+                  <description>500 kHz</description>
+                  <value>0x1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>V2</name>
+                  <description>1 MHz</description>
+                  <value>0x2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>V3</name>
+                  <description>2 MHz</description>
+                  <value>0x3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>chop_en</name>
+              <description>Enable Chopping</description>
+              <bitOffset>3</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>V0</name>
+                  <description>disable</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>V1</name>
+                  <description>enable</description>
+                  <value>0x1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
               <name>res_trim</name>
               <description>1.2V voltage reference resistor trim.</description>
               <bitOffset>4</bitOffset>
@@ -38514,7 +37575,7 @@ SPDX-License-Identifier: BSD-3-Clause
       <baseAddress>0x48010000</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0xFFF</size>
+        <size>0x1000</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
@@ -43918,654 +42979,6 @@ SPDX-License-Identifier: BSD-3-Clause
             </field>
           </fields>
         </register>
-        <register>
-          <name>_GPIO50</name>
-          <description>padring pin Register</description>
-          <addressOffset>0xC8</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>FSEL</name>
-              <description>padring function select</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DI_EN</name>
-              <description>input enable control</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>receiver will be tri-stated</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>receive data from PAD</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>SLP_VAL</name>
-              <description>reserved for test purpose</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SLP_OE</name>
-              <description>reserved for test purpose</description>
-              <bitOffset>5</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>PIO_PULL_DN</name>
-              <description>pull-down enable</description>
-              <bitOffset>13</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-down disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-down enabled</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PIO_PULL_UP</name>
-              <description>pull-up enable</description>
-              <bitOffset>14</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-up disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-up enabled</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PIO_PULL_SEL</name>
-              <description>custom pull-up and -down configuration control</description>
-              <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-up and pull-down from io_mux</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-up and pull-down from bits [14:13]</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>_GPIO51</name>
-          <description>padring pin Register</description>
-          <addressOffset>0xCC</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>FSEL</name>
-              <description>padring function select</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DI_EN</name>
-              <description>input enable control</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>receiver will be tri-stated</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>receive data from PAD</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>SLP_VAL</name>
-              <description>reserved for test purpose</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SLP_OE</name>
-              <description>reserved for test purpose</description>
-              <bitOffset>5</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>PIO_PULL_DN</name>
-              <description>pull-down enable</description>
-              <bitOffset>13</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-down disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-down enabled</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PIO_PULL_UP</name>
-              <description>pull-up enable</description>
-              <bitOffset>14</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-up disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-up enabled</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PIO_PULL_SEL</name>
-              <description>custom pull-up and -down configuration control</description>
-              <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-up and pull-down from io_mux</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-up and pull-down from bits [14:13]</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>_GPIO52</name>
-          <description>padring pin Register</description>
-          <addressOffset>0xD0</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>FSEL</name>
-              <description>padring function select</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DI_EN</name>
-              <description>input enable control</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>receiver will be tri-stated</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>receive data from PAD</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>SLP_VAL</name>
-              <description>reserved for test purpose</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SLP_OE</name>
-              <description>reserved for test purpose</description>
-              <bitOffset>5</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>PIO_PULL_DN</name>
-              <description>pull-down enable</description>
-              <bitOffset>13</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-down disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-down enabled</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PIO_PULL_UP</name>
-              <description>pull-up enable</description>
-              <bitOffset>14</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-up disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-up enabled</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PIO_PULL_SEL</name>
-              <description>custom pull-up and -down configuration control</description>
-              <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-up and pull-down from io_mux</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-up and pull-down from bits [14:13]</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>_GPIO53</name>
-          <description>padring pin Register</description>
-          <addressOffset>0xD4</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>FSEL</name>
-              <description>padring function select</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DI_EN</name>
-              <description>input enable control</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>receiver will be tri-stated</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>receive data from PAD</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>SLP_VAL</name>
-              <description>reserved for test purpose</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SLP_OE</name>
-              <description>reserved for test purpose</description>
-              <bitOffset>5</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>PIO_PULL_DN</name>
-              <description>pull-down enable</description>
-              <bitOffset>13</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-down disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-down enabled</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PIO_PULL_UP</name>
-              <description>pull-up enable</description>
-              <bitOffset>14</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-up disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-up enabled</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PIO_PULL_SEL</name>
-              <description>custom pull-up and -down configuration control</description>
-              <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-up and pull-down from io_mux</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-up and pull-down from bits [14:13]</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>_GPIO54</name>
-          <description>padring pin Register</description>
-          <addressOffset>0xD8</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>FSEL</name>
-              <description>padring function select</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DI_EN</name>
-              <description>input enable control</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>receiver will be tri-stated</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>receive data from PAD</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>SLP_VAL</name>
-              <description>reserved for test purpose</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SLP_OE</name>
-              <description>reserved for test purpose</description>
-              <bitOffset>5</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>PIO_PULL_DN</name>
-              <description>pull-down enable</description>
-              <bitOffset>13</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-down disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-down enabled</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PIO_PULL_UP</name>
-              <description>pull-up enable</description>
-              <bitOffset>14</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-up disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-up enabled</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PIO_PULL_SEL</name>
-              <description>custom pull-up and -down configuration control</description>
-              <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-up and pull-down from io_mux</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-up and pull-down from bits [14:13]</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>_GPIO55</name>
-          <description>padring pin Register</description>
-          <addressOffset>0xDC</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>FSEL</name>
-              <description>padring function select</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>DI_EN</name>
-              <description>input enable control</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>receiver will be tri-stated</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>receive data from PAD</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>SLP_VAL</name>
-              <description>reserved for test purpose</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SLP_OE</name>
-              <description>reserved for test purpose</description>
-              <bitOffset>5</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>PIO_PULL_DN</name>
-              <description>pull-down enable</description>
-              <bitOffset>13</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-down disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-down enabled</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PIO_PULL_UP</name>
-              <description>pull-up enable</description>
-              <bitOffset>14</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-up disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-up enabled</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>PIO_PULL_SEL</name>
-              <description>custom pull-up and -down configuration control</description>
-              <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>zero</name>
-                  <description>pull-up and pull-down from io_mux</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>one</name>
-                  <description>pull-up and pull-down from bits [14:13]</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
       </registers>
     </peripheral>
     <peripheral>
@@ -44704,13 +43117,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <bitWidth>4</bitWidth>
               <access>read-write</access>
             </field>
-            <field>
-              <name>Reserved</name>
-              <description>Reserved and read as 0.</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>24</bitWidth>
-              <access>read-only</access>
-            </field>
           </fields>
         </register>
         <register>
@@ -44736,7 +43142,7 @@ SPDX-License-Identifier: BSD-3-Clause
           <description>Counter Restart Register.</description>
           <addressOffset>0xC</addressOffset>
           <size>32</size>
-          <access>read-write</access>
+          <access>write-only</access>
           <resetValue>0</resetValue>
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
@@ -45415,7 +43821,7 @@ SPDX-License-Identifier: BSD-3-Clause
           <description>Power mode control register</description>
           <addressOffset>0</addressOffset>
           <size>32</size>
-          <access>read-write</access>
+          <access>write-only</access>
           <resetValue>0</resetValue>
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
@@ -45474,44 +43880,6 @@ SPDX-License-Identifier: BSD-3-Clause
                 <enumeratedValue>
                   <name>V1</name>
                   <description>enable JTAG</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>boot_mode_reg</name>
-              <description>Boot Mode</description>
-              <bitOffset>1</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>do not boot from Flash</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>boot from Flash</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>flash_opt</name>
-              <description>Flash opt</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>chip with Flash</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>chip without Flash</description>
                   <value>0x1</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -45585,7 +43953,7 @@ SPDX-License-Identifier: BSD-3-Clause
               </enumeratedValues>
             </field>
             <field>
-              <name>cm3_sysresetreq</name>
+              <name>cm4_sysresetreq</name>
               <description>CM3 System software reset request</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
@@ -45604,7 +43972,7 @@ SPDX-License-Identifier: BSD-3-Clause
               </enumeratedValues>
             </field>
             <field>
-              <name>cm3_lockup</name>
+              <name>cm4_lockup</name>
               <description>CM3 Lockup</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
@@ -45674,14 +44042,14 @@ SPDX-License-Identifier: BSD-3-Clause
               <access>read-write</access>
             </field>
             <field>
-              <name>cm3_sysresetreq_clr</name>
+              <name>cm4_sysresetreq_clr</name>
               <description>Clear system reset request</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
             <field>
-              <name>cm3_lockup_clr</name>
+              <name>cm4_lockup_clr</name>
               <description>Clear lockup request</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
@@ -46527,30 +44895,9 @@ SPDX-License-Identifier: BSD-3-Clause
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>usim_clk_en</name>
-              <description>USIM clock enable</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
               <name>qspi0_clk_en</name>
               <description>QSPI0 clock enable</description>
               <bitOffset>1</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>ir_clk_en</name>
-              <description>IR clock enable</description>
-              <bitOffset>2</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>pdm_clk_en</name>
-              <description>PDM clock enable</description>
-              <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
@@ -46663,13 +45010,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>wdt_clk_en</name>
               <description>WDT clock enable</description>
               <bitOffset>23</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>qspi1_clk_en</name>
-              <description>QSPI1 clock enable</description>
-              <bitOffset>24</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
@@ -46902,20 +45242,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <bitWidth>4</bitWidth>
               <access>read-write</access>
             </field>
-            <field>
-              <name>ir_clk_div</name>
-              <description>IR clock divisor</description>
-              <bitOffset>20</bitOffset>
-              <bitWidth>6</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>pdm_clk_div</name>
-              <description>PDM clock divisor</description>
-              <bitOffset>26</bitOffset>
-              <bitWidth>5</bitWidth>
-              <access>read-write</access>
-            </field>
           </fields>
         </register>
         <register>
@@ -46939,20 +45265,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <description>QSPI0 APB0 clock divisor</description>
               <bitOffset>8</bitOffset>
               <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>qspi1_clk_div</name>
-              <description>QSPI1 APB0 clock divisor</description>
-              <bitOffset>12</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>usim_clk_div</name>
-              <description>USIM clock divisor</description>
-              <bitOffset>20</bitOffset>
-              <bitWidth>5</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
@@ -47039,8 +45351,8 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>CAU_CLK_SEL</name>
-          <description>select signal for CAU MCLK register</description>
+          <name>GAU_CLK_SEL</name>
+          <description>select signal for GAU MCLK register</description>
           <addressOffset>0x9C</addressOffset>
           <size>32</size>
           <access>read-write</access>
@@ -47048,8 +45360,8 @@ SPDX-License-Identifier: BSD-3-Clause
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>cau_clk_sel</name>
-              <description>select signal for cau mclk</description>
+              <name>gau_clk_sel</name>
+              <description>select signal for gau mclk</description>
               <bitOffset>0</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
@@ -47077,8 +45389,8 @@ SPDX-License-Identifier: BSD-3-Clause
               </enumeratedValues>
             </field>
             <field>
-              <name>cau_sw_gate</name>
-              <description>gate signal for cau mclk</description>
+              <name>gau_sw_gate</name>
+              <description>gate signal for gau mclk</description>
               <bitOffset>2</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
@@ -47427,25 +45739,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <name>GPIO3_LOW_VDDB</name>
               <description>GPIO3 PAD group power switch signal</description>
               <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>Power off</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>Power on</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>GPIO_AON_LOW_VDDB</name>
-              <description>Always on PAD group power switch signal</description>
-              <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
               <enumeratedValues>
@@ -48095,8 +46388,8 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>CAU_CTRL</name>
-          <description>CAU Control Register</description>
+          <name>GAU_CTRL</name>
+          <description>GAU Control Register</description>
           <addressOffset>0xB4</addressOffset>
           <size>32</size>
           <access>read-write</access>
@@ -48104,8 +46397,8 @@ SPDX-License-Identifier: BSD-3-Clause
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>cau_acomp_mclk_en</name>
-              <description>cau_acomp module main clock enable signal</description>
+              <name>gau_acomp_mclk_en</name>
+              <description>gau_acomp module main clock enable signal</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
@@ -48123,8 +46416,8 @@ SPDX-License-Identifier: BSD-3-Clause
               </enumeratedValues>
             </field>
             <field>
-              <name>cau_gpdac_mclk_en</name>
-              <description>cau_gpdac module main clock enable signal</description>
+              <name>gau_gpdac_mclk_en</name>
+              <description>gau_gpdac module main clock enable signal</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
@@ -48142,27 +46435,8 @@ SPDX-License-Identifier: BSD-3-Clause
               </enumeratedValues>
             </field>
             <field>
-              <name>cau_gpadc1_mclk_en</name>
-              <description>cau_gpadc1 module main clock enable signal</description>
-              <bitOffset>2</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>do not enable</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>enable</name>
-                  <description>no description available</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>cau_gpadc0_mclk_en</name>
-              <description>cau_gpadc0 module main clock enable signal</description>
+              <name>gau_gpadc0_mclk_en</name>
+              <description>gau_gpadc0 module main clock enable signal</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
@@ -48180,8 +46454,8 @@ SPDX-License-Identifier: BSD-3-Clause
               </enumeratedValues>
             </field>
             <field>
-              <name>cau_bg_mclk_en</name>
-              <description>cau_bg module main clock enable signal</description>
+              <name>gau_bg_mclk_en</name>
+              <description>gau_bg module main clock enable signal</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
@@ -48432,7 +46706,7 @@ SPDX-License-Identifier: BSD-3-Clause
               <access>read-write</access>
             </field>
             <field>
-              <name>cau_ref_en</name>
+              <name>gau_ref_en</name>
               <description>CAU Reference Enable</description>
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
@@ -48449,34 +46723,6 @@ SPDX-License-Identifier: BSD-3-Clause
           <resetValue>0x128C3</resetValue>
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
-            <field>
-              <name>del_av18_sel</name>
-              <description>Control of rdygen_av18 rising edge delay circiut</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>ldo_aon_av18_hyst</name>
-              <description>Control of ldo_aon_av18 hysteresis</description>
-              <bitOffset>2</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>ldo_aon_av18_sel</name>
-              <description>Select output voltage of ldo_aon_av18</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>ldo_aon_av18_en</name>
-              <description>Enable ldo_aon_av18</description>
-              <bitOffset>7</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
             <field>
               <name>brndet_av18_out</name>
               <description>Assert high if av18 brnout happened</description>
@@ -48537,48 +46783,6 @@ SPDX-License-Identifier: BSD-3-Clause
           <resetValue>0x4A328</resetValue>
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
-            <field>
-              <name>mon_vbat_out</name>
-              <description>Assert high if vbat is lower than ~2.8V trigger level</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>mon_vbat_rdy</name>
-              <description>Assert high if vbat monitor is rdy--&gt; out can be taken</description>
-              <bitOffset>1</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>mon_vbat_filt</name>
-              <description>Select filtering level for vbat pulse to vbat monitor</description>
-              <bitOffset>2</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>monhyst_vbat_cntl</name>
-              <description>Control of vbat monitor hysteresis</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>montrig_vbat_cntl</name>
-              <description>Control trigger voltage of vbat monitor (around 2.8V)</description>
-              <bitOffset>6</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>mon_vbat_en</name>
-              <description>Enable vbat monitor</description>
-              <bitOffset>9</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
             <field>
               <name>brndet_vbat_out</name>
               <description>Assert high if vbat brnout happened</description>
@@ -48700,32 +46904,6 @@ SPDX-License-Identifier: BSD-3-Clause
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>ldo_v12_ref_sel</name>
-              <description>ldo v12 reference select</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>from igen</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>directly from bandgap</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>ldo_v12_softst_en</name>
-              <description>Enable soft-start for ldo_v12</description>
-              <bitOffset>1</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
               <name>ldo_v12_vout_sel</name>
               <description>Select output voltage for v12</description>
               <bitOffset>2</bitOffset>
@@ -48740,37 +46918,9 @@ SPDX-License-Identifier: BSD-3-Clause
               <access>read-write</access>
             </field>
             <field>
-              <name>ldo_av18_pwrsw_en</name>
-              <description>Enable bypass (power switch mode) for ldo_av18</description>
-              <bitOffset>6</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>ldo_av18_softst_en</name>
-              <description>Enable soft-start for ldo_av18</description>
-              <bitOffset>7</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>ldo_av18_vout_sel</name>
-              <description>Select output voltage for ldo_av18</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
               <name>ldo_av18_en</name>
               <description>Enable ldo_av18</description>
               <bitOffset>11</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>ldo_vfl_pwrsw_en</name>
-              <description>Enable bypass (power switch mode) for ldo_vfl</description>
-              <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
@@ -48897,44 +47047,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
-            </field>
-            <field>
-              <name>pdm_audio_sel</name>
-              <description>PDM Audio Select</description>
-              <bitOffset>12</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>divided by system clock</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>audio PLL clock</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>usim_audio_sel</name>
-              <description>USIM Audio Select</description>
-              <bitOffset>13</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>divided by system clock</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>audio PLL clock</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
             </field>
           </fields>
         </register>
@@ -49207,48 +47319,6 @@ SPDX-License-Identifier: BSD-3-Clause
           <resetMask>0xFFFFFFFF</resetMask>
           <fields>
             <field>
-              <name>can_div</name>
-              <description>CAN clock div ratio</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>3</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>can_gate</name>
-              <description>CAN clock gate</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>kp_clk_sel</name>
-              <description>keypad clock select</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>kp_gate</name>
-              <description>keypad clock gate</description>
-              <bitOffset>5</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>cb_clk_sel</name>
-              <description>cbutton clock select</description>
-              <bitOffset>6</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>cb_gate</name>
-              <description>cbutton clock gate</description>
-              <bitOffset>7</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
               <name>gau_div</name>
               <description>GAU clock div ratio</description>
               <bitOffset>8</bitOffset>
@@ -49267,96 +47337,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <description>RC32M reference clock gate</description>
               <bitOffset>18</bitOffset>
               <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>IO_LPM_G03_</name>
-          <description>I/O LPM G03 Register</description>
-          <addressOffset>0x100</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>io_lpm_G03</name>
-              <description>I/O low power mode</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>IO_LPM_G47_</name>
-          <description>I/O LPM G47 Register</description>
-          <addressOffset>0x104</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>io_lpm_G47</name>
-              <description>I/O low power mode</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>IO_LPM_G811_</name>
-          <description>I/O LPM G811 Register</description>
-          <addressOffset>0x108</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>io_lpm_G811</name>
-              <description>I/O low power mode</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>IO_LPM_G1215_</name>
-          <description>I/O LPM G1215 Register</description>
-          <addressOffset>0x10C</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>io_lpm_G1215</name>
-              <description>I/O low power mode</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>IO_LPM_G1617_</name>
-          <description>I/O LPM G1617 Register</description>
-          <addressOffset>0x110</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>io_lpm_G1617</name>
-              <description>I/O low power mode</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
               <access>read-write</access>
             </field>
           </fields>
@@ -49584,24 +47564,6 @@ SPDX-License-Identifier: BSD-3-Clause
           </fields>
         </register>
         <register>
-          <name>MEM</name>
-          <description>Memory Space Configuration Register</description>
-          <addressOffset>0x4</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>CFG</name>
-              <description>Memory space configuration</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
           <name>RAM0</name>
           <description>RAM0 Control Register</description>
           <addressOffset>0x8</addressOffset>
@@ -49818,20 +47780,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <access>read-write</access>
             </field>
             <field>
-              <name>sdio1_rstn_en</name>
-              <description>SDIO1 Reset_n Enable</description>
-              <bitOffset>2</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>sdio0_rstn_en</name>
-              <description>SDIO0 Reset_n Enable</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
               <name>gpt3_rstn_en</name>
               <description>GPT3 Reset_n Enable</description>
               <bitOffset>4</bitOffset>
@@ -49881,13 +47829,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <access>read-write</access>
             </field>
             <field>
-              <name>i2c2_rstn_en</name>
-              <description>I2C2 Reset_n Enable</description>
-              <bitOffset>11</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
               <name>i2c1_rstn_en</name>
               <description>I2C1 Reset_n Enable</description>
               <bitOffset>12</bitOffset>
@@ -49916,13 +47857,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <access>read-write</access>
             </field>
             <field>
-              <name>keypad_rstn_en</name>
-              <description>Keypad Reset_n Enable</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
               <name>uart0_rstn_en</name>
               <description>UART0 Reset_n Enable</description>
               <bitOffset>17</bitOffset>
@@ -49937,44 +47871,9 @@ SPDX-License-Identifier: BSD-3-Clause
               <access>read-write</access>
             </field>
             <field>
-              <name>qspi1_rstn_en</name>
-              <description>QSPI1 Reset_n Enable</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
               <name>qspi0_rstn_en</name>
               <description>QSPI0 Reset_n Enable</description>
               <bitOffset>20</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>ir_rstn_en</name>
-              <description>IR Reset_n Enable</description>
-              <bitOffset>21</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>pdm_rstn_en</name>
-              <description>PDM Reset_n Enable</description>
-              <bitOffset>22</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>usim_rstn_en</name>
-              <description>USIM Reset_n Enable</description>
-              <bitOffset>23</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>cb_rstn_en</name>
-              <description>CB Reset_n Enable</description>
-              <bitOffset>24</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
             </field>
@@ -50128,61 +48027,6 @@ SPDX-License-Identifier: BSD-3-Clause
               <bitOffset>22</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>MMC_TC</name>
-          <description>SDIO Timing Control Register</description>
-          <addressOffset>0x4C</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x6</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>mmc_rtc</name>
-              <description>MMC RTC</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>mmc_wtc</name>
-              <description>MMC WTC</description>
-              <bitOffset>2</bitOffset>
-              <bitWidth>2</bitWidth>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>EXT_FLASH_SEL</name>
-          <description>External Flash select register</description>
-          <addressOffset>0x50</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x1</resetValue>
-          <resetMask>0xFFFFFFFF</resetMask>
-          <fields>
-            <field>
-              <name>external_flash_sel</name>
-              <description>Flash Controller Connect</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>1</bitWidth>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>V0</name>
-                  <description>in-package FLASH</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>V1</name>
-                  <description>external FLASH</description>
-                  <value>0x1</value>
-                </enumeratedValue>
-              </enumeratedValues>
             </field>
           </fields>
         </register>
