@@ -43,6 +43,9 @@
 #define BOARD_GRANT_PIN                                                      41   /*!< Routed pin */
 #define BOARD_COEX_PIN_FUNCTION_ID                       PINMUX_FUNC7             /*!< Pin function id */
 
+#define BOARD_LED_YELLOW_PIN 41                               /*!< Routed pin */
+#define BOARD_LED_YELLOW_PIN_FUNCTION_ID PINMUX_GPIO41_GPIO41 /*!< Pin function id */
+
 /*!
  * @addtogroup pin_mux
  * @{

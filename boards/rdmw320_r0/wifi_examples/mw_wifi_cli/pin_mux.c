@@ -39,7 +39,8 @@ void BOARD_InitPins(void) {                                /*!< Function assigne
 
     PINMUX_PinMuxSet(BOARD_REQ_PIN,   BOARD_COEX_PIN_FUNCTION_ID | PINMUX_MODE_PULLDOWN);
     PINMUX_PinMuxSet(BOARD_PRI_PIN,   BOARD_COEX_PIN_FUNCTION_ID | PINMUX_MODE_PULLDOWN);
-    PINMUX_PinMuxSet(BOARD_GRANT_PIN, BOARD_COEX_PIN_FUNCTION_ID | PINMUX_MODE_PULLDOWN);
+    //PINMUX_PinMuxSet(BOARD_GRANT_PIN, BOARD_COEX_PIN_FUNCTION_ID | PINMUX_MODE_PULLDOWN);
+    PINMUX_PinMuxSet(BOARD_LED_YELLOW_PIN, BOARD_LED_YELLOW_PIN_FUNCTION_ID | PINMUX_MODE_DEFAULT);
 }
 
 /***********************************************************************************************************************
