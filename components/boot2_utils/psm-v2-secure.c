@@ -62,9 +62,9 @@ static int psm_keystore_get_data(sec_data_t *sec_data)
     int rv = keystore_get_ref(KEY_PSM_ENCRYPT_KEY, &sec_data->key_sz, &sec_data->key);
     if (rv == ERR_TLV_NOT_FOUND)
     {
-        psm_e(
-            "psm: Could not read key key_size from keystore. "
-            "Please flash correct boot2");
+        //psm_e(
+        //    "psm: Could not read key key_size from keystore. "
+        //    "Please flash correct boot2");
         return -WM_E_NOENT;
     }
 

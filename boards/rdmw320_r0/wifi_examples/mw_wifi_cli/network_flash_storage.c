@@ -74,7 +74,7 @@ static uint32_t save_file(char *filename, uint8_t *data, uint32_t dataLen)
     }
     else
     {
-        PRINTF("[i] mflash_save_file success, [%s]\r\n", s_fname);
+        //PRINTF("[i] mflash_save_file success, [%s]\r\n", s_fname);
         return 0;
     }
 }
@@ -157,7 +157,7 @@ uint32_t get_saved_wifi_network(char *filename, uint8_t *network, uint32_t *len)
     result = psm_object_open(g_psm_handle, filename, PSM_MODE_READ, sizeof(s_buf), NULL, &ohandle);
     if (result <= 0)
     {
-        PRINTF("[%s], open_file fail [%s], (%d) \r\n", __FUNCTION__, filename, result);
+        //PRINTF("[%s], open_file fail [%s], (%d) \r\n", __FUNCTION__, filename, result);
         return 1;
     }
     result = psm_object_read(ohandle, s_buf, sizeof(s_buf));

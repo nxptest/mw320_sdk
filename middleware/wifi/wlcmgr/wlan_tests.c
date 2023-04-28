@@ -528,7 +528,8 @@ void test_wlan_add(int argc, char **argv)
     switch (ret)
     {
         case WM_SUCCESS:
-            (void)PRINTF("Added \"%s\"\r\n", network.name);
+            // Don't print message if successfully
+            //(void)PRINTF("Added \"%s\"\r\n", network.name);
             break;
         case -WM_E_INVAL:
             (void)PRINTF("Error: network already exists or invalid arguments\r\n");

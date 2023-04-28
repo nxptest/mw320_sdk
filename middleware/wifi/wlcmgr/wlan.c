@@ -3365,9 +3365,9 @@ int wlan_init(const uint8_t *fw_ram_start_addr, const size_t size)
     }
 
     (void)memcpy((void *)&wlan.mac[0], (const void *)mac_addr.mac, MLAN_MAC_ADDR_LENGTH);
-    (void)PRINTF("MAC Address: ");
-    print_mac((const char *)&wlan.mac);
-    (void)PRINTF("\r\n");
+    //(void)PRINTF("MAC Address: ");
+    //print_mac((const char *)&wlan.mac);
+    //(void)PRINTF("\r\n");
 
     ret = wifi_get_device_firmware_version_ext(&wlan.fw_ver_ext);
     if (ret != WM_SUCCESS)
