@@ -1657,7 +1657,7 @@ void wlan_get_active_channel_list(mlan_private *pmpriv, t_u8 *chan_list, t_u8 *n
             *num_chans     = *num_chans + 1;
         }
     }
-#if CONFIG_5GHz_SUPPORT
+#ifdef CONFIG_5GHz_SUPPORT
     if (*num_chans == 0)
     {
         i++;
